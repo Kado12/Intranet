@@ -7,7 +7,16 @@ const connection = require('./database/db.js')
 app.set('views', join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(express.static(join(__dirname, 'public')))
-console.log(join(__dirname, 'public'))
+
+/*app.get('/', (req, res)=>{
+    const query = 'SELECT * FROM estudiantes'
+    connection.query(query, (err, result)=>{
+        if(err){
+            throw err
+        }
+        res.render('index', {data: result})
+    })
+})*/
 
 
 
