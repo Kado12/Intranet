@@ -93,22 +93,28 @@ create table unidad(
 create table sesion(
 	ses_id int auto_increment primary key,
 	ses_titulo varchar(50),
-    ses_fecha date,
     uni_id int not null,
     foreign key (uni_id) references unidad(uni_id)
     );
     
-create table sesion_horario(
+/*create table sesion_horario(
 	seshor_id int not null,
     curhor_id int not null,
     primary key(seshor_id,curhor_id),
     foreign key(seshor_id) references sesion(ses_id) on delete cascade,
     foreign key(curhor_id) references curso_horario(curhor_id)
+    );*/
+    
+create table fecha_sesion(
+	fecses_id int auto_increment primary key,
+    fecses_fecha date,
+    ses_id int not null,
+    foreign key(ses_id) references sesion(ses_id)
     );
 
 create table evaluacion(
 	eva_id int auto_increment primary key,
-    eva_titulo varchar(50),
+    eva_titulo varchar(80),
     eva_desc text,
     eva_fecha_inicio datetime,
     eva_fecha_fin datetime,
@@ -128,9 +134,9 @@ create table nota_alumno(
     );
 
 create table asistencia(
-	asi_est_id varchar(8) not null,
-    asi_ses_id int not null,
-    primary key(asi_est_id,asi_ses_id),
-    foreign key (asi_est_id) references estudiante(est_usr_id) on delete cascade,
-    foreign key (asi_ses_id) references sesion(ses_id) on delete cascade
+	est_usr_id varchar(8) not null,
+    fecses_id int not null,
+    primary key(est_usr_id,fecses_id),
+    foreign key (est_usr_id) references estudiante(est_usr_id) on delete cascade,
+    foreign key (fecses_id) references fecha_sesion(fecses_id) on delete cascade
     );
