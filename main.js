@@ -1,5 +1,13 @@
 const express = require('express')
 const app = express()
+app.use(express.urlencoded({ extended:false}))
+app.use(express.json())
+const session = require('express-session')
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}))
 const dotenv = require('dotenv')
 dotenv.config({path:'./env/.env'})
 const {join} = require('path')
@@ -18,13 +26,113 @@ app.use(express.static(join(__dirname, 'public')))
     })
 })*/
 
+// Ruta de pagina de Logeo
 app.get('/',(req,res)=>{
     res.render('index')
+})
+// Autenticación de inicio de sesión 
+app.post('/auth', async (req, res)=>{
+    const user = req.body.user
+    const pass = req.body.pass
+    if(user && pass){
+        connection.query("SELECT * FROM usuario WHERE usr_id = ?", [user], async (err, results)=>{
+            if (results.length == 0 || !(await pass == results[0].usr_pass)){
+                res.render('index',{
+                    alert: true,
+                    alertTitle: "Error",
+                    alertMessage: "Usuario o Contraseña incorrecta",
+                    alertIcon: "error",
+                    showConfirmButton: true,
+                    timer: false,
+                    ruta: ''
+                })
+            } else {
+                const tipo = results[0].tip_id
+                if(tipo == 1){
+                    ruta = 'maine'
+                }
+                if(tipo == 2){
+                    ruta = 'mainp'
+                }
+                if(tipo == 3){
+                    ruta = 'maind'
+                }
+                req.session.ruta = 'maine'
+                req.session.type = results[0].tip_id
+                req.session.loggedin = true
+                req.session.name =results[0].usr_nombres +' '+ results[0].usr_apellidos
+                res.render('index', {
+                    alert: true,
+                    alertTitle: "Conexion exitosa",
+                    alertMessage: "Ingreso correcto",
+                    alertIcon: "success",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    ruta: `${ruta}`
+                })
+            }
+        })
+    } else {
+        res.render('index', {
+            alert: true,
+            alertTitle: "Advertencia",
+            alertMessage: "Coloca tus datos pe sonso 👊🏼",
+            alertIcon: "warning",
+            showConfirmButton: true,
+            timer: false,
+            ruta: ''
+        })
+    }
+})
+// Verificación de sesión de cada página
+app.get('/maine', (req, res) => {
+    if(req.session.loggedin && req.session.type == 1){
+        res.render('index-e',{
+            login: true,
+            name: req.session.name
+        })
+    }else{
+        res.render('index-e',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+app.get('/mainp', (req, res) => {
+    if(req.session.loggedin && req.session.type == 2){
+        res.render('index-p',{
+            login: true,
+            name: req.session.name
+        })
+    }else{
+        res.render('index-p',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+app.get('/maind', (req, res) => {
+    if(req.session.loggedin && req.session.type == 3){
+        res.render('index-d',{
+            login: true,
+            name: req.session.name
+        })
+    }else{
+        res.render('index-d',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
 })
 
 
 
-
+// Cerrar sesión
+app.get('/logout', (req, res)=>{
+    req.session.destroy(()=>{
+        res.redirect('/')
+    })
+})
 
 
 
