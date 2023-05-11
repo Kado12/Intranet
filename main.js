@@ -26,6 +26,7 @@ app.use(express.static(join(__dirname, 'public')))
     })
 })*/
 
+// Hla poncho
 // Ruta de pagina de Logeo
 app.get('/',(req,res)=>{
     res.render('index')
