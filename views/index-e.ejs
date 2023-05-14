@@ -11,9 +11,11 @@
         <%- include('./partials/navigator.ejs') %>
         <!--<h1>El usuario conectado es el alumno: <strong><%= name %></strong></h1>
         <a href="logout" class="a-logout">Logout</a>-->
-        <% data.forEach(item => { %>
-            <a href="/asig-estu"><%= item.asi_desc %></a>
-        <% }); %>
+        <form action="asignatura" method="POST">
+            <% data.forEach(item => { %>
+                <a href="/asig-estu" id="<%= item.asi_desc %>" onclick=""><%= item.asi_desc %></a>
+            <% }); %>
+        </form>
     <% } else { %>
         <h1><strong><%= name %></strong></h1>
         <a href="/" class="a-login">Ir al login</a>
