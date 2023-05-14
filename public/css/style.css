@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* Letras */
+  font-family: 'Lato', sans-serif;
+}
+.box{
+  display: flex;
+  border: 1px solid #54BDB7;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 15px;
+  margin: 20px;
+}
+.blackBtn{
+  border: none;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  width: 200px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  position: relative;
+}
+.blackBtn::after{
+  content: "";
+  background-color: #fff;
+  width: 40px;
+  height: 30px;
+  position: absolute;
+  transform: skew(-40deg);
+  left: 187px
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+h2{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+h3{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+p {
+  font-size: 14px;
+  line-height: 1.5;
+}
