@@ -34,11 +34,11 @@ create table anuncio(
 
 create table usuario(
 	usr_id varchar(8) primary key,
-	usr_pass varchar(16),
-	usr_nombres varchar(55),
-    usr_apellidos varchar(55),
+	usr_pass varchar(16) not null,
+	usr_nombres varchar(55) not null,
+    usr_apellidos varchar(55) not null,
     usr_correo varchar(50),
-    usr_fechaNacimiento date,
+    usr_fechaNacimiento date not null,
     usr_telefono varchar(9),
     usr_ubicacion varchar(50),
     usr_direccion varchar(120),
@@ -97,13 +97,13 @@ create table sesion(
     foreign key (uni_id) references unidad(uni_id)
     );
     
-/*create table sesion_horario(
-	seshor_id int not null,
-    curhor_id int not null,
-    primary key(seshor_id,curhor_id),
-    foreign key(seshor_id) references sesion(ses_id) on delete cascade,
-    foreign key(curhor_id) references curso_horario(curhor_id)
-    );*/
+create table archivos(
+	arc_id int auto_increment primary key,
+    arc_titulo text,
+    arc_link text,
+    ses_id int not null,
+    foreign key(ses_id) references sesion(ses_id)
+    );
     
 create table fecha_sesion(
 	fecses_id int auto_increment primary key,

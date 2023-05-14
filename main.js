@@ -88,10 +88,21 @@ app.post('/auth', async (req, res)=>{
 // Verificación de sesión de cada página
 app.get('/maine', (req, res) => {
     if(req.session.loggedin && req.session.type == 1){
-        res.render('index-e',{
+        connection.query('SELECT * FROM asignatura', (err, asig) =>{
+            if (err) {
+                throw err;
+            } else {
+                res.render('index-e',{
+                    login: true,
+                    name: req.session.name,
+                    data: asig
+                })
+            }
+        })
+        /*res.render('index-e',{
             login: true,
             name: req.session.name
-        })
+        })*/
     }else{
         res.render('index-e',{
             login: false,
@@ -125,6 +136,33 @@ app.get('/maind', (req, res) => {
         })
     }
 })
+// Asignaturas
+app.get('/asig-estu', (req,res) => {
+    if(req.session.loggedin && req.session.type == 1){
+        connection.query('SELECT * FROM asignatura', (err, asig) =>{
+            
+            if (err) {
+                throw err;
+            } else {
+                res.render('e-asig',{
+                    login: true,
+                    name: req.session.name,
+                    data: asig
+                })
+            }
+        })
+        /*res.render('index-e',{
+            login: true,
+            name: req.session.name
+        })*/
+    }else{
+        res.render('index-e',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+
 
 
 
