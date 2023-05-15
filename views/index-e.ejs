@@ -11,13 +11,16 @@
         <%- include('./partials/navigator.ejs') %>
         <!--<h1>El usuario conectado es el alumno: <strong><%= name %></strong></h1>
         <a href="logout" class="a-logout">Logout</a>-->
-        <form action="/asignatura" method="POST">
-            <% data.forEach(item => { %>
-                <input type="submit" class="btn-login" 
-                name="asignatura_<%= item.asi_desc%>"
-                value="<%= item.asi_desc %>">
-            <% }); %>
-        </form>
+        <main class="main">
+            <form class="form-asig" action="/asignatura" method="POST">
+                <% data.forEach(item => { %>
+                    <button type="submit" class="btn-asig box" name="asignatura_<%= item.asi_desc%>">
+                        <h2><%= item.asi_desc %></h2>
+                    </button>
+                <% }); %>
+            </form>
+        </main>
+        <%- include('./partials/footer.ejs') %>
     <% } else { %>
         <h1><strong><%= name %></strong></h1>
         <a href="/" class="a-login">Ir al login</a>
