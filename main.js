@@ -173,6 +173,13 @@ app.get('/logout', (req, res)=>{
     })
 })
 
+//PONCHO
+app.get('/cursos-e', (req,res) => {
+    res.render('cur-uni')
+})
+app.get('/unidades-e', (req,res) => {
+    res.render('unidades-e')
+})
 
 
 
