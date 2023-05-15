@@ -9,9 +9,11 @@
 <body>
     <% if (login) { %>
         <%- include('./partials/navigator.ejs') %>
-        <!--<h1>El usuario conectado es el alumno: <strong><%= name %></strong></h1>
-        <a href="logout" class="a-logout">Logout</a>-->
-        <a href="/asig-estu"><%= data[0].asi_desc %></a>
+        <h1><strong><%= nomasig %></strong></h1>
+        <h1><strong><%= prof %></strong></h1>
+        <h1><strong><%= hordia %></strong></h1>
+        <h1><strong><%= horario %></strong></h1>
+        <h1><strong><%= seccion %></strong></h1>
     <% } else { %>
         <h1><strong><%= name %></strong></h1>
         <a href="/" class="a-login">Ir al login</a>
