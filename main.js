@@ -189,11 +189,18 @@ app.get('/logout', (req, res)=>{
 app.get('/cursos-e', (req,res) => {
     res.render('cur-uni')
 })
+// Unidades Estudiante
 app.get('/unidades-e', (req,res) => {
     res.render('unidades-e')
 })
-
-
+// Unidades profesor
+app.get('/unidades-pr', (req,res) => {
+    res.render('unidades-pr')
+})
+//EVALUACIONES PROFESOR
+app.get('/evalu-pr', (req,res)=> {
+    res.render('evalu-pr')
+})
 
 
 // Guardar el puerto en una variable
