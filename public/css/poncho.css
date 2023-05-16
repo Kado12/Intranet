@@ -159,18 +159,15 @@ main{
 }
 
 
+
+
 .main2{
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content:flex-start;
-  align-items: center;
-  background-color: #F9FAFB;
-  padding: 0px 120px;
 }
 .main2 section{
   width: 60%;
-	max-height: calc(100vh - 200px);
+	max-height: calc(100vh - 120px);
 }
 .bimestres_container{
   display: flex;
@@ -178,4 +175,40 @@ main{
 }
 article p{
   line-height: 0;
+}
+
+
+.flechita{
+  width: 20px;
+  position: absolute;
+  top: 12px;
+  right: 20px;
+}
+.semana{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: flex-start;
+}
+.semana p{
+  line-height: 10px;
+}
+.semana a{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.icon_mas{
+  width: 16px;
+  position: absolute;
+  top: 15px;
+  right: 21px;
+}
+.agregar_semana{
+  background: rgb(155,238,255);
+  background: linear-gradient(90deg, rgba(155,238,255,1) 0%, rgba(198,253,255,1) 100%); 
+}
+.logo_link{
+  width: 16px;
+  margin-right: 3px;
 }
