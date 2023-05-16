@@ -271,6 +271,18 @@ article p{
 }
 
 
+.datos_eval_container{
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  color: #707070;
+}
 .datos_aula{
   height: 100%;
+  flex-direction: column;
+}
+.desc_help{
+  margin-left: 0;
 }

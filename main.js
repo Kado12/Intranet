@@ -205,6 +205,9 @@ app.get('/evalu-pr', (req,res)=> {
 app.get('/aula-pr', (req,res)=> {
     res.render('aula-pr')
 })
+app.get('/evalu-e', (req,res)=>{
+    res.render('evalu-e')
+})
 
 
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/css/poncho.css">
+</head>
+<body>
+  <main class="main2">
+    <button class="blackBtn prev_button">REGRESAR</button>
+    <section>
+      <h2>Nombre del Curso / Evaluaciones</h2>
+      <div class="box bimestres_container">
+        <div class="bimestre">
+          <h4>Tarea</h4>
+          <article class="box semana">
+            <p class="titulo_eval">Tarea Semanal 01 - Historia Inca</p>
+            <p class="desc_eval desc_help">Desarrollar un mapa conceptual sobre la Historia Incaica</p>
+            <div class="datos_eval_container">
+              <p class="">Tiempo Restante: 3 días</p>
+              <p class="desc_help">Día de publicación: DD/MM/YY</p>
+              <!-- BOTON CALIFICAR --> 
+              <form action="" class="edit_form">
+                <button>
+                  Completado:
+                </button>
+              </form>
+            </div>
+          </article>
+          <article class="box semana">
+            <p class="titulo_eval">Segunda Practica Calificada</p>
+            <img src="/image/flechita.svg" alt="" class="flechita girar180">
+          </article>
+        </div>
+        <div class="bimestre">
+          <h4>Examenes</h4>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
