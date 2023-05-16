@@ -49,7 +49,7 @@ app.post('/auth', async (req, res)=>{
                 })
             } else {
                 // const tipo = results[0][0].TIPO
-                const tipo = 1
+                const tipo = results[0][0]['ID TIPO']
                 if(tipo == 1){
                     ruta = 'maine'
                 }
