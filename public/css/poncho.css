@@ -286,3 +286,17 @@ article p{
 .desc_help{
   margin-left: 0;
 }
+.time_help{
+  margin-right: 10px;
+}
+.check_icon{
+  width: 14px;
+  margin-left: 3px;
+}
+.complete_button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+}
