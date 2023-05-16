@@ -5,7 +5,7 @@ body{
 }
 .prev_button {
   position: absolute;
-  top: 0;
+  top: 130px;
   left: 0;
 }
 .prev_button::after{
@@ -21,7 +21,7 @@ body{
 
 .horario_button{
   position: absolute;
-  top: 0;
+  top: 130px;
   right: 0;
 }
 .horario_button::after{

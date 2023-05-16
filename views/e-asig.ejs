@@ -4,16 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/poncho.css">
     <%- include('./partials/head.ejs') %>
 </head>
 <body>
     <% if (login) { %>
+        <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>
-        <h1><strong><%= nomasig %></strong></h1>
-        <h1><strong><%= prof %></strong></h1>
-        <h1><strong><%= hordia %></strong></h1>
-        <h1><strong><%= horario %></strong></h1>
-        <h1><strong><%= seccion %></strong></h1>
+        <main class="main">
+            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+            <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
+            <section class="info_curso-container">
+                <h2><%= nomasig %></h2>
+                <div class="box info_curso">
+                    <h4>Responsable:</h4>
+                    <p><%= prof %></p>
+                    <h4>Sección:</h4>
+                    <p><%= seccion %></p>
+                    <h4>Horario:</h4>
+                    <p><%= horario %></p>
+                </div>
+            </section>
+        </main>
+        <%- include('./partials/footer.ejs') %>
     <% } else { %>
         <h1><strong><%= name %></strong></h1>
         <a href="/" class="a-login">Ir al login</a>
