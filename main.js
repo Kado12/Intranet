@@ -34,6 +34,8 @@ app.post('/auth', async (req, res)=>{
             console.log('-------')
             console.log(results[0][0].CONTRA)
             console.log(results[0][0].TIPO)
+            console.log(results[0][0]['ID TIPO'])
+            console.log(results[0][0]['UBICACIÓN'])
 
             if (results.length == 0 || !(await pass == results[0][0].CONTRA)){
                 res.render('index',{
@@ -59,10 +61,10 @@ app.post('/auth', async (req, res)=>{
                 }
                 req.session.ruta = 'maine'
                 // req.session.type = results[0][0].TIPO
-                req.session.type = 1
+                req.session.type = results[0][0]['ID TIPO']
                 req.session.loggedin = true
                 // req.session.cod = results[0][0].TIPO
-                req.session.cod = '45678912'
+                req.session.cod = results[0][0].ID
                 //console.log(req.session.cod)
                 req.session.name =results[0][0].NOMBRES +' '+ results[0][0].APELLIDOS
                 res.render('index', {
