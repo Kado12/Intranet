@@ -5,7 +5,7 @@ body{
 }
 .prev_button {
   position: absolute;
-  top: 130px;
+  top: 0;
   left: 0;
 }
 .prev_button::after{
@@ -21,7 +21,7 @@ body{
 
 .horario_button{
   position: absolute;
-  top: 130px;
+  top: 0;
   right: 0;
 }
 .horario_button::after{
@@ -36,7 +36,7 @@ body{
 
 
 
-main{
+.main{
   width: 100vw;
   height: 100vh;
   display: grid;
@@ -56,15 +56,27 @@ main{
 
 .form_curso{
   grid-column: 2;
-}
-
-.form_curso{
   display: flex;
   flex-wrap: wrap;
 }
+.form_curso button{
+  width: 230px;
+  height: 140px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.form_curso button img{
+  width: 64px;
+}
+.form_curso button p{
+  font-size: 16px;
+  font-weight: bold;
+}
+
 
 /* UNIDADES */
-.unidades_container{
+/* .unidades_container{
   padding: 0;
   width: fit-content;
   position: relative;
@@ -80,8 +92,8 @@ main{
   left: 50%;
   transform: translate(-50%, -50%);
   text-transform: uppercase;
-}
-.input_button{
+} */
+/* .input_button{
   background-color: transparent;
   border: none;
   width: 240px;
@@ -95,10 +107,10 @@ main{
 }
 .input_button:hover{
   border-radius: 15px;
-}
+} */
 
 /* EVALUACIONES */
-.eval_container{
+/* .eval_container{
   padding: 0;
   width: fit-content;
   position: relative;
@@ -126,9 +138,9 @@ main{
   background-size: 30%;
   background-position-y: 30%;
   cursor: pointer;
-}
+} */
 /* CALIFICACIONES */
-.notas_container{
+/* .notas_container{
   padding: 0;
   width: fit-content;
   position: relative;
@@ -156,7 +168,7 @@ main{
   background-size: 38%;
   background-position-y: 30%;
   cursor: pointer;
-}
+} */
 
 
 
@@ -164,6 +176,15 @@ main{
 .main2{
   display: flex;
   justify-content:flex-start;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: .6fr 1fr;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 120px;
+
 }
 .main2 section{
   width: 60%;
@@ -247,4 +268,9 @@ article p{
 }
 .girar180{
   transform: rotate(180deg);
+}
+
+
+.datos_aula{
+  height: 100%;
 }

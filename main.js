@@ -201,6 +201,11 @@ app.get('/unidades-pr', (req,res) => {
 app.get('/evalu-pr', (req,res)=> {
     res.render('evalu-pr')
 })
+//Aula Profesor
+app.get('/aula-pr', (req,res)=> {
+    res.render('aula-pr')
+})
+
 
 
 // Guardar el puerto en una variable
