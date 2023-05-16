@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* Letras */
+  font-family: 'Lato', sans-serif;
+}
+
+.box{
+  display: flex;
+  border: 1px solid #54BDB7;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 20px 25px;
+  margin: 10px;
+}
+
+.blackBtn{
+  border: none;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  width: 200px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  position:absolute;
+  cursor: pointer;
+  overflow: hidden;
+}
+.blackBtn:hover{
+  background-color: #3b3b3b;
+}
+/* --------------------------------------------------------------- */
+/* PSEUDOELEMENTO PARA EL EFECTO DE LOS BOTONES DE ARRIBA*/
+
+/* IMPORTANTE PONERLO EN TU PROPIO CSS CON EL NOMBRE DE LA CLASE SECUNDARIA EN LA QUE ESTAS ALINEANDO EL ELEMENTO*/
+/* Esto para el boton de la izq */
+
+/* .nombredetuclase::after{
+  content: "";
+  background-color: #F9FAFB;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  transform: skew(-40deg);
+  left: 187px
+} */
+
+
+/* Esto para el boton de la derecha */
+/* .nombredetuclase::after{
+  content: "";
+  background-color: #F9FAFB;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  transform: skew(40deg);
+  left: -26px
+} */
+/* --------------------------------------------------------------------------- */
+
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+h2{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+h3{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+p {
+  font-size: 14px;
+  line-height: 1.5;
+}
