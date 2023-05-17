@@ -193,6 +193,23 @@ app.get('/unidades-e', (req,res) => {
     res.render('unidades-e')
 })
 
+//EWAPLS
+app.get('/asistencia', (req,res) => {
+    res.render('asistencia-profesor')
+})
+
+app.get('/calificacionT', (req,res) => {
+    res.render('calificacion-tareas-profesor')
+})
+
+app.get('/calificacionP', (req,res) => {
+    res.render('calificacion-practicas-profesor')
+})
+
+app.get('/calificacionN', (req,res) => {
+    res.render('calificacion-notas-profesor')
+})
+
 
 
 
