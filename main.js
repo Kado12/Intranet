@@ -24,20 +24,8 @@ app.post('/auth', async (req, res)=>{
     const user = req.body.user
     const pass = req.body.pass
     if(user && pass){
-        connection.query("CALL SP_datos_usuario(?);", [user], async (err, results)=>{
-            
-            console.log('Resultados:')
-            console.log('-------')
-            console.log(results[0][0])
-            console.log('-------')
-            console.log('datos')
-            console.log('-------')
-            console.log(results[0][0].CONTRA)
-            console.log(results[0][0].TIPO)
-            console.log(results[0][0]['ID TIPO'])
-            console.log(results[0][0]['UBICACIÓN'])
-
-            if (results.length == 0 || !(await pass == results[0][0].CONTRA)){
+        connection.query("SELECT * FROM usuario WHERE usr_id = ?", [user], async (err, results)=>{
+            if (results.length == 0 || !(await pass == results[0].usr_pass)){
                 res.render('index',{
                     alert: true,
                     alertTitle: "Error",
@@ -48,8 +36,7 @@ app.post('/auth', async (req, res)=>{
                     ruta: ''
                 })
             } else {
-                // const tipo = results[0][0].TIPO
-                const tipo = results[0][0]['ID TIPO']
+                const tipo = results[0].tip_id
                 if(tipo == 1){
                     ruta = 'maine'
                 }
@@ -60,13 +47,11 @@ app.post('/auth', async (req, res)=>{
                     ruta = 'maind'
                 }
                 req.session.ruta = 'maine'
-                // req.session.type = results[0][0].TIPO
-                req.session.type = results[0][0]['ID TIPO']
+                req.session.type = results[0].tip_id
                 req.session.loggedin = true
-                // req.session.cod = results[0][0].TIPO
-                req.session.cod = results[0][0].ID
+                req.session.cod = results[0].usr_id
                 //console.log(req.session.cod)
-                req.session.name =results[0][0].NOMBRES +' '+ results[0][0].APELLIDOS
+                req.session.name =results[0].usr_nombres +' '+ results[0].usr_apellidos
                 res.render('index', {
                     alert: true,
                     alertTitle: "Conexion exitosa",
