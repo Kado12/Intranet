@@ -192,9 +192,26 @@ app.get('/cursos-e', (req,res) => {
 app.get('/unidades-e', (req,res) => {
     res.render('unidades-e')
 })
+//patrick
+app.get('/p-dmain', (req,res) => {
+    res.render('p-dmain')
+})
+app.get('/p-ddegs', (req,res) => {
+    res.render('p-ddegs')
+})
 
-
-
+app.get('/p-ddeg', (req,res) => {
+    res.render('p-ddeg')
+})
+app.get('/p-dde', (req,res) => {
+    res.render('p-dde')
+})
+app.get('/p-ddds', (req,res) => {
+    res.render('p-ddds')
+})
+app.get('/p-ddd', (req,res) => {
+    res.render('p-ddd')
+})
 
 // Guardar el puerto en una variable
 const PUERTO = process.env.PORT || 3000 
