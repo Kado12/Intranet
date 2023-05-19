@@ -193,8 +193,11 @@ app.get('/unidades-e', (req,res) => {
     res.render('unidades-e')
 })
 
-
-
+//#region JHEAN
+app.get('/e-notas', (req,res) => {
+    res.render('e-notas')
+})
+//#endregion
 
 // Guardar el puerto en una variable
 const PUERTO = process.env.PORT || 3000 
