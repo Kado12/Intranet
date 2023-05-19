@@ -197,6 +197,9 @@ app.get('/unidades-e', (req,res) => {
 app.get('/e-notas', (req,res) => {
     res.render('e-notas')
 })
+app.get('/d-seleccion-docente', (req,res) => {
+    res.render('d-seleccion-docente')
+})
 //#endregion
 
 // Guardar el puerto en una variable
