@@ -12,11 +12,10 @@
         <%- include('./partials/navigator.ejs') %>    
         <main class="main">
             <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
-            
             <form class="form-asig" action="/asignatura" method="POST"> 
                 <% data.forEach(item => { %>
-                    <button type="submit" class="btn-asig box" name="asignatura_<%= item.asi_desc%>">
-                        <h2><%= item.asi_desc %></h2>
+                    <button type="submit" class="btn-asig box" name="asignatura_<%= item.ID %>">
+                        <h2><%= item.ASIGNATURA %></h2>
                     </button>
                 <% }); %>
             </form>

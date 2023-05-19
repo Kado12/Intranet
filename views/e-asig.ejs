@@ -14,17 +14,33 @@
         <main class="main">
             <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
             <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
-            <section class="info_curso-container">
-                <h2><%= nomasig %></h2>
-                <div class="box info_curso">
-                    <h4>Responsable:</h4>
-                    <p><%= prof %></p>
-                    <h4>Sección:</h4>
-                    <p><%= seccion %></p>
-                    <h4>Horario:</h4>
-                    <p><%= horario %></p>
-                </div>
-            </section>
+            <section class="info-curso">
+				<h2><%= nomasig %></h2>
+				<div class="box info_curso">
+					<h4>Responsable:</h4>
+					<p><%= prof %></p>
+					<h4>Sección:</h4>
+					<p><%= seccion %></p>
+					<h4>Horario:</h4>
+					<% for (i=0; i<hotdia.length; i++){ %>
+						<p class="dia-clase"><%= hotdia[i].DIA_CURSO %>: <%= hotdia[i].HORA_INICIO %> - <%= hotdia[i].HORA_FIN %></p>
+					<% } %>
+				</div>
+          	</section>
+            <form action="accion-estudiante" method="post" class="form-curso">
+				<button type="submit" class="uni_button box" name="unidades">
+					<img src="/icons/documento.png">
+					<h2>UNIDADES</h2>
+				</button>
+				<button type="submit" class="evalu_button box" name="evaluaciones">
+					<img src="/icons/evaluacion.png">
+					<h2>EVALUACIONES</h2>
+				</button>
+				<button type="submit" class="nota_button box" name="notas">
+					<img src="/icons/birrete.png">
+					<h2>CALIFICACIONES</h2>
+				</button>
+            </form>
         </main>
         <%- include('./partials/footer.ejs') %>
     <% } else { %>
