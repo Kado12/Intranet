@@ -163,8 +163,12 @@ app.post('/accion-estudiante', async (req, res) => {
         req.session.evaluaciones = results[1]
         console.log(req.session.archivos.length)
         console.log(req.session.evaluaciones.length)
-        res.redirect('/action-estu')
-    })  
+        if(botonSeleccionado.join('')=='unidades'){
+            res.redirect('/action-estu')
+        }else if(botonSeleccionado.join('')=='evaluaciones'){
+            res.redirect('/e-evalu')
+        }
+    })
 })
 // Renderizar página de accion
 app.get('/action-estu', (req,res) => {
@@ -179,6 +183,15 @@ app.get('/action-estu', (req,res) => {
 app.get('/logout', (req, res)=>{
     req.session.destroy(()=>{
         res.redirect('/')
+    })
+})
+app.get('/e-evalu', (req,res)=>{
+    res.render('e-evalu', {
+        name: req.session.name,
+        archivos: req.session.archivos,
+        evaluaciones: req.session.evaluaciones,
+        login: true,
+        nomCurso: req.session.descurso
     })
 })
 
@@ -228,6 +241,10 @@ app.get('/p-ddegs', (req,res) => {
 
 app.get('/calificacionN', (req,res) => {
     res.render('calificacion-notas-profesor')
+})
+//USANDO NODE
+app.get('/e-evalu', (req,res)=>{
+    res.render('e-evalu')
 })
 app.get('/p-ddeg', (req,res) => {
     res.render('p-ddeg')

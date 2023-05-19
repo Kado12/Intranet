@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs') %>
+    <link rel="stylesheet" href="/css/poncho.css">
+</head>
+<body class="body_g">
+    <% if (login) { %>
+        <%- include('./partials/popup.ejs') %>
+        <%- include('./partials/navigator.ejs') %>
+        <main class="main2">
+            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+            <section>
+                <h2><%= nomCurso %> / Evaluaciones</h2>
+                <div class="box bimestres_container">
+                    <div class="bimestre">
+                        <h4>Tareas</h4>
+                        <% for (i = 0; i<evaluaciones.length ; i++){ %>
+                            <% console.log(i) %>
+                            <% if (evaluaciones[i].TIPOEVA == 1){ %>
+                        <article class="box semana">
+                            <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                            <p class="desc_eval desc_help"><%= evaluaciones[i].DESCEVA %></p>
+                            <div class="datos_eval_container">
+                                <p class="time_help">Tiempo Restante: 3 días</p>
+                                <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                                <% var fecha_nueva = new Date(fecha_original); %>
+                                <% var dia = fecha_nueva.getUTCDate(); %>
+                                <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                                <% var ano = fecha_nueva.getUTCFullYear(); %>
+                                <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                                <p class="desc_help">Día de publicación: <%= formatoDeseado%></p>
+                            </div>
+                        </article>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    <div class="bimestre">
+                        <h4>Examenes</h4>
+                        <% for (i = 0; i<evaluaciones.length ; i++){ %>
+                            <% console.log(i) %>
+                            <% if (evaluaciones[i].TIPOEVA == 2){ %>
+                        <article class="box semana">
+                            <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                            <p class="desc_eval desc_help"><%= evaluaciones[i].DESCEVA %></p>
+                            <div class="datos_eval_container">
+                                <!-- Convertir formato fecha -->
+                                <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                                <% var fecha_nueva = new Date(fecha_original); %>
+                                <% var dia = fecha_nueva.getUTCDate(); %>
+                                <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                                <% var ano = fecha_nueva.getUTCFullYear(); %>
+                                <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                                <p class="time_help">Tiempo Restante: <%= formatoDeseado %></p>
+                            </div>
+                        </article>
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer-raro">
+    
+        </footer>
+    <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>

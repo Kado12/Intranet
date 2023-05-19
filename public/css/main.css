@@ -12,6 +12,7 @@
     justify-content: space-between;
     align-content: center;
     border: 1px solid #00000041;
+    background-color: #fff;
 }
 .navigator section{
     display: flex;
@@ -95,6 +96,7 @@ section h2{
 .dia-clase{
     text-transform: capitalize;
 }
+
 .info_curso{
     display: flex;
     height: 200px;
