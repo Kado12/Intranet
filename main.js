@@ -163,8 +163,14 @@ app.post('/accion-estudiante', async (req, res) => {
         req.session.evaluaciones = results[1]
         console.log(req.session.archivos.length)
         console.log(req.session.evaluaciones.length)
-        res.redirect('/action-estu')
-    })  
+        if(botonSeleccionado.join('')=='unidades'){
+            res.redirect('/action-estu')
+        }else if(botonSeleccionado.join('')=='evaluaciones'){
+            res.redirect('/e-evalu')
+        }else{
+
+        }
+    })
 })
 // Renderizar página de accion
 app.get('/action-estu', (req,res) => {
@@ -223,7 +229,14 @@ app.get('/calificacionN', (req,res) => {
     res.render('calificacion-notas-profesor')
 })
 
-
+//#region JHEAN
+app.get('/e-notas', (req,res) => {
+    res.render('e-notas')
+})
+app.get('/d-seleccion-docente', (req,res) => {
+    res.render('d-seleccion-docente')
+})
+//#endregion
 
 // Guardar el puerto en una variable
 const PUERTO = process.env.PORT || 3000 
