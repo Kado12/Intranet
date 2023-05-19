@@ -12,42 +12,59 @@
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>
         <main class="main2">
-          <button class="blackBtn prev_button">REGRESAR</button>
-          <section>
-            <h2>Nombre del Curso / Evaluaciones</h2>
-            <div class="box bimestres_container">
-              <div class="bimestre">
-                <h4>Tarea</h4>
-                <article class="box semana">
-                  <p class="titulo_eval">Tarea Semanal 01 - Historia Inca</p>
-                  <p class="desc_eval desc_help">Desarrollar un mapa conceptual sobre la Historia Incaica</p>
-                  <div class="datos_eval_container">
-                    <p class="time_help">Tiempo Restante: 3 días</p>
-                    <p class="desc_help">Día de publicación: DD/MM/YY</p>
-                    <!-- BOTON CALIFICAR --> 
-                    <form action="" class="edit_form">
-                      <button class="complete_button">
-                        Completado: <img src="/image/uncheck.svg" alt="" class="check_icon">
-                      </button>
-                    </form>
-                  </div>
-                </article>
-              </div>
-              <div class="bimestre">
-                <h4>Examenes</h4>
-                <article class="box semana">
-                  <p class="titulo_eval">Examen Semanal 01 - Historia Incaica</p>
-                  <p class="desc_eval desc_help">Examen Semanal sobre la Historia Incaica. Abarca contexto histórico, Religión y Metalurgia</p>
-                  <div class="datos_eval_container">
-                    <p class="time_help">Tiempo Restante: 3 días</p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </section>
+            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+            <section>
+                <h2><%= nomCurso %> / Evaluaciones</h2>
+                <div class="box bimestres_container">
+                    <div class="bimestre">
+                        <h4>Tareas</h4>
+                        <% for (i = 0; i<evaluaciones.length ; i++){ %>
+                            <% console.log(i) %>
+                            <% if (evaluaciones[i].TIPOEVA == 1){ %>
+                        <article class="box semana">
+                            <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                            <p class="desc_eval desc_help"><%= evaluaciones[i].DESCEVA %></p>
+                            <div class="datos_eval_container">
+                                <p class="time_help">Tiempo Restante: 3 días</p>
+                                <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                                <% var fecha_nueva = new Date(fecha_original); %>
+                                <% var dia = fecha_nueva.getUTCDate(); %>
+                                <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                                <% var ano = fecha_nueva.getUTCFullYear(); %>
+                                <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                                <p class="desc_help">Día de publicación: <%= formatoDeseado%></p>
+                            </div>
+                        </article>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    <div class="bimestre">
+                        <h4>Examenes</h4>
+                        <% for (i = 0; i<evaluaciones.length ; i++){ %>
+                            <% console.log(i) %>
+                            <% if (evaluaciones[i].TIPOEVA == 2){ %>
+                        <article class="box semana">
+                            <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                            <p class="desc_eval desc_help"><%= evaluaciones[i].DESCEVA %></p>
+                            <div class="datos_eval_container">
+                                <!-- Convertir formato fecha -->
+                                <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                                <% var fecha_nueva = new Date(fecha_original); %>
+                                <% var dia = fecha_nueva.getUTCDate(); %>
+                                <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                                <% var ano = fecha_nueva.getUTCFullYear(); %>
+                                <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                                <p class="time_help">Tiempo Restante: <%= formatoDeseado %></p>
+                            </div>
+                        </article>
+                        <% } %>
+                        <% } %>
+                    </div>
+                </div>
+            </section>
         </main>
         <footer class="footer-raro">
-
+    
         </footer>
     <% } else { %>
         <h1><strong><%= name %></strong></h1>

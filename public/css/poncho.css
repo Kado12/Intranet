@@ -47,9 +47,6 @@
   flex-direction: column;
   min-width: 800px;
 }
-article p{
-  line-height: 0;
-}
 
 .flechita{
   width: 20px;
@@ -65,7 +62,7 @@ article p{
   align-items: flex-start;
 }
 .semana p{
-  line-height: 10px;
+  line-height: 16px;
 }
 .semana a{
   margin-top: 10px;

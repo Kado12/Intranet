@@ -163,8 +163,12 @@ app.post('/accion-estudiante', async (req, res) => {
         req.session.evaluaciones = results[1]
         console.log(req.session.archivos.length)
         console.log(req.session.evaluaciones.length)
-        res.redirect('/action-estu')
-    })  
+        if(botonSeleccionado.join('')=='unidades'){
+            res.redirect('/action-estu')
+        }else if(botonSeleccionado.join('')=='evaluaciones'){
+            res.redirect('/e-evalu')
+        }
+    })
 })
 // Renderizar página de accion
 app.get('/action-estu', (req,res) => {
@@ -184,8 +188,10 @@ app.get('/logout', (req, res)=>{
 app.get('/e-evalu', (req,res)=>{
     res.render('e-evalu', {
         name: req.session.name,
+        archivos: req.session.archivos,
         evaluaciones: req.session.evaluaciones,
-        login: true
+        login: true,
+        nomCurso: req.session.descurso
     })
 })
 
