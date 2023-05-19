@@ -212,6 +212,23 @@ app.get('/aula-pr', (req,res)=> {
 app.get('/evalu-e', (req,res)=>{
     res.render('evalu-e')
 })
+
+//EWAPLS
+app.get('/asistencia', (req,res) => {
+    res.render('asistencia-profesor')
+})
+
+app.get('/calificacionT', (req,res) => {
+    res.render('calificacion-tareas-profesor')
+})
+
+app.get('/calificacionP', (req,res) => {
+    res.render('calificacion-practicas-profesor')
+})
+
+app.get('/calificacionN', (req,res) => {
+    res.render('calificacion-notas-profesor')
+})
 //USANDO NODE
 app.get('/e-evalu', (req,res)=>{
     res.render('e-evalu')
