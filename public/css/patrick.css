@@ -1,13 +1,17 @@
+/* contenedor vista principal director*/
 .container-dm{
     margin-top:130px;
     align-items: center;
     width: 100%;
     align-content: center;
 }
+/* espaciado imagenes director*/
 .dm-img {
     display:flex;
+    width: 85%;
+    margin: auto;
   }
-
+/* contenedor de imagenes */
   .image-container {
     display: inline-block;
     position: relative;
@@ -15,11 +19,11 @@
     text-align: center;
     margin: auto;
   }
-
+/* imagenes*/
   .image-container img {
     height: 500px;
   }
-
+/* texto en imagenes */
   .text-box {
     position: absolute;
     margin:auto;
@@ -36,17 +40,20 @@
     background-color: #fff;
     padding: 15px;
   }
+  /* contenedor desempeño estudiantes*/
   .container-de{
     display: flex;
     margin-top: 130px;
   }
+  /* contenedor para los rectangulos*/
   .rectangles {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 40%;
     margin:auto;
+    
   }
-
+/* rectangulo */
   .rectangle {
     width: 500px;
     height: 80px;
@@ -59,9 +66,9 @@
     border-radius: 15px;
     background-color: #fff;
     padding: 15px;
-    margin: 0 0 10px 50px;
-    margin-bottom: 10px;
+    margin: 0 0 5% 0;
   }
+  /*rectangulo para seccion */
   .rectangless {
     width: 500px;
     height:500px;
@@ -72,15 +79,23 @@
     border-radius: 15px;
     background-color: #fff;
     padding: 15px;
-    margin: 0 0 10px 50px;
+    margin: 0 0 10px 0px;
     margin-bottom: 10px;
-    line-height: 2;
+    line-height: 3;
   }
 
+  /* rectangulos para cursos*/
+  .rectangles-c{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+  }
+/*contenedor imagen de las estadisticas */
   .image-de {
     margin: auto;
     text-align: center;
   }
+/* imagen estadisticas */
   .estadistica-e{
     width: 60%;
   }
