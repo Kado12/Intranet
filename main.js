@@ -181,6 +181,13 @@ app.get('/logout', (req, res)=>{
         res.redirect('/')
     })
 })
+app.get('/e-evalu', (req,res)=>{
+    res.render('e-evalu', {
+        name: req.session.name,
+        evaluaciones: req.session.evaluaciones,
+        login: true
+    })
+})
 
 //PONCHO
 app.get('/cursos-e', (req,res) => {
@@ -205,7 +212,10 @@ app.get('/aula-pr', (req,res)=> {
 app.get('/evalu-e', (req,res)=>{
     res.render('evalu-e')
 })
-
+//USANDO NODE
+app.get('/e-evalu', (req,res)=>{
+    res.render('e-evalu')
+})
 
 
 // Guardar el puerto en una variable
