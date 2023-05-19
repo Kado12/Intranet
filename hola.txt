@@ -1,0 +1,40 @@
+app.post('/asignatura', async (req, res) => {
+  const botonSeleccionado = Object.keys(req.body).find(key => key.startsWith('asignatura_'));
+  const idAsignatura = botonSeleccionado.replace('asignatura_', '');
+  console.log('Se ha seleccionado el botón con ID de asignatura:', idAsignatura);
+
+  const getAsignatura = () => {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT asignatura.asi_id, asignatura.asi_desc, profesor.pro_usr_id, usuario.usr_nombres, usuario.usr_apellidos,curso.crs_id,curso.crs_grado,curso.crs_seccion,curso_horario.curhor_dia,horario.hor_hora_inicio,horario.hor_hora_fin FROM asignatura INNER JOIN curso_profesor ON asignatura.asi_id = curso_profesor.asi_id INNER JOIN curso ON curso_profesor.crs_id = curso.crs_id INNER JOIN curso_horario ON curso_profesor.curpro_id = curso_horario.curpro_id INNER JOIN horario ON curso_horario.hor_id = horario.hor_id INNER JOIN profesor ON curso_profesor.pro_usr_id = profesor.pro_usr_id INNER JOIN usuario ON profesor.pro_usr_id = usuario.usr_id WHERE asi_desc = ?', [idAsignatura], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          req.session.nomasig = result[0].asi_desc;
+          req.session.horario = result[0].hor_hora_inicio + '-' + result[0].hor_hora_fin;
+          resolve(result);
+        }
+      });
+    });
+  };
+
+  const getEstudiante = () => {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT usuario.usr_id, estudiante.crs_id, curso.crs_grado, curso.crs_seccion FROM usuario INNER JOIN estudiante ON usuario.usr_id = estudiante.est_usr_id INNER JOIN curso ON estudiante.crs_id = curso.crs_id WHERE usr_id = ?', [req.session.cod], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          req.session.seccion = result[0].crs_seccion;
+          resolve(result);
+        }
+      });
+    });
+  };
+
+  try {
+    const [asignatura, estudiante] = await Promise.all([getAsignatura(), getEstudiante()]);
+    res.send('Información obtenida exitosamente.');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al obtener información.');
+  }
+});
