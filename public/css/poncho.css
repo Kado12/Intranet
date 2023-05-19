@@ -3,39 +3,8 @@ body{
   height: 100vh;
   background-color: #F9FAFB;
 }
-.prev_button {
-  position: absolute;
-  top: 130px;
-  left: 0;
-}
-.prev_button::after{
-  content: "";
-  background-color: #F9FAFB;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  transform: skew(-40deg);
-  left: 187px
-}
 
-
-.horario_button{
-  position: absolute;
-  top: 130px;
-  right: 0;
-}
-.horario_button::after{
-  content: "";
-  background-color: #F9FAFB;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  transform: skew(40deg);
-  left: -26px
-}
-
-
-main{
+.mainp{
   width: 100vw;
   height: 100vh;
   display: grid;
@@ -62,119 +31,129 @@ main{
   flex-wrap: wrap;
 }
 
-/* UNIDADES */
-.unidades_container{
-  padding: 0;
-  width: fit-content;
-  position: relative;
-  text-align: center;
-}
-.unidades_container::before{
-  content: "Unidades";
-  display: block;
-  position: absolute;
-  font-weight: bold;
-  top: 16vh;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-transform: uppercase;
-}
-.input_button{
-  background-color: transparent;
-  border: none;
-  width: 240px;
-  height: 140px;
-  background-image: url('/image/folder.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 34%;
-  background-position-y: 30%;
-  cursor: pointer;
-}
-.input_button:hover{
-  border-radius: 15px;
-}
-
-/* EVALUACIONES */
-.eval_container{
-  padding: 0;
-  width: fit-content;
-  position: relative;
-  text-align: center;
-}
-.eval_container::before{
-  content: "Evaluaciones";
-  display: block;
-  position: absolute;
-  top: 16vh;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.eval_button{
-  background-color: transparent;
-  border: none;
-  width: 240px;
-  height: 140px;
-  background-image: url('/image/note.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 30%;
-  background-position-y: 30%;
-  cursor: pointer;
-}
-/* CALIFICACIONES */
-.notas_container{
-  padding: 0;
-  width: fit-content;
-  position: relative;
-  text-align: center;
-}
-.notas_container::before{
-  content: "Calificaciones";
-  display: block;
-  position: absolute;
-  top: 16vh;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.notas_button{
-  background-color: transparent;
-  border: none;
-  width: 240px;
-  height: 140px;
-  background-image: url('/image/calification.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 38%;
-  background-position-y: 30%;
-  cursor: pointer;
-}
-
-
 .main2{
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content:flex-start;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: .6fr 1fr;
+  justify-content: center;
   align-items: center;
-  background-color: #F9FAFB;
   padding: 0px 120px;
+
 }
 .main2 section{
   width: 60%;
-	max-height: calc(100vh - 200px);
+	max-height: calc(100vh - 120px);
 }
 .bimestres_container{
   display: flex;
   flex-direction: column;
+  min-width: 800px;
 }
 article p{
   line-height: 0;
+}
+
+.flechita{
+  width: 20px;
+  position: absolute;
+  top: 12px;
+  right: 20px;
+}
+.semana{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: flex-start;
+}
+.semana p{
+  line-height: 10px;
+}
+.semana a{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.icon_mas{
+  width: 16px;
+  position: absolute;
+  top: 15px;
+  right: 21px;
+}
+.agregar_semana{
+  background: rgb(155,238,255);
+  background: linear-gradient(90deg, rgba(155,238,255,1) 0%, rgba(198,253,255,1) 100%); 
+}
+.logo_link{
+  width: 16px;
+  margin-right: 3px;
+}
+.edit_form{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+.edit_btn{
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.edit_logo{
+  width: 14px;
+  margin-right: 3px;
+}
+
+
+.titulo_eval{
+  font-weight: bold;
+}
+.desc_eval{
+  margin-top: 14px;
+  margin-left: 10px;
+}
+.fecha_eval{
+  margin-top: 14px;
+  color: #707070;
+}
+.girar180{
+  transform: rotate(180deg);
+}
+
+
+.datos_eval_container{
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  color: #707070;
+}
+.datos_aula{
+  height: 100%;
+  flex-direction: column;
+}
+.desc_help{
+  margin-left: 0;
+}
+.time_help{
+  margin-right: 10px;
+}
+.check_icon{
+  width: 14px;
+  margin-left: 3px;
+}
+.complete_button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
 }

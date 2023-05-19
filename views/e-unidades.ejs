@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <% if (login) { %>
+        <%- include('./partials/popup.ejs') %>
+        <%- include('./partials/navigator.ejs') %>    
+        <main class="main">
+            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+            <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
+            <section class="box unidades">
+                <h4>Bimestre 1</h4>
+                <% for (i=0; i<archivos.length; i++){ %>
+                    <% if(archivos[i].TITULOUNI == 'Unidad 1'){ %> 
+                        <h4><%= archivos[i].TITULOSES %></h4>
+                        <p><%= archivos[i].TITULOARC %></p>
+                        <% for (j=0; j<evaluaciones.length; j++){ %>
+                            <% if(evaluaciones[j].TITULOUNI == 'Unidad 1' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
+                                <p>• <%= evaluaciones[j].TITULOEVA %></p>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                    <% if(archivos[i].TITULOUNI == 'Unidad 2'){ %>
+                        <h4><%= archivos[i].TITULOSES %></h4>
+                        <p><%= archivos[i].TITULOARC %></p>
+                        <% for (j=0; j<evaluaciones.length; j++){ %>
+                            <% if(evaluaciones[j].TITULOUNI == 'Unidad 2'){ %>
+                                <p>• <%= evaluaciones[j].TITULOEVA %></p>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </section>
+            
+        </main>
+        <%- include('./partials/footer.ejs') %>
+    <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>

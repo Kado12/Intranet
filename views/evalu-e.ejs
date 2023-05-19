@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/css/poncho.css">
+</head>
+<body>
+  <main class="main2">
+    <button class="blackBtn prev_button">REGRESAR</button>
+    <section>
+      <h2>Nombre del Curso / Evaluaciones</h2>
+      <div class="box bimestres_container">
+        <div class="bimestre">
+          <h4>Tarea</h4>
+          <article class="box semana">
+            <p class="titulo_eval">Tarea Semanal 01 - Historia Inca</p>
+            <p class="desc_eval desc_help">Desarrollar un mapa conceptual sobre la Historia Incaica</p>
+            <div class="datos_eval_container">
+              <p class="time_help">Tiempo Restante: 3 días</p>
+              <p class="desc_help">Día de publicación: DD/MM/YY</p>
+              <!-- BOTON CALIFICAR --> 
+              <form action="" class="edit_form">
+                <button class="complete_button">
+                  Completado: <img src="/image/uncheck.svg" alt="" class="check_icon">
+                </button>
+              </form>
+            </div>
+          </article>
+        </div>
+        <div class="bimestre">
+          <h4>Examenes</h4>
+          <article class="box semana">
+            <p class="titulo_eval">Examen Semanal 01 - Historia Incaica</p>
+            <p class="desc_eval desc_help">Examen Semanal sobre la Historia Incaica. Abarca contexto histórico, Religión y Metalurgia</p>
+            <div class="datos_eval_container">
+              <p class="time_help">Tiempo Restante: 3 días</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
