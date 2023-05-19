@@ -143,23 +143,20 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE SP_obtener_datos(IN curpro_id INT)
 BEGIN
-	SELECT unidad.curpro_id AS 'CURPRO', unidad.uni_id AS 'IDUNIDAD', unidad.uni_titulo AS 'TITULOUNI',
-	sesion.ses_id AS 'IDSESION', sesion.ses_titulo AS 'TITULOSES',
-	archivos.arc_id AS 'IDARC', archivos.arc_titulo AS 'TITULOARC', archivos.arc_link AS 'LINKARC'
+	SELECT unidad.curpro_id AS 'CURPRO', unidad.uni_id AS 'IDUNIDAD', unidad.uni_titulo AS 'TITULOUNI', sesion.ses_id AS 'IDSESION', sesion.ses_titulo AS 'TITULOSES', archivos.arc_id AS 'IDARC', archivos.arc_titulo AS 'TITULOARC', archivos.arc_link AS 'LINKARC'
 	FROM unidad
 	INNER JOIN sesion ON unidad.uni_id = sesion.uni_id
 	INNER JOIN archivos ON sesion.ses_id = archivos.ses_id
 	WHERE unidad.curpro_id = curpro_id;
     
-	SELECT unidad.curpro_id AS 'CURPRO', unidad.uni_id AS 'IDUNIDAD', unidad.uni_titulo AS 'TITULOUNI',
-		sesion.ses_id AS 'IDSESION', sesion.ses_titulo AS 'TITULOSES',
-		evaluacion.eva_id AS 'IDEVA', evaluacion.eva_titulo AS 'TITULOEVA', evaluacion.eva_link AS 'LINKEVA'
+	SELECT unidad.curpro_id AS 'CURPRO', unidad.uni_id AS 'IDUNIDAD', unidad.uni_titulo AS 'TITULOUNI', sesion.ses_id AS 'IDSESION', sesion.ses_titulo AS 'TITULOSES', evaluacion.eva_id AS 'IDEVA', evaluacion.eva_titulo AS 'TITULOEVA', evaluacion.eva_link AS 'LINKEVA', evaluacion.eva_tipo AS 'TIPOEVA'
 	FROM unidad
 	INNER JOIN sesion ON unidad.uni_id = sesion.uni_id
 	INNER JOIN evaluacion ON sesion.ses_id = evaluacion.ses_id
 	WHERE unidad.curpro_id = curpro_id;
 END$$
 DELIMITER ;
+-- CALL SP_obtener_datos(1);
 
 -- Información del Curso Seleccionado por el Estudiante
 DELIMITER $$

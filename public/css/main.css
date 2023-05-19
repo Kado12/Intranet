@@ -2,7 +2,11 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+/* Cuerpo Main */
+.main {
+    height: calc(100vh - 190px);
+    padding: 20px;
+}
 /* Navigator */
 .navigator{
     display: flex;
@@ -33,18 +37,14 @@ section h2{
 .nombre-r{
     text-transform: uppercase;
 }
-/* Cuerpo Main */
-.main {
-    height: calc(100vh - 190px);
-    padding: 20px;
-}
+
 /* Botones */
 .prev_button {
     position: absolute;
     top: 130px;
     left: 0;
   }
-  .prev_button::after{
+.prev_button::after{
     content: "";
     background-color: #F9FAFB;
     width: 40px;
@@ -53,13 +53,12 @@ section h2{
     transform: skew(-40deg);
     left: 187px
   }
-  
-  .horario_button{
+.horario_button{
     position: absolute;
     top: 130px;
     right: 0;
   }
-  .horario_button::after{
+.horario_button::after{
     content: "";
     background-color: #F9FAFB;
     width: 40px;

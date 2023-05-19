@@ -167,6 +167,8 @@ app.post('/accion-estudiante', async (req, res) => {
             res.redirect('/action-estu')
         }else if(botonSeleccionado.join('')=='evaluaciones'){
             res.redirect('/e-evalu')
+        }else{
+
         }
     })
 })
@@ -257,7 +259,14 @@ app.get('/p-ddds', (req,res) => {
 })
 app.get('/p-ddd', (req,res) => {
     res.render('p-ddd')
+})//#region JHEAN
+app.get('/e-notas', (req,res) => {
+    res.render('e-notas')
 })
+app.get('/d-seleccion-docente', (req,res) => {
+    res.render('d-seleccion-docente')
+})
+//#endregion
 
 // Guardar el puerto en una variable
 const PUERTO = process.env.PORT || 3000 

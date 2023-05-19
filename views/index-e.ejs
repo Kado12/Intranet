@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('./partials/head.ejs') %>
+	<link rel="stylesheet" href="/css/kado.css">
 </head>
 <body>
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>    
-        <main class="main">
+        <main class="e-main main">
             <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
             <form class="form-asig" action="/asignatura" method="POST"> 
                 <% data.forEach(item => { %>
@@ -19,6 +20,9 @@
                     </button>
                 <% }); %>
             </form>
+            <section class="anuncios-e">
+
+            </section>
         </main>
         <%- include('./partials/footer.ejs') %>
     <% } else { %>

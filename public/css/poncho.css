@@ -1,17 +1,12 @@
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .body_g{
   background-color: #F9FAFB;
 }
 
-.mainp{
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-gap: 40px;
-  grid-template-columns: .6fr 1fr;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 120px;
-}
 .info_curso{
   display: flex;
   height: 200px;
