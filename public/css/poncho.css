@@ -3,40 +3,8 @@ body{
   height: 100vh;
   background-color: #F9FAFB;
 }
-.prev_button {
-  position: absolute;
-  top: 130px;
-  left: 0;
-}
-.prev_button::after{
-  content: "";
-  background-color: #F9FAFB;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  transform: skew(-40deg);
-  left: 187px
-}
 
-
-.horario_button{
-  position: absolute;
-  top: 130px;
-  right: 0;
-}
-.horario_button::after{
-  content: "";
-  background-color: #F9FAFB;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  transform: skew(40deg);
-  left: -26px
-}
-
-
-
-main{
+.mainp{
   width: 100vw;
   height: 100vh;
   display: grid;
@@ -63,102 +31,6 @@ main{
   flex-wrap: wrap;
 }
 
-/* UNIDADES */
-.unidades_container{
-  padding: 0;
-  width: fit-content;
-  position: relative;
-  text-align: center;
-}
-.unidades_container::before{
-  content: "Unidades";
-  display: block;
-  position: absolute;
-  font-weight: bold;
-  top: 16vh;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-transform: uppercase;
-}
-.input_button{
-  background-color: transparent;
-  border: none;
-  width: 240px;
-  height: 140px;
-  background-image: url('/image/folder.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 34%;
-  background-position-y: 30%;
-  cursor: pointer;
-}
-.input_button:hover{
-  border-radius: 15px;
-}
-
-/* EVALUACIONES */
-.eval_container{
-  padding: 0;
-  width: fit-content;
-  position: relative;
-  text-align: center;
-}
-.eval_container::before{
-  content: "Evaluaciones";
-  display: block;
-  position: absolute;
-  top: 16vh;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.eval_button{
-  background-color: transparent;
-  border: none;
-  width: 240px;
-  height: 140px;
-  background-image: url('/image/note.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 30%;
-  background-position-y: 30%;
-  cursor: pointer;
-}
-/* CALIFICACIONES */
-.notas_container{
-  padding: 0;
-  width: fit-content;
-  position: relative;
-  text-align: center;
-}
-.notas_container::before{
-  content: "Calificaciones";
-  display: block;
-  position: absolute;
-  top: 16vh;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.notas_button{
-  background-color: transparent;
-  border: none;
-  width: 240px;
-  height: 140px;
-  background-image: url('/image/calification.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 38%;
-  background-position-y: 30%;
-  cursor: pointer;
-}
-
-
 .main2{
   display: flex;
   justify-content:flex-start;
@@ -184,7 +56,6 @@ main{
 article p{
   line-height: 0;
 }
-
 
 .flechita{
   width: 20px;

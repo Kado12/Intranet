@@ -206,6 +206,23 @@ app.get('/evalu-e', (req,res)=>{
     res.render('evalu-e')
 })
 
+//EWAPLS
+app.get('/asistencia', (req,res) => {
+    res.render('asistencia-profesor')
+})
+
+app.get('/calificacionT', (req,res) => {
+    res.render('calificacion-tareas-profesor')
+})
+
+app.get('/calificacionP', (req,res) => {
+    res.render('calificacion-practicas-profesor')
+})
+
+app.get('/calificacionN', (req,res) => {
+    res.render('calificacion-notas-profesor')
+})
+
 
 
 // Guardar el puerto en una variable
