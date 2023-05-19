@@ -6,22 +6,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%- include('./partials/head.ejs') %>
   <link rel="stylesheet" href="/css/poncho.css">
+  <link rel="stylesheet" href="/css/style-jhean.css">
   <%- include('./partials/head.ejs') %>
 </head>
+
 <body>
+  
   <main class="main">
-    <section>
-        <h2>Nombre del Curso</h2>
-        <div class="box bimestres_container">
-          <div class="bimestre">
-            <h4>Bimestre 1</h4>
+    <section class="section-container">
+      <div class="box contenedor-padre column">
+        <h2 class="titulo1">Matemática</h2>
+
+            <h4>NOTAS</h4>     
             <article class="box semana">
-              <p>SEMANA 1</p>
+                <div class="contenedor-hijo ">
+                  <div class="text1">Tarea Semanal 1 - Problemas de Matemáticas 2</div>
+                  <div class="text2"><b>17</b></div>
+                </div>
             </article>
             <article class="box semana">
-              <p>SEMANA 2</p>
-            </article>         
-          </div>
+                <div class="contenedor-hijo ">
+                  <div class="text1">Práctica 1</div>
+                  <div class="text2"><b>19</b></div>
+                </div>
+            </article>
+            <article class="box semana">
+                <div class="contenedor-hijo ">
+                  <div class="text1">Tarea Semanal 2 - Problemas de Matemáticas 2</div>
+                  <div class="text2"><b>20</b></div>
+                </div>
+            </article>
+            <article class="box semana">
+                <div class="contenedor-hijo ">
+                  <div class="text1">Tarea Semanal 3 - Experimento científico</div>
+                  <div class="text2"><b>18</b></div>
+                </div>
+            </article>
+            <article class="box semana">
+                <div class="contenedor-hijo ">
+                  <div class="text1">Práctica 2</div>
+                  <div class="text2"><b>17</b></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="box-sin-linea contenedor-padre column">
+          <article class="box semana">
+            <div class="contenedor-hijo">
+              <div class="text1"><b>PROMEDIO ACTUAL:</b></div>
+              <div class="text2"><b class="texto3">18</b></div>
+            </div>
+          </article>
         </div>
       </section>
   </main>
