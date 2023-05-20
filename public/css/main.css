@@ -6,6 +6,7 @@
 .main {
     height: calc(100vh - 190px);
     padding: 20px;
+    background-color: #F9FAFB;
 }
 /* Navigator */
 .navigator{

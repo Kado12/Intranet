@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/patrick.css">
+        <%- include('./partials/head.ejs') %>
+    </head>
+    <body>
+      <%- include('./partials/navigator2.ejs') %>
+      <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+      <main class="main grid-patrick">
+        <form class="left_container">
+          <button class="box directora_box text_center">Patrick Will Jheferson Huamani Durango</button>
+          <button class="box directora_box text_center">Docente 2</button>
+          <button class="box directora_box text_center">Docente 3</button>
+          <button class="box directora_box text_center">Docente 4</button>
+        </form>
+        <div class="right_container">
+          <img src="/image/imagen4.png" alt="">
+        </div>
+      </main>
+      <%- include('./partials/footer.ejs') %>
+    </body>
+</html>

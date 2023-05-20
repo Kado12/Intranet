@@ -135,6 +135,19 @@ app.post('/asignatura', async (req, res) => {
         res.redirect('/asig-estu')
     })
 })
+
+//PROCEDIMIENTO PARA DIRECTORA
+app.post('/acciondesempeno', async(req,res) => {
+    const btnAlumnado = Object.keys(req.body);
+    const tipoBtn = btnAlumnado.join('');
+    if(tipoBtn == 'btnAlumnado'){
+        res.redirect('/d-alum-g')
+    }else if (tipoBtn == 'btnDocente'){
+        res.redirect('/d-doce-c')
+    }
+})
+
+
 // Renderizar página de asignatura
 app.get('/asig-estu', (req,res) => {
     if(req.session.loggedin && req.session.type == 1){
@@ -187,6 +200,7 @@ app.get('/logout', (req, res)=>{
         res.redirect('/')
     })
 })
+//Evaluacion vista estudiante
 app.get('/e-evalu', (req,res)=>{
     res.render('e-evalu', {
         name: req.session.name,
@@ -233,12 +247,8 @@ app.get('/calificacionT', (req,res) => {
 app.get('/calificacionP', (req,res) => {
     res.render('calificacion-practicas-profesor')
 })
-//patrick
-app.get('/p-dmain', (req,res) => {
-    res.render('p-dmain')
-})
-app.get('/p-ddegs', (req,res) => {
-    res.render('p-ddegs')
+app.get('/d-alum-c', (req,res) => {
+    res.render('d-alum-c')
 })
 
 app.get('/calificacionN', (req,res) => {
@@ -248,17 +258,19 @@ app.get('/calificacionN', (req,res) => {
 app.get('/e-evalu', (req,res)=>{
     res.render('e-evalu')
 })
-app.get('/p-ddeg', (req,res) => {
-    res.render('p-ddeg')
+//PATRICK
+app.get('/d-alum-s', (req,res) => {
+    res.render('d-alum-s')
 })
-app.get('/p-dde', (req,res) => {
-    res.render('p-dde')
+app.get('/d-alum-g', (req,res) => {
+    res.render('d-alum-g')
+    
 })
-app.get('/p-ddds', (req,res) => {
-    res.render('p-ddds')
+app.get('/d-doce-c', (req,res) => {
+    res.render('d-coce-c')
 })
-app.get('/p-ddd', (req,res) => {
-    res.render('p-ddd')
+app.get('/d-doce-d', (req,res) => {
+    res.render('d-doce-d')
 })//#region JHEAN
 app.get('/e-notas', (req,res) => {
     res.render('e-notas')
