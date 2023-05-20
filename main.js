@@ -108,6 +108,8 @@ app.get('/mainp', (req, res) => {
     }
 })
 app.get('/maind', (req, res) => {
+    console.log(req.session.loggedin)
+    console.log(req.session.type)
     if(req.session.loggedin && req.session.type == 3){
         res.render('index-d',{
             login: true,
@@ -124,14 +126,11 @@ app.get('/maind', (req, res) => {
 app.post('/asignatura', async (req, res) => {
     const botonSeleccionado = Object.keys(req.body).find(key => key.startsWith('asignatura_'))
     const idAsignatura = botonSeleccionado.replace('asignatura_', '')
-    console.log('Se ha seleccionado el botón con ID de asignatura:', idAsignatura)
     connection.query('CALL SP_obtener_informacion_curso(?)', [parseInt(idAsignatura)], (err, results) => {
-        console.log(results[0])
         req.session.curprof = parseInt(idAsignatura)
         req.session.profesor = results[0][0].PROFESOR
         req.session.descurso = results[0][0].DESCRIPCION_ASIGNATURA
         req.session.diashor = results[0]
-        console.log('Información obtenida exitosamente.')
         res.redirect('/asig-estu')
     })
 })
@@ -169,47 +168,76 @@ app.get('/asig-estu', (req,res) => {
 // Verificación de acción seleccionada por Estudiante
 app.post('/accion-estudiante', async (req, res) => {
     const botonSeleccionado = Object.keys(req.body)
-    console.log('Se ha seleccionado la accion', botonSeleccionado.join(''))
     connection.query('CALL SP_obtener_datos(?)', [req.session.curprof], (err, results) => {
         console.log(results)
         req.session.archivos = results[0]
         req.session.evaluaciones = results[1]
-        console.log(req.session.archivos.length)
-        console.log(req.session.evaluaciones.length)
         if(botonSeleccionado.join('')=='unidades'){
-            res.redirect('/action-estu')
+            res.redirect('/e-unidad')
         }else if(botonSeleccionado.join('')=='evaluaciones'){
             res.redirect('/e-evalu')
         }else{
-
+            res.redirect('/e-notas')
         }
     })
 })
-// Renderizar página de accion
-app.get('/action-estu', (req,res) => {
-    res.render('e-unidades', {
-        name: req.session.name,
-        archivos: req.session.archivos,
-        evaluaciones: req.session.evaluaciones,
-        login: true
-    })
+// Renderizar página de accion de estudiante - unidades
+app.get('/e-unidad', (req,res) => {
+    if(req.session.loggedin && req.session.type == 1){
+        res.render('e-unidades', {
+            name: req.session.name,
+            archivos: req.session.archivos,
+            evaluaciones: req.session.evaluaciones,
+            login: true
+        })
+    } else{
+        res.render('index-e',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }  
 })
-// Cerrar sesión
-app.get('/logout', (req, res)=>{
-    req.session.destroy(()=>{
-        res.redirect('/')
-    })
-})
-//Evaluacion vista estudiante
+// Renderizar página de accion de estudiante - evaluaciones
 app.get('/e-evalu', (req,res)=>{
-    res.render('e-evalu', {
-        name: req.session.name,
-        archivos: req.session.archivos,
-        evaluaciones: req.session.evaluaciones,
-        login: true,
-        nomCurso: req.session.descurso
-    })
+    if(req.session.loggedin && req.session.type == 1){
+        res.render('e-evalu', {
+            name: req.session.name,
+            archivos: req.session.archivos,
+            evaluaciones: req.session.evaluaciones,
+            login: true,
+            nomCurso: req.session.descurso
+        })
+    }else{
+        res.render('index-e',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
 })
+// Renderizar página de accion de estudiante - calificaciones
+app.get('/e-notas', (req,res) => {
+    if(req.session.loggedin && req.session.type == 1){
+        connection.query('CALL SP_notas_estudiante(?, ?)', [req.session.cod, req.session.curprof], (err, results) => {
+            req.session.notas = results[0]
+            req.session.promedio = results[1]
+            res.render('e-calificaciones',{
+                login: true,
+                name: req.session.name,
+                notas: req.session.notas,
+                promedio: req.session.promedio,
+                nomC: req.session.descurso
+            })
+        })
+    }else{
+        res.render('index-e',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+
+
+
 
 //PONCHO
 app.get('/cursos-e', (req,res) => {
@@ -272,14 +300,19 @@ app.get('/d-doce-c', (req,res) => {
 app.get('/d-doce-d', (req,res) => {
     res.render('d-doce-d')
 })//#region JHEAN
-app.get('/e-notas', (req,res) => {
-    res.render('e-notas')
-})
+
 app.get('/d-seleccion-docente', (req,res) => {
     res.render('d-seleccion-docente')
 })
 //#endregion
 
+
+// Cerrar sesión
+app.get('/logout', (req, res)=>{
+    req.session.destroy(()=>{
+        res.redirect('/')
+    })
+})
 // Guardar el puerto en una variable
 const PUERTO = process.env.PORT || 3000 
 // Inicializar el servidor

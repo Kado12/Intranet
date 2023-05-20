@@ -32,7 +32,8 @@ BEGIN
 		WHERE usr_id = Dni;
         
 	ELSEIF TipoUsuario = 2 THEN
-		SELECT usr_id as 'ID', usr_nombres as 'NOMBRES',
+		SELECT usr_id as 'ID', usr_pass as 'CONTRA', usr_nombres as 'NOMBRES',
+        usuario_tipo.tip_id as 'ID TIPO',
         tip_desc as 'TIPO',
 		usr_apellidos as 'APELLIDOS',usr_correo as 'CORREO',usr_telefono as 'CELULAR',
 		usr_ubicacion as 'UBICACIÓN', usr_direccion as 'DIRECCIÓN'
@@ -41,7 +42,8 @@ BEGIN
 		WHERE usr_id = Dni;
         
 	ELSEIF TipoUsuario = 3 THEN
-		SELECT usr_id as 'ID', usr_nombres as 'NOMBRES', usr_apellidos as 'APELLIDOS',
+		SELECT usr_id as 'ID', usr_pass as 'CONTRA', usr_nombres as 'NOMBRES', usr_apellidos as 'APELLIDOS',
+        usuario_tipo.tip_id as 'ID TIPO',
         tip_desc as 'TIPO'
 		FROM usuario
         inner join usuario_tipo on usuario_tipo.tip_id = usuario.tip_id
@@ -149,7 +151,7 @@ BEGIN
 	INNER JOIN archivos ON sesion.ses_id = archivos.ses_id
 	WHERE unidad.curpro_id = curpro_id;
     
-	SELECT unidad.curpro_id AS 'CURPRO', unidad.uni_id AS 'IDUNIDAD', unidad.uni_titulo AS 'TITULOUNI', sesion.ses_id AS 'IDSESION', sesion.ses_titulo AS 'TITULOSES', evaluacion.eva_id AS 'IDEVA', evaluacion.eva_titulo AS 'TITULOEVA', evaluacion.eva_link AS 'LINKEVA', evaluacion.eva_tipo AS 'TIPOEVA'
+	SELECT unidad.curpro_id AS 'CURPRO', unidad.uni_id AS 'IDUNIDAD', unidad.uni_titulo AS 'TITULOUNI', sesion.ses_id AS 'IDSESION', sesion.ses_titulo AS 'TITULOSES', evaluacion.eva_id AS 'IDEVA', evaluacion.eva_titulo AS 'TITULOEVA', evaluacion.eva_desc AS 'DESCEVA', evaluacion.eva_fecha_inicio AS 'EVAINICIO', evaluacion.eva_fecha_fin AS 'EVAFIN', evaluacion.eva_link AS 'LINKEVA', evaluacion.eva_tipo AS 'TIPOEVA'
 	FROM unidad
 	INNER JOIN sesion ON unidad.uni_id = sesion.uni_id
 	INNER JOIN evaluacion ON sesion.ses_id = evaluacion.ses_id

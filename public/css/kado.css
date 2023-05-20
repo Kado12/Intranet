@@ -81,3 +81,68 @@
     background-color: #54bdb825;
     transition: .3s;
 }
+
+/* Archivo e-unidades.ejs */
+.e-uni-main{
+    display: flex;
+    align-items: center;
+}
+.unidades{
+    height: 80%;
+    width: 80%;
+    flex-direction: column;
+}
+.box_unidad{
+    flex-direction: column;
+}
+.footer-raro{
+    width: 100%;
+    height: 60px;
+    background-color: #007997;
+}
+.content {
+    display: none;
+}
+/* Botón mostrar */
+.toggle-btn{
+    width: 20px;
+    height: 19px;
+    position: absolute;
+    right: calc(20% + 60px);
+    background-color: #ffffff00;
+    border: 0;
+}
+.toggle-btn img{
+    width: 15px;
+    transition: transform 0.5s ease;
+    transform: rotate(0deg);
+}
+.rotated img{
+    transition: transform 0.5s ease;
+    transform: rotate(180deg);
+}
+
+/* Archivo e-calificaciones.ejs */
+.cal-box{
+    width: 90%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 15% 85%;
+}
+.t-notas{
+   display: block; 
+}
+.box-notas{
+    flex-direction: column;
+    height: 90%;
+    grid-column: 1/span 1;
+    overflow-y: scroll;
+}
+.box-n-e{
+    justify-content: space-between;
+}
+.box-promedio{
+    justify-content: space-between;
+    height: fit-content;
+}
