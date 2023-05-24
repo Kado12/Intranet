@@ -11,7 +11,8 @@
 </head>
 
 <body>
-  <%- include('./partials/navigator2.ejs') %>
+  <% if (login) { %>
+  <%- include('./partials/navigator.ejs') %>
   <main class="principal">
 
     <div class="contenedor-centrado">
@@ -23,7 +24,11 @@
           <!-- Hola -->
         </div>
       </div>
-
   </main>
+  <%- include('./partials/footer.ejs') %>
+      <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
 </body>
 </html>

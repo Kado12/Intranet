@@ -121,6 +121,63 @@ app.post('/asignatura', async (req, res) => {
         res.redirect('/asig-estu')
     })
 })
+
+//PROCEDIMIENTO PARA DIRECTORA MAIN
+app.post('/acciondesempeno', async(req,res) => {
+    const btnAlumnado = Object.keys(req.body);
+    const tipoBtn = btnAlumnado.join('');
+    if(tipoBtn == 'btnAlumnado'){
+        res.redirect('/d-alum-g')
+    }else if (tipoBtn == 'btnDocente'){
+        res.redirect('/d-doce-c')
+    }
+})
+//PROCEDIMIENTO DIRECTORA -> DESEMPEÑO ALUMNADO
+app.get('/d-alum-g', (req,res) => {
+    if(req.session.loggedin && req.session.type==3){
+        res.render('d-alum-g', {
+            login: true,
+            name: req.session.name
+        })
+    }else {
+        res.render('d-alum-g', {
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+
+//PROCEDIMIENTO DIRECTORA -> DESEMPEÑO DOCENTE
+app.get('/d-doce-c', (req,res) => {
+    if(req.session.loggedin && req.session.type == 3){
+        res.render('d-doce-c',{
+            login:true,
+            name:req.session.name
+        })
+    }else{
+        res.render('d-doce-c',{
+            login:false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+//PROCEDIMIENTO BOTONES ALUMNADO GRADO->SECCION
+app.post('/desempenoalumnado', async(req,res) => {
+    res.redirect('/d-alum-s')
+})
+//PROCEDIMIENTO BOTONES ALUMNADO SECCION->CURSO
+app.post('/alumseccioncurso', async(req,res) => {
+    res.redirect('/d-alum-c')
+})
+//PROCEDIMIENTO BOTONES DOCENTE CURSOS -> DOCENTES
+app.post('/doce-docentes-docente', async(req,res) => {
+    res.redirect('d-seleccion-docente')
+})
+app.post('/doce-curso-seccion', async(req,res) => {
+    res.redirect('d-doce-d')
+})
+
+
 // Renderizar página de asignatura
 app.get('/asig-estu', (req,res) => {
     if(req.session.loggedin && req.session.type == 1){
@@ -438,7 +495,17 @@ app.get('/calificacionP', (req,res) => {
     res.render('calificacion-practicas-profesor')
 })
 app.get('/d-alum-c', (req,res) => {
-    res.render('d-alum-c')
+    if(req.session.loggedin && req.session.type == 3){
+        res.render('d-alum-c',{
+            name: req.session.name,
+            login:true
+        })
+    }else{
+        res.render('d-alum-c',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
 })
 
 app.get('/calificacionN', (req,res) => {
@@ -450,21 +517,44 @@ app.get('/e-evalu', (req,res)=>{
 })
 //PATRICK
 app.get('/d-alum-s', (req,res) => {
-    res.render('d-alum-s')
-})
-app.get('/d-alum-g', (req,res) => {
-    res.render('d-alum-g')
-    
-})
-app.get('/d-doce-c', (req,res) => {
-    res.render('d-coce-c')
+    if(req.session.loggedin && req.session.type == 3){
+        res.render('d-alum-s',{
+            name: req.session.name,
+            login:true
+        })
+    }else{
+        res.render('d-alum-s',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
 })
 app.get('/d-doce-d', (req,res) => {
-    res.render('d-doce-d')
+    if(req.session.loggedin && req.session.type == 3){
+        res.render('d-doce-d',{
+            name: req.session.name,
+            login:true
+        })
+    }else{
+        res.render('d-doce-d',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
 })//#region JHEAN
 
 app.get('/d-seleccion-docente', (req,res) => {
-    res.render('d-seleccion-docente')
+    if(req.session.loggedin && req.session.type == 3){
+        res.render('d-seleccion-docente',{
+            name: req.session.name,
+            login:true
+        })
+    }else{
+        res.render('d-seleccion-docente',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
 })
 //#endregion
 
