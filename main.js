@@ -76,7 +76,7 @@ app.post('/auth', async (req, res)=>{
         })
     }
 })
-// Verificación de sesión de cada página
+// Verificación de sesión de cada página - estudiante
 app.get('/maine', (req, res) => {
     if(req.session.loggedin && req.session.type == 1){
         connection.query('CALL SP_cursos_estudiante(?)', [req.session.idaula], (err, results) => {
@@ -94,22 +94,8 @@ app.get('/maine', (req, res) => {
         })
     }
 })
-app.get('/mainp', (req, res) => {
-    if(req.session.loggedin && req.session.type == 2){
-        res.render('index-p',{
-            login: true,
-            name: req.session.name
-        })
-    }else{
-        res.render('index-p',{
-            login: false,
-            name: 'Debe iniciar sessión'
-        })
-    }
-})
+
 app.get('/maind', (req, res) => {
-    console.log(req.session.loggedin)
-    console.log(req.session.type)
     if(req.session.loggedin && req.session.type == 3){
         res.render('index-d',{
             login: true,
@@ -122,6 +108,7 @@ app.get('/maind', (req, res) => {
         })
     }
 })
+
 // Verificación Asignaturas
 app.post('/asignatura', async (req, res) => {
     const botonSeleccionado = Object.keys(req.body).find(key => key.startsWith('asignatura_'))
@@ -134,19 +121,6 @@ app.post('/asignatura', async (req, res) => {
         res.redirect('/asig-estu')
     })
 })
-
-//PROCEDIMIENTO PARA DIRECTORA
-app.post('/acciondesempeno', async(req,res) => {
-    const btnAlumnado = Object.keys(req.body);
-    const tipoBtn = btnAlumnado.join('');
-    if(tipoBtn == 'btnAlumnado'){
-        res.redirect('/d-alum-g')
-    }else if (tipoBtn == 'btnDocente'){
-        res.redirect('/d-doce-c')
-    }
-})
-
-
 // Renderizar página de asignatura
 app.get('/asig-estu', (req,res) => {
     if(req.session.loggedin && req.session.type == 1){
@@ -169,7 +143,6 @@ app.get('/asig-estu', (req,res) => {
 app.post('/accion-estudiante', async (req, res) => {
     const botonSeleccionado = Object.keys(req.body)
     connection.query('CALL SP_obtener_datos(?)', [req.session.curprof], (err, results) => {
-        console.log(results)
         req.session.archivos = results[0]
         req.session.evaluaciones = results[1]
         if(botonSeleccionado.join('')=='unidades'){
@@ -236,6 +209,195 @@ app.get('/e-notas', (req,res) => {
     }
 })
 
+// Página index-p - Profesor
+app.get('/mainp', (req, res) => {
+    if(req.session.loggedin && req.session.type == 2){
+        connection.query('CALL SP_aulas(?)', [req.session.cod], (err, results) => {
+            req.session.infoAula = results[0] 
+            res.render('index-p',{
+                login: true,
+                name: req.session.name,
+                infoAula: req.session.infoAula
+            })
+        })
+    }else{
+        res.render('index-p',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+// Formulario /vaula
+app.post('/vaula', async (req, res) => {
+    const btnSeleccionado = Object.keys(req.body).find(key => key.startsWith('gs_'))
+    const idAula = btnSeleccionado.replace('gs_', '')
+    const gs = idAula.split('')
+    const grado = parseInt(gs[0])
+    const seccion = gs[1]
+    const getDatosAula = () => {
+        return new Promise((resolve, reject) => {
+            connection.query('CALL SP_datos_aula(?, ?, ?)', [req.session.cod, seccion, grado], (err, results) => {
+                if (err) {
+                    reject(err)
+                } else{
+                    req.session.aulaInfo = results[0]
+                    req.session.curprof = results[0][0].IDCURPROF
+                    req.session.gradoAula = results[0][0].GRADOAULA
+                    req.session.seccionAula = results[0][0].SECCAULA
+                    resolve(results)
+                }
+            })
+        })
+    }
+    const getEstudiantes = () => {
+        return new Promise((resolve, reject) => {
+            connection.query('CALL SP_lista_estudiantes_aula(?)', [req.session.curprof], (err, results) => {
+                if (err){
+                    reject(err)
+                } else{
+                    req.session.alumnosAula = results[0]
+                    resolve(results)
+                }
+            })
+        })
+    }
+    try {
+        const datosAula = await getDatosAula()
+        const estudiantes = await getEstudiantes()
+        res.redirect('/aula-prof')
+    } catch (err) {
+        console.log(err)
+    }
+})
+// Página p-aula.ejs
+app.get('/aula-prof', (req, res) => {
+    if(req.session.loggedin && req.session.type == 2){
+        res.render('p-aula',{
+            login: true,
+            name: req.session.name,
+            aulaInfo: req.session.aulaInfo,
+            curprof: req.session.curprof,
+            gradoAula: req.session.gradoAula,
+            seccionAula: req.session.seccionAula,
+            alumnosAula: req.session.alumnosAula
+        })
+    }else{
+        res.render('index-p',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+// Verificación de acción seleccionada por Profesor
+app.post('/accion-docente', async (req,res) => {
+    const btnAccProfesor = Object.keys(req.body);
+    const accionBtn = btnAccProfesor.join('');
+    if (accionBtn == 'unidades') {
+        connection.query('CALL SP_obtener_datos(?)', [req.session.curprof], (err, results) => {
+            req.session.archivos = results[0]
+            req.session.evaluaciones = results[1]
+            res.redirect('/aula-unidades')
+        })
+    } else if (accionBtn == 'evaluaciones') {
+        res.redirect('/aula-evaluaciones')
+    } else if (accionBtn == 'notas') {
+        res.redirect('/aula-notas')
+    } else {
+        res.redirect('/aula-asistencia')
+    }
+})
+app.get('/aula-unidades', (req, res) => {
+    if(req.session.loggedin && req.session.type == 2){
+        connection.query('CALL SP_obtener_datos(?)', [req.session.curprof])
+        res.render('p-aula-unidades',{
+            login: true,
+            name: req.session.name,
+            aulaInfo: req.session.aulaInfo,
+            curprof: req.session.curprof,
+            archivos: req.session.archivos,
+            evaluaciones: req.session.evaluaciones,
+            gradoAula: req.session.gradoAula,
+            seccionAula: req.session.seccionAula,
+            alumnosAula: req.session.alumnosAula
+        })
+    }else{
+        res.render('index-p',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+// Editar Clase - por terminar
+app.post('/editar-post', async(req, res) => {
+    const nomClase = req.body.nomClase
+    const linkClase = req.body.linkClase
+    const sesionID = req.body.sesionID
+    console.log(nomClase)
+    console.log(linkClase)
+    console.log(sesionID)
+    connection.query('CALL SP_editar_ses(?,?,?)',[nomClase, linkClase, sesionID], async (err, results) => {
+        res.redirect('/aula-unidades')
+    })
+})
+
+// Entrar a evaluaciones - Profesor
+app.get('/aula-evaluaciones', (req,res) => {
+    if(req.session.loggedin && req.session.type == 2){
+        res.render('p-aula-evaluaciones',{
+            login: true,
+            name: req.session.name
+        })
+    }else{
+        res.render('index-p',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+
+// Entrar a notas - Profesor
+app.get('/aula-notas', (req,res) => {
+    if(req.session.loggedin && req.session.type == 2){
+        res.render('p-aula-notas',{
+            login: true,
+            name: req.session.name
+        })
+    }else{
+        res.render('index-p',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+
+// Entrar a notas - Profesor
+app.get('/aula-asistencia', (req,res) => {
+    if(req.session.loggedin && req.session.type == 2){
+        res.render('p-aula-asistencia',{
+            login: true,
+            name: req.session.name
+        })
+    }else{
+        res.render('index-p',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+
+
+
+
+//PROCEDIMIENTO PARA DIRECTORA
+app.post('/acciondesempeno', async(req,res) => {
+    const btnAlumnado = Object.keys(req.body);
+    const tipoBtn = btnAlumnado.join('');
+    if(tipoBtn == 'btnAlumnado'){
+        res.redirect('/d-alum-g')
+    }else{
+        res.redirect('/d-doce-c')
+    }
+})
 
 
 
@@ -305,7 +467,6 @@ app.get('/d-seleccion-docente', (req,res) => {
     res.render('d-seleccion-docente')
 })
 //#endregion
-
 
 // Cerrar sesión
 app.get('/logout', (req, res)=>{

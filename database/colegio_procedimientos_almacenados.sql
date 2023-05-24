@@ -275,6 +275,27 @@ END$$
 DELIMITER ;
 -- CALL SP_aulas('45679212');
 
+-- Kado
+DELIMITER $$
+CREATE PROCEDURE SP_datos_aula(IN p_pro_usr_id VARCHAR(10), IN p_crs_seccion VARCHAR(10), IN p_crs_grado INT)
+BEGIN
+    SELECT curso.crs_id AS 'IDCURSO', curso.crs_grado AS 'GRADOAULA', curso.crs_seccion AS 'SECCAULA', curso_profesor.curpro_id AS 'IDCURPROF', curso_profesor.pro_usr_id AS 'IDPROF', 
+    curso_profesor.asi_id AS 'IDASIG', asignatura.asi_desc AS 'NOMASIG', curso_horario.curhor_dia AS 'DIACUR', MIN(horario.hor_hora_inicio) AS 'HORAINICIO', MAX(horario.hor_hora_fin) AS 'HORAFIN'
+    FROM curso
+	INNER JOIN curso_profesor ON curso_profesor.crs_id = curso.crs_id
+	INNER JOIN asignatura ON asignatura.asi_id = curso_profesor.asi_id
+	INNER JOIN curso_horario ON curso_horario.curpro_id = curso_profesor.curpro_id
+	INNER JOIN horario ON horario.hor_id = curso_horario.hor_id
+    WHERE curso.crs_seccion = p_crs_seccion AND curso.crs_grado = p_crs_grado AND curso_profesor.pro_usr_id = p_pro_usr_id
+    GROUP BY
+        curso.crs_id, curso.crs_grado, curso.crs_seccion, curso_profesor.curpro_id, curso_profesor.pro_usr_id, curso_profesor.asi_id, asignatura.asi_desc, curso_horario.curhor_dia;
+END$$
+DELIMITER ;
+-- CALL SP_datos_aula('45679212', 'A', 1);
+
+
+
+
 -- Lista de estudiantes de un Aula y una Asignatura
 DELIMITER $$
 CREATE PROCEDURE SP_lista_estudiantes_aula(in Aula_Profesor int)

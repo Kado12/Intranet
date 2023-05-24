@@ -55,7 +55,7 @@
 .info-c{
     display: flex;
     flex-direction: column;
-    height: 200px;
+    height: fit-content;
     width: 60%;
     line-height: 25px;
 }
@@ -88,7 +88,7 @@
     align-items: center;
 }
 .unidades{
-    height: 80%;
+    height: fit-content;
     width: 80%;
     flex-direction: column;
 }
@@ -102,6 +102,9 @@
 }
 .content {
     display: none;
+    position: relative;
+    padding-top: 15px;
+    text-indent: 15px;
 }
 /* Botón mostrar */
 .toggle-btn{
@@ -145,4 +148,130 @@
 .box-promedio{
     justify-content: space-between;
     height: fit-content;
+}
+
+/* Archivo index-p.ejs */
+.form-p-aula{
+    flex-direction: column;
+    width: 40%;
+    height: 80%;
+    border: 0;
+    background-color: #ffffff00;
+}
+.form-p-aula button{
+    width: 50%;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+.horario-p{
+    width: 55%;
+    height: 80%;
+}
+.footer-raro{
+    width: 100%;
+    height: 60px;
+    background-color: #007997;
+}
+/* Archivo p-aula-unidades.ejs */
+.p-uni{
+    margin-top: 20px;
+}
+.content .btn-editar{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff00;
+    border: none;
+}
+.content p img{
+    width: 15px;
+}
+.content .btn-editar img{
+    width: 15px;
+}
+.p-uni-main{
+    min-height: calc(100vh - 190px);
+    height: max-content;
+}
+.footer-p{
+    width: 100%;
+    height: 60px;
+    background-color: #007997;
+}
+/* Formulario editar */
+.form-container{
+    z-index: 10000;
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: #54bdb841;
+    animation-name: emergente;
+    animation-duration: .5s;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@keyframes emergente {
+    0% {
+        width: 0%;
+        height: 0%;
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+    }
+  }
+.form-editar{ 
+    position: relative;
+    width: 50%;
+    height: fit-content;
+    background-color: #ffffff;
+    margin: auto;
+    border: 1px solid #007997;
+    border-radius: 15px;
+    margin-top: 10%;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+}
+.form-editar input{
+    width: 80%;
+    height: fit-content;
+    border: 1px solid #007997;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px;
+}
+.form-editar input::placeholder{
+    color: #007997a4;
+    font-style: italic;
+}
+.btn-cerrar{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
+    border: none;
+}
+.btn-cerrar img{
+    width: 25px;
+}
+.editar{
+    width: 30%;
+    height: fit-content;
+    padding: 15px;
+    background-color: #007997;
+    border: 1px solid #00495c;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 15px;
+    margin: auto;
+    transition: .5s;
+}
+.editar:hover{
+    transition: .5s;
+    background-color: #008caf;
+    border: 1px solid #0f5566;
 }

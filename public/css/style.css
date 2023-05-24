@@ -83,3 +83,13 @@ p {
   font-size: 14px;
   line-height: 1.5;
 }
+
+button {
+  cursor: pointer;
+}
+
+.footer-raro{
+  width: 100%;
+  height: 60px;
+  background-color: #007997;
+}

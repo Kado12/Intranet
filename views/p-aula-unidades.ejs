@@ -10,10 +10,20 @@
 <body>
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
+        <div id="form-editar-sesion" class="form-container" style="display: none;">
+            <form method="post" action="/editar-post" class="form-editar">
+                <button class="btn-cerrar" id="btnCerrarFormulario"><img src="/icons/cerrar.png"></button>
+                <label>Nuevo nombre de clase:</label>
+                <input name="nomClase" type="text" placeholder="Nombre de clase" required>
+                <label>Nuevo link de clase</label>
+                <input name="linkClase" type="text" placeholder="Link de clase" required>
+                <input type="hidden" id="dataIdInput" name="sesionID">
+                <button class="editar" type="submit">Editar</button>
+            </form>
+        </div>
         <%- include('./partials/navigator.ejs') %>    
         <main class="main e-uni-main p-uni-main">
-            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
-            <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
+            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>            
             <section class="box unidades p-uni">
                 <% for (l=1; l<=8; l++){ %>
                     <h4>Unidad <%= l %></h4>
@@ -25,16 +35,12 @@
                                 <div class="content">
                                     <p><%= archivos[i].TITULOARC %></p>
                                     <p><img src="icons/enlace.png"></img> <a href="#"><%= archivos[i].LINKARC %></a></p>
-                                    <% for (j=0; j<evaluaciones.length; j++){ %>
-                                        <% if(evaluaciones[j].TITULOUNI == 'Unidad ' + l && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                            <p><%= evaluaciones[j].TITULOEVA %></p>
-                                        <% } %>
-                                    <% } %>
+                                    <button data-id="<%= archivos[i].IDSESION %>" id="editar-form" class="btn-editar"><img src="/icons/editar.png"></button>
                                 </div>
                             </div>
                         <% } %>
                     <% } %>
-                <% } %>           
+                <% } %>
             </section>
         </main>
         <footer class="footer-raro">

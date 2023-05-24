@@ -8,20 +8,20 @@
         <link rel="stylesheet" href="/css/patrick.css">
     </head>
     <body>
-      <% if (login) { %>
-      <%- include('./partials/navigator2.ejs') %>
-      <form class="main grid-patrick-2" method="post" action="/acciondesempeno">
-        <button class="box left_container bg_alumnos" type="submit" name="btnAlumnado">
-          <span class="box">Desempeño Alumnado</span>
-        </button>
-        <button class="box right_container bg_docentes" type="submit" name="btnDocente">
-          <span class="box">Desempeño Docente</span>
-        </button>
-      </form>
-      <%- include('./partials/footer.ejs') %>
-      <% } else { %>
-        <h1><strong><%= name %></strong></h1>
-        <a href="/" class="a-login">Ir al login</a>
-    <% } %>
+        <% if (login) { %>
+        <%- include('./partials/navigator2.ejs') %>
+        <form class="main grid-patrick-2" method="post" action="/acciondesempeno">
+            <button class="box left_container bg_alumnos" type="submit" name="btnAlumnado">
+            <span class="box">Desempeño Alumnado</span>
+            </button>
+            <button class="box right_container bg_docentes" type="submit" name="btnDocente">
+            <span class="box">Desempeño Docente</span>
+            </button>
+        </form>
+        <%- include('./partials/footer.ejs') %>
+        <% } else { %>
+            <h1><strong><%= name %></strong></h1>
+            <a href="/" class="a-login">Ir al login</a>
+        <% } %>
     </body>
 </html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <%- include('./partials/head.ejs') %>
+	<link rel="stylesheet" href="/css/kado.css">
+</head>
+<body>
+    <% if (login) { %>
+        <%- include('./partials/popup.ejs') %>
+        <%- include('./partials/navigator.ejs') %>
+        <main class="main e-main">
+            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+            <section class="info-curso">
+                <h2>Datos del Aula</h2>
+				<div class="box info-c">
+					<h4>Grado:</h4>
+                    <p><%= gradoAula %></p>
+					<h4>Sección:</h4>
+                    <p><%= seccionAula %></p>
+					<h4>Horario:</h4>
+                    <% for(i=0;i<aulaInfo.length;i++) {%>
+                        <p style="text-transform: capitalize;"><%= aulaInfo[i].DIACUR %>:</p>
+                        <p><%= aulaInfo[i].HORAINICIO %> - <%= aulaInfo[i].HORAFIN %></p>
+                    <% } %>
+                    <h4>N° Alumnos:</h4>
+                    <p><%= alumnosAula.length %></p>
+				</div>
+          	</section>
+            <form action="accion-docente" method="post" class="form-curso">
+				<button type="submit" class="uni_button box" name="unidades">
+					<img src="/icons/documento.png">
+					<h2>UNIDADES</h2>
+				</button>
+				<button type="submit" class="evalu_button box" name="evaluaciones">
+					<img src="/icons/evaluacion.png">
+					<h2>EVALUACIONES</h2>
+				</button>
+				<button type="submit" class="nota_button box" name="notas">
+					<img src="/icons/birrete.png">
+					<h2>CALIFICACIONES</h2>
+				</button>
+                <button type="submit" class="uni_button box" name="asistencias">
+					<img src="/icons/asistencia.png">
+					<h2>ASISTENCIAS</h2>
+				</button>
+            </form>
+        </main>
+        <%- include('./partials/footer.ejs') %>
+    <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>
