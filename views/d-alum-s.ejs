@@ -8,14 +8,14 @@
         <link rel="stylesheet" href="/css/patrick.css">
     </head>
     <body>
-      <%- include('./partials/navigator2.ejs') %>
+      <%- include('./partials/navigator.ejs') %>
       <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
       <main class="main grid-patrick">
-        <form class="left_container">
-          <button class="box directora_box text_center">Seccion A</button>
-          <button class="box directora_box text_center">Seccion B</button>
-          <button class="box directora_box text_center">Seccion C</button>
-          <button class="box directora_box text_center">Seccion D</button>
+        <form class="left_container" method="post" action="alumseccioncurso">
+          <button class="box directora_box text_center" name="seccionaAlum-s">Seccion A</button>
+          <button class="box directora_box text_center" name="seccionbAlum-s">Seccion B</button>
+          <button class="box directora_box text_center" name="seccioncAlum-s">Seccion C</button>
+          <button class="box directora_box text_center" name="secciondAlum-s">Seccion D</button>
         </form>
         <div class="right_container">
           <img src="/image/imagen4.png" alt="">
