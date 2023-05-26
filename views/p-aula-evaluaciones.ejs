@@ -7,24 +7,40 @@
     <%- include('./partials/head.ejs') %>
 	<link rel="stylesheet" href="/css/kado.css">
     <link rel="stylesheet" href="/css/poncho.css">
+    <link rel="stylesheet" href="/css/ewa.css">
 </head>
 <body>
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>
-        <main class="main e-main">
-            <button class="blackBtn prev_button">AULA</button>
-            <section>
+        <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+        <main class="e-main color_ewa">
+            <section class="main-evalu-e">
             <h2>Evaluaciones</h2>
             <div class="box bimestres_container">
                 <div class="bimestre">
-                <h4>Bimestre 1</h4>
+                    <h4>Tareas</h4>
+                    <% for (i = 0; i<evaluaciones.length ; i++){ %>
+                        <% if (evaluaciones[i].TIPOEVA == 1){ %>
                 <article class="box semana">
-                    <p class="titulo_eval">Primera Practica Calificada</p>
-                    <p class="fecha_eval">Fecha programada: 02/06/23</p>
-                    <img src="/image/flechita.svg" alt="" class="flechita">
-                    <p class="desc_eval">Desarrollar el enunciado del archivo</p>
-                    <a href="http://google.com.pe"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
+                    <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                    <!-- Transformando fecha inicio -->
+                    <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                    <% var fecha_nueva = new Date(fecha_original); %>
+                    <% var dia = fecha_nueva.getUTCDate(); %>                                
+                    <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                    <% var ano = fecha_nueva.getUTCFullYear(); %>
+                    <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                    <p class="fecha_eval">Día de inicio: <%= formatoDeseado%></p>
+                    <% let fecha_original1 = evaluaciones[i].EVAFIN; %>
+                    <% var fecha_nueva1 = new Date(fecha_original1); %>
+                    <% var dia1 = fecha_nueva1.getUTCDate(); %>                                
+                    <% var mes1 = fecha_nueva1.getUTCMonth() + 1; %>
+                    <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
+                    <% var formatoDeseado1 = dia + " / "+mes+" / "+ano; %>
+                    <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
+                    <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
+                    <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
                     <!-- BOTON CALIFICAR --> 
                     <form action="" class="edit_form">
                     <button class="edit_btn">
@@ -32,36 +48,44 @@
                     </button>
                     </form>
                 </article>
-                <article class="box semana">
-                    <p class="titulo_eval">Segunda Practica Calificada</p>
-                    <img src="/image/flechita.svg" alt="" class="flechita girar180">
-                </article>
-                <article class="box semana agregar_semana">
-                    <p>Agregar Evaluacion</p>
-                    <img src="/image/plus.svg" alt="" class="icon_mas">
-                </article>
-                </div>
-                <div class="bimestre">
-                <h4>Bimestre 2</h4>
-                <article class="box semana agregar_semana">
-                    <p>Agregar Evaluacion</p>
-                    <img src="/image/plus.svg" alt="" class="icon_mas">
-                </article>
-                </div>
-                <div class="bimestre">
-                <h4>Bimestre 3</h4>
-                <article class="box semana agregar_semana">
-                    <p>Agregar Evaluacion</p>
-                    <img src="/image/plus.svg" alt="" class="icon_mas">
-                </article>
-                </div>
-                <div class="bimestre">
-                <h4>Bimestre 4</h4>
-                <article class="box semana agregar_semana">
-                    <p>Agregar Evaluacion</p>
-                    <img src="/image/plus.svg" alt="" class="icon_mas">
-                </article>
-                </div>
+                <% } %>
+                <% } %>
+                <h4>Examenes</h4>
+                <% for (i = 0; i<evaluaciones.length ; i++){ %>
+                    <% if (evaluaciones[i].TIPOEVA == 2){ %>
+            <article class="box semana">
+                <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                <!-- Transformando fecha inicio -->
+                <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                <% var fecha_nueva = new Date(fecha_original); %>
+                <% var dia = fecha_nueva.getUTCDate(); %>                                
+                <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                <% var ano = fecha_nueva.getUTCFullYear(); %>
+                <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                <p class="fecha_eval">Día de inicio: <%= formatoDeseado%></p>
+                <% let fecha_original1 = evaluaciones[i].EVAFIN; %>
+                <% var fecha_nueva1 = new Date(fecha_original1); %>
+                <% var dia1 = fecha_nueva1.getUTCDate(); %>                                
+                <% var mes1 = fecha_nueva1.getUTCMonth() + 1; %>
+                <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
+                <% var formatoDeseado1 = dia + " / "+mes+" / "+ano; %>
+                <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
+                <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
+                <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
+                <!-- BOTON CALIFICAR --> 
+                <form action="" class="edit_form">
+                <button class="edit_btn">
+                    <img src="/image/edit.svg" alt="" class="edit_logo">Calificar
+                </button>
+                </form>
+            </article>
+            <% } %>
+            <% } %>
+            </div>
+            <article class="box semana agregar_semana">
+                <p>Agregar Evaluacion</p>
+                <img src="/image/plus.svg" alt="" class="icon_mas">
+            </article>
             </div>
             </section>
         </main>

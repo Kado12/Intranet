@@ -345,7 +345,7 @@ app.get('/aula-prof', (req, res) => {
         })
     }
 })
-// Verificación de acción seleccionada por Profesor
+// Verificación de acción seleccionada por Profesor   ª!"ª!"ª!"ª!"ª!"ª!"ª!"ª!"ª"ª!"ª!"ª!"ª!"ª!
 app.post('/accion-docente', async (req,res) => {
     const btnAccProfesor = Object.keys(req.body);
     const accionBtn = btnAccProfesor.join('');
@@ -356,16 +356,22 @@ app.post('/accion-docente', async (req,res) => {
             res.redirect('/aula-unidades')
         })
     } else if (accionBtn == 'evaluaciones') {
-        res.redirect('/aula-evaluaciones')
+        connection.query('CALL SP_obtener_datos(?)', [req.session.curprof], (err, results) => {
+            req.session.archivos = results[0]
+            req.session.evaluaciones = results[1]
+            res.redirect('/aula-evaluaciones')
+        })
     } else if (accionBtn == 'notas') {
         res.redirect('/aula-notas')
     } else {
-        res.redirect('/aula-asistencia')
+        connection.query('CALL SP_lista_estudiantes_aula(?)', [req.session.curprof], (err, results) => {
+            req.session.alumnos = results[0]
+            res.redirect('/aula-asistencia')
+        })
     }
 })
 app.get('/aula-unidades', (req, res) => {
     if(req.session.loggedin && req.session.type == 2){
-        connection.query('CALL SP_obtener_datos(?)', [req.session.curprof])
         res.render('p-aula-unidades',{
             login: true,
             name: req.session.name,
@@ -397,12 +403,14 @@ app.post('/editar-post', async(req, res) => {
     })
 })
 
-// Entrar a evaluaciones - Profesor
+// Entrar a evaluaciones - Profesor ---------ªªªªªªªªªªªªªª!"ª!"ª!"ª!"ª!"ª"!
 app.get('/aula-evaluaciones', (req,res) => {
     if(req.session.loggedin && req.session.type == 2){
         res.render('p-aula-evaluaciones',{
             login: true,
-            name: req.session.name
+            name: req.session.name,
+            archivos: req.session.archivos,
+            evaluaciones: req.session.evaluaciones
         })
     }else{
         res.render('index-p',{
@@ -427,12 +435,13 @@ app.get('/aula-notas', (req,res) => {
     }
 })
 
-// Entrar a notas - Profesor
+// Entrar a asistencia - Profesor
 app.get('/aula-asistencia', (req,res) => {
     if(req.session.loggedin && req.session.type == 2){
         res.render('p-aula-asistencia',{
             login: true,
-            name: req.session.name
+            name: req.session.name,
+            alumnos: req.session.alumnos
         })
     }else{
         res.render('index-p',{

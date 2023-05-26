@@ -4,14 +4,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <%- include('./partials/head.ejs') %>
-	<link rel="stylesheet" href="/css/kado.css">
 	<link rel="stylesheet" href="/css/ewa.css">
 </head>
 <body>
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>
-        <main class="main">
+        <main class="main ewa_main-p">
+            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
             <section class="parte_superior">
                 <div> <h2>ASISTENCIA</h2> </div>
     
@@ -21,53 +21,21 @@
                   </button>
     
             </section>
-    
             <div class="h3 asis_fecha">15/05/2023</div>
            
-            <section class="box parte_medio">
+            <form class="box parte_medio">
                 <div class="alumno_container">
+                    <% for (i = 0; i<alumnos.length ; i++){ %>
                     <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
+                        <h3><%= alumnos[i].ESTUDIANTE %></h3>
                     </div>
                     <div class="alumno_checkbox">
                         <input type="checkbox" id="micheckbox">
                     </div>
                     <div class="separator"></div>
-    
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="alumno_checkbox">
-                        <input type="checkbox" id="micheckbox">
-                    </div>
-                    <div class="separator"></div>
-    
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="alumno_checkbox">
-                        <input type="checkbox" id="micheckbox">
-                    </div>
-                    <div class="separator"></div>
-    
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="alumno_checkbox">
-                        <input type="checkbox" id="micheckbox">
-                    </div>
-                    <div class="separator"></div>
-    
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="alumno_checkbox">
-                        <input type="checkbox" id="micheckbox">
-                    </div>
-                    <div class="separator"></div>
-    
+                    <% } %>
                 </div>
-            </section>
+            </form>
         </main>
         <%- include('./partials/footer.ejs') %>
     <% } else { %>

@@ -20,7 +20,11 @@
 }*/
 
 /* ASISTENCIA */
-
+.ewa_main-p{
+    padding: 40px 140px;
+    height: auto;
+    margin-bottom: 30px;
+}
 
 .parte_superior{
     display: flex;
@@ -207,3 +211,10 @@
 }
 
 
+.main-evalu-e{
+    margin: 30px 0;
+    margin-bottom: 60px;
+}
+.color_ewa{
+    background-color: #F9FAFB;
+}
