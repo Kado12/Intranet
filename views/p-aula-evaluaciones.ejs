@@ -12,6 +12,37 @@
 <body>
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
+        <!-- POPUP -->
+        <div id="form-editar-sesion" class="form-container popupediteva" style="display: none;">
+            <form method="post" action="/editar-post" class="form-editar">
+                <button class="btn-cerrar" id="btnCerrarFormulario"><img src="/icons/cerrar.png"></button>
+                <label>Nuevo nombre de la evaluación:</label>
+                <input name="nomClase" type="text" placeholder="Nombre de evaluación" required>
+                
+                <label>Nueva fecha de inicio</label>
+                <input name="fechaIni" type="date" required>
+                <label>Nuevo fecha de finalización</label>
+                <input name="fechaFin" type="date" required>
+
+                <label>Nueva Descripción de la evaluación</label>
+                <input name="descripEva" type="text" placeholder="Link de clase" required>
+                <label>Nuevo link de clase</label>
+                <input name="linkClase" type="text" placeholder="Link de clase" required>
+                <label>Nuevo tipo de evaluacion:</label>
+                <div class="opcionradio">
+                    <input name="tipoEva" type="radio" value="Tarea" id="tareaRadio">
+                    <label for="tareaRadio" class="radios">Tarea</label>
+                </div>
+                <div class="opcionradio">
+                    <input name="tipoEva" type="radio" value="Examen" id="examenRadio">
+                    <label for="examenRadio" class="radios">Examen</label>
+                </div>
+
+                <input type="hidden" id="dataIdInput" name="sesionID">
+                <button class="editar" type="submit">Editar</button>
+            </form>
+        </div>
+        <!-- FIN DEL POPUP -->
         <%- include('./partials/navigator.ejs') %>
         <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
         <main class="e-main color_ewa">
@@ -41,11 +72,13 @@
                     <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
                     <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
                     <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
+                    <!-- BOTON EDITAR -->
+                    <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
                     <!-- BOTON CALIFICAR --> 
-                    <form action="" class="edit_form">
-                    <button class="edit_btn">
-                        <img src="/image/edit.svg" alt="" class="edit_logo">Calificar
-                    </button>
+                    <form action="" class="flechita">
+                        <button class="calificar_btn borrarfondito">
+                            <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
+                        </button>
                     </form>
                 </article>
                 <% } %>
@@ -72,11 +105,13 @@
                 <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
                 <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
                 <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
+                <!-- BOTON EDITAR -->
+                <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
                 <!-- BOTON CALIFICAR --> 
-                <form action="" class="edit_form">
-                <button class="edit_btn">
-                    <img src="/image/edit.svg" alt="" class="edit_logo">Calificar
-                </button>
+                <form action="" class="flechita">
+                    <button class="calificar_btn borrarfondito">
+                        <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
+                    </button>
                 </form>
             </article>
             <% } %>
@@ -90,6 +125,7 @@
             </section>
         </main>
         <%- include('./partials/footer.ejs') %>
+        <%- include('./partials/btn-edit-evalu.ejs') %>
     <% } else { %>
         <h1><strong><%= name %></strong></h1>
         <a href="/" class="a-login">Ir al login</a>

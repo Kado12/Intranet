@@ -218,3 +218,35 @@
 .color_ewa{
     background-color: #F9FAFB;
 }
+.flechita{
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 11px;
+    margin-top: 6px;
+}
+.editarEva{
+    width: 11px;
+    margin-right: 3px;
+}
+.form-editar{
+    margin: 40px auto;
+}
+.form-editar input{
+    padding: 10px;
+}
+.opcionradio{
+    flex-direction: row;
+}
+.opcionradio input{
+    margin: 10px 10px;
+    width: 10px;
+}
+.borrarfondito{
+    border:none;
+    background-color: transparent;
+}
