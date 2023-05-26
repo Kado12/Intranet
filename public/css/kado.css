@@ -184,6 +184,13 @@
     background-color: #ffffff00;
     border: none;
 }
+.content .btn-eliminar{
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    background-color: #ffffff00;
+    border: none;
+}
 .content p img{
     width: 15px;
 }
@@ -274,4 +281,30 @@
     transition: .5s;
     background-color: #008caf;
     border: 1px solid #0f5566;
+}
+
+/* Página p-aula-notas.ejs */
+.t-notas{
+    margin:30px 10vw;
+}
+.n-aula{
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 10vw;
+}
+.tabla-notas{
+    width: 100%;
+    border-collapse: collapse;
+}
+.tabla-notas td{
+    padding: 10px;
+    border-bottom: 1px solid #007997;
+}
+.t-eval{
+    width: 10vw;
+    text-align: center;
+    font-weight: bold;
+}
+.t-eval-n{
+    text-align: center;
 }

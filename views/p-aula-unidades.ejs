@@ -23,7 +23,7 @@
         </div>
         <%- include('./partials/navigator.ejs') %>    
         <main class="main e-uni-main p-uni-main">
-            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>            
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/aula-prof'">REGRESAR</button>            
             <section class="box unidades p-uni">
                 <% for (l=1; l<=8; l++){ %>
                     <h4>Unidad <%= l %></h4>
@@ -43,6 +43,19 @@
                 <% } %>
             </section>
         </main>
+        <% if(typeof alert != "undefined") { %>
+            <script>
+                Swal.fire({
+                    title: '<%= alertTitle %>',
+                    text: '<%= alertMessage %>',
+                    icon: '<%= alertIcon %>',
+                    showConfirmButton:<%= showConfirmButton %>,
+                    timer: <%= timer %>
+                }).then(()=>{
+                    window.location.href = '/<%= ruta %>';
+                })
+            </script>
+        <% } %>
         <footer class="footer-raro">
     
         </footer>

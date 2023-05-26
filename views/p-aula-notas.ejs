@@ -5,100 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <%- include('./partials/head.ejs') %>
 	<link rel="stylesheet" href="/css/kado.css">
-	<link rel="stylesheet" href="/css/ewa.css">
 </head>
 <body>
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>
         <main class="main">
-            <button class="blackBtn prev_button">AULAS</button>
-
-            <section class="parte_superior">
-                <div> <h2>NOTAS</h2> </div>
-
-                <button class="icon-button">
-                    <span class="text_guardar">GUARDAR</span>
-                    <span class="icon"><img src="https://cdn1.iconfinder.com/data/icons/ios-11-glyphs/30/save-512.png" alt="Icono"></span>
-                </button>
-
-                <!--  
-                <div class="ps_derecha">
-                    <div>derecha</div>
-                    <button class="word_icon"></button>
-                </div>
-                -->
-
-            </section>
-
-            <section class="parte_medio">
-                <div class="names_notas_container">
-                    <div></div>
-                    <div class="container_notas">
-                        <h3 class="h31">P1</h3>
-                        <h3 class="h32">P2</h3>
-                        <h3 class="h33">E1</h3>
-                    </div>
-                </div>
-            </section>
-            
-
-            <section class="box parte_medio">
-
-                <div class="alumno_container">
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="container_notas">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                    </div>
-                    <div class="separator"></div>
-
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="container_notas">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                    </div>
-                    <div class="separator"></div>
-
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="container_notas">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                    </div>
-                    <div class="separator"></div>
-
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="container_notas">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                    </div>
-                    <div class="separator"></div>
-
-                    <div class="alumno_name">
-                        <h3>EDWARD ANTONIO URIBE SOTO</h3>
-                    </div>
-                    <div class="container_notas">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                        <input type="text" id="minota">
-                    </div>
-                    <div class="separator"></div>
-                </div>
+            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+            <h2 class="t-notas">Calificaciones</h2>
+            <section class="box n-aula">
+                <table class="tabla-notas">
+                    <tr>
+                        <td></td>
+                        <% for(j=0; j<numEval.length; j++ ) { %>
+                            <td class="t-eval"><%= numEval[j]['TÍTULO'] %></td>
+                        <% } %>
+                    </tr>
+                    <% for(i=0; i<15; i++) { %>
+                        <tr>
+                            <td><%= notaAlum[i].ESTUDIANTE %></td>
+                            <% n = 0 %>
+                            <% while(n <= notaAlum.length && notaAlum[i + n] && notaAlum[i + n].NOTA) { %>
+                                <td class="t-eval-n"><%= notaAlum[i+n].NOTA %></td>
+                                <% n = n + 15 %>
+                            <% } %>
+                        </tr>
+                    <% } %>
+                </table>
             </section>
         </main>
-        <%- include('./partials/footer.ejs') %>
+        <footer class="footer-raro">
+    
+        </footer>
     <% } else { %>
         <h1><strong><%= name %></strong></h1>
         <a href="/" class="a-login">Ir al login</a>

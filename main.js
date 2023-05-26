@@ -358,11 +358,16 @@ app.post('/accion-docente', async (req,res) => {
     } else if (accionBtn == 'evaluaciones') {
         res.redirect('/aula-evaluaciones')
     } else if (accionBtn == 'notas') {
-        res.redirect('/aula-notas')
+        connection.query('CALL SP_lista_notas_aula(?)', [req.session.curprof], (err, results) => {
+            req.session.notasalum = results[0]
+            req.session.neval = results[1]
+            res.redirect('/aula-notas')
+        })
     } else {
         res.redirect('/aula-asistencia')
     }
 })
+// Ventana Unidades - Página p-aula-unidades.ejs
 app.get('/aula-unidades', (req, res) => {
     if(req.session.loggedin && req.session.type == 2){
         connection.query('CALL SP_obtener_datos(?)', [req.session.curprof])
@@ -384,16 +389,30 @@ app.get('/aula-unidades', (req, res) => {
         })
     }
 })
-// Editar Clase - por terminar
+// Editar Clase
 app.post('/editar-post', async(req, res) => {
     const nomClase = req.body.nomClase
     const linkClase = req.body.linkClase
     const sesionID = req.body.sesionID
-    console.log(nomClase)
-    console.log(linkClase)
-    console.log(sesionID)
     connection.query('CALL SP_editar_ses(?,?,?)',[nomClase, linkClase, sesionID], async (err, results) => {
-        res.redirect('/aula-unidades')
+        res.render('p-aula-unidades',{
+            login: true,
+            name: req.session.name,
+            alert: true,
+            alertTitle: "Clase editada",
+            alertMessage: "Se editó la clase con exito, regrese y vuelva a la página para actualizar cambios",
+            alertIcon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            ruta: 'aula-unidades',
+            aulaInfo: req.session.aulaInfo,
+            curprof: req.session.curprof,
+            archivos: req.session.archivos,
+            evaluaciones: req.session.evaluaciones,
+            gradoAula: req.session.gradoAula,
+            seccionAula: req.session.seccionAula,
+            alumnosAula: req.session.alumnosAula
+        })
     })
 })
 
@@ -415,9 +434,12 @@ app.get('/aula-evaluaciones', (req,res) => {
 // Entrar a notas - Profesor
 app.get('/aula-notas', (req,res) => {
     if(req.session.loggedin && req.session.type == 2){
+        console.log(req.session.neval)
         res.render('p-aula-notas',{
             login: true,
-            name: req.session.name
+            name: req.session.name,
+            notaAlum: req.session.notasalum,
+            numEval: req.session.neval
         })
     }else{
         res.render('index-p',{
