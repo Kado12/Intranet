@@ -12,7 +12,8 @@
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>
         <main class="main2">
-            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/asig-estu'">REGRESAR</button>
+            <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
             <section>
                 <h2><%= nomCurso %> / Evaluaciones</h2>
                 <div class="box bimestres_container">

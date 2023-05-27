@@ -7,14 +7,15 @@
 }
 /* Formulario index-e */
 .form-asig{
+    margin: 20px 0;
     display: flex;
     width: 45%;
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
-    height: 85%;
+    height: calc(90vh - 190px);
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .form-asig::-webkit-scrollbar {
     width: 10px;
