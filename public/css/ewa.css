@@ -20,7 +20,11 @@
 }*/
 
 /* ASISTENCIA */
-
+.ewa_main-p{
+    padding: 40px 140px;
+    height: auto;
+    margin-bottom: 30px;
+}
 
 .parte_superior{
     display: flex;
@@ -207,3 +211,42 @@
 }
 
 
+.main-evalu-e{
+    margin: 30px 0;
+    margin-bottom: 60px;
+}
+.color_ewa{
+    background-color: #F9FAFB;
+}
+.flechita{
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 11px;
+    margin-top: 6px;
+}
+.editarEva{
+    width: 11px;
+    margin-right: 3px;
+}
+.form-editar{
+    margin: 40px auto;
+}
+.form-editar input{
+    padding: 10px;
+}
+.opcionradio{
+    flex-direction: row;
+}
+.opcionradio input{
+    margin: 10px 10px;
+    width: 10px;
+}
+.borrarfondito{
+    border:none;
+    background-color: transparent;
+}
