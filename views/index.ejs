@@ -17,7 +17,7 @@
                 <div class="form">
                     <form action="auth" method="POST">
                         <label class="usuario">Usuario</label>
-                        <input type="text" name="user" id="user" placeholder="Usuario" maxlength="8">
+                        <input type="text" name="user" id="user" placeholder="Usuario" maxlength="8" oninput="numberOnly(this.id);">
                         <label class="contraseña">Contraseña</label>
                         <input type="password" name="pass" id="pass" placeholder="Contraseña">
                         <input type="submit" class="btn-login" value="Ingresar">
@@ -43,5 +43,11 @@
             </script>
         <% } %>
         <%- include('./partials/footer.ejs') %>
+        <script>
+            function numberOnly(id) {
+                var element = document.getElementById(id);
+                element.value = element.value.replace(/[^0-9]/gi, "");
+            }
+        </script>
     </body>
 </html>
