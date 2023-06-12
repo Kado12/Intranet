@@ -43,7 +43,7 @@
 }
 .form form{
     width: 80%;
-    padding: 25px;
+    padding: 30px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -51,7 +51,29 @@
 }
 .form form input, .fomr form label{
     padding: 10px;
-    margin: 5px 0
+    margin: 10px 10px;
+}
+.form form input{
+    border: 1px solid #31bac9;
+}
+.form form input::placeholder{
+    color:#596869;
+    font-style: italic;
+}
+.btn-login{
+    border: none;
+    width: 50%;
+    align-self: center;
+    background-color: #007997;
+    color: #fff;
+    border-radius: 20px; 
+    font-size: 16px;
+    font-weight: bold;
+    transition: .3s;
+    cursor:pointer;
+}
+.btn-login:hover{
+    background-color: #018b9b;
 }
 .image{
     width: 65%;
