@@ -218,6 +218,7 @@ app.get('/e-unidad', (req,res) => {
             name: req.session.name,
             archivos: req.session.archivos,
             evaluaciones: req.session.evaluaciones,
+            nomCurso: req.session.descurso,
             login: true
         })
     } else{

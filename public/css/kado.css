@@ -13,7 +13,7 @@
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
-    height: calc(90vh - 190px);
+    height: calc(85vh - 190px);
     flex-direction: column;
     overflow-y: auto;
 }
@@ -87,6 +87,11 @@
 .e-uni-main{
     display: flex;
     align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.e-uni-main h2{
+    margin-top: 20px;
 }
 .unidades{
     height: fit-content;
@@ -95,6 +100,7 @@
 }
 .box_unidad{
     flex-direction: column;
+    position: relative;
 }
 .footer-raro{
     width: 100%;
@@ -112,7 +118,7 @@
     width: 20px;
     height: 19px;
     position: absolute;
-    right: calc(20% + 60px);
+    right: 15px;
     background-color: #ffffff00;
     border: 0;
 }
@@ -129,19 +135,17 @@
 /* Archivo e-calificaciones.ejs */
 .cal-box{
     width: 90%;
-    height: 80%;
-    display: grid;
-    grid-template-columns: 60% 40%;
-    grid-template-rows: 15% 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
 }
-.t-notas{
-   display: block; 
+.t-nota{
+    margin-top: 20px;
 }
 .box-notas{
     flex-direction: column;
-    height: 90%;
-    grid-column: 1/span 1;
-    overflow-y: scroll;
+    height: fit-content;
+    width: 60%;
 }
 .box-n-e{
     justify-content: space-between;
@@ -149,6 +153,8 @@
 .box-promedio{
     justify-content: space-between;
     height: fit-content;
+    width: 40%;
+
 }
 
 /* Archivo index-p.ejs */

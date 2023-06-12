@@ -10,6 +10,7 @@
 <body>
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
+        <!-- Formulario de Editar -->
         <div id="form-editar-sesion" class="form-container" style="display: none;">
             <form method="post" action="/editar-post" class="form-editar">
                 <button class="btn-cerrar" id="btnCerrarFormulario"><img src="/icons/cerrar.png"></button>
@@ -21,9 +22,24 @@
                 <button class="editar" type="submit">Editar</button>
             </form>
         </div>
+        <!-- Fin de Formulario de Editar -->
+        <!-- Formulario de Agregar -->
+        <div id="form-add-sesion" class="form-container-add" style="display: none;">
+            <form method="post" action="/agregar-clase" class="form-editar">
+                <button class="btn-cerrar" id="btnCerrarFormulario"><img src="/icons/cerrar.png"></button>
+                <label>Nuevo nombre de clase:</label>
+                <input name="nomClase" type="text" placeholder="Nombre de clase" required>
+                <label>Nuevo link de clase</label>
+                <input name="linkClase" type="text" placeholder="Link de clase" required>
+                <input type="hidden" id="dataIdInput" name="sesionID">
+                <button class="editar" type="submit">Editar</button>
+            </form>
+        </div>
+        <!-- Fin de Formulario de Agregar -->
         <%- include('./partials/navigator.ejs') %>    
         <main class="main e-uni-main p-uni-main">
-            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/aula-prof'">REGRESAR</button>            
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/aula-prof'">REGRESAR</button>
+            <h2>Unidades</h2>
             <section class="box unidades p-uni">
                 <% for (l=1; l<=8; l++){ %>
                     <h4>Unidad <%= l %></h4>

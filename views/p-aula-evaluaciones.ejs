@@ -99,69 +99,69 @@
                     <h4>Tareas</h4>
                     <% for (i = 0; i<evaluaciones.length ; i++){ %>
                         <% if (evaluaciones[i].TIPOEVA == 1){ %>
-                <article class="box semana">
-                    <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
-                    <!-- Transformando fecha inicio -->
-                    <% let fecha_original = evaluaciones[i].EVAINICIO; %>
-                    <% var fecha_nueva = new Date(fecha_original); %>
-                    <% var dia = fecha_nueva.getUTCDate(); %>                                
-                    <% var mes = fecha_nueva.getUTCMonth() + 1; %>
-                    <% var ano = fecha_nueva.getUTCFullYear(); %>
-                    <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
-                    <p class="fecha_eval">Día de inicio: <%= formatoDeseado%></p>
-                    <% let fecha_original1 = evaluaciones[i].EVAFIN; %>
-                    <% var fecha_nueva1 = new Date(fecha_original1); %>
-                    <% var dia1 = fecha_nueva1.getUTCDate(); %>                                
-                    <% var mes1 = fecha_nueva1.getUTCMonth() + 1; %>
-                    <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
-                    <% var formatoDeseado1 = dia + " / "+mes+" / "+ano; %>
-                    <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
-                    <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
-                    <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
-                    <!-- BOTON EDITAR -->
-                    <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
-                    <!-- BOTON CALIFICAR --> 
-                    <form action="" class="flechita">
-                        <button class="calificar_btn borrarfondito">
-                            <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
-                        </button>
-                    </form>
-                </article>
-                <% } %>
-                <% } %>
+                        <article class="box semana">
+                            <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                            <!-- Transformando fecha inicio -->
+                            <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                            <% var fecha_nueva = new Date(fecha_original); %>
+                            <% var dia = fecha_nueva.getUTCDate(); %>                                
+                            <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                            <% var ano = fecha_nueva.getUTCFullYear(); %>
+                            <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                            <p class="fecha_eval">Día de inicio: <%= formatoDeseado%></p>
+                            <% let fecha_original1 = evaluaciones[i].EVAFIN; %>
+                            <% var fecha_nueva1 = new Date(fecha_original1); %>
+                            <% var dia1 = fecha_nueva1.getUTCDate(); %>                                
+                            <% var mes1 = fecha_nueva1.getUTCMonth() + 1; %>
+                            <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
+                            <% var formatoDeseado1 = dia + " / "+mes+" / "+ano; %>
+                            <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
+                            <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
+                            <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
+                            <!-- BOTON EDITAR -->
+                            <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
+                            <!-- BOTON CALIFICAR --> 
+                            <form action="" class="flechita">
+                                <button class="calificar_btn borrarfondito">
+                                    <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
+                                </button>
+                            </form>
+                        </article>
+                        <% } %>
+                    <% } %>
                 <h4>Examenes</h4>
                 <% for (i = 0; i<evaluaciones.length ; i++){ %>
                     <% if (evaluaciones[i].TIPOEVA == 2){ %>
-            <article class="box semana">
-                <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
-                <!-- Transformando fecha inicio -->
-                <% let fecha_original = evaluaciones[i].EVAINICIO; %>
-                <% var fecha_nueva = new Date(fecha_original); %>
-                <% var dia = fecha_nueva.getUTCDate(); %>                                
-                <% var mes = fecha_nueva.getUTCMonth() + 1; %>
-                <% var ano = fecha_nueva.getUTCFullYear(); %>
-                <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
-                <p class="fecha_eval">Día de inicio: <%= formatoDeseado%></p>
-                <% let fecha_original1 = evaluaciones[i].EVAFIN; %>
-                <% var fecha_nueva1 = new Date(fecha_original1); %>
-                <% var dia1 = fecha_nueva1.getUTCDate(); %>                                
-                <% var mes1 = fecha_nueva1.getUTCMonth() + 1; %>
-                <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
-                <% var formatoDeseado1 = dia + " / "+mes+" / "+ano; %>
-                <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
-                <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
-                <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
-                <!-- BOTON EDITAR -->
-                <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
-                <!-- BOTON CALIFICAR --> 
-                <form action="" class="flechita">
-                    <button class="calificar_btn borrarfondito">
-                        <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
-                    </button>
-                </form>
-            </article>
-            <% } %>
-            <% } %>
+                    <article class="box semana">
+                        <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                        <!-- Transformando fecha inicio -->
+                        <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                        <% var fecha_nueva = new Date(fecha_original); %>
+                        <% var dia = fecha_nueva.getUTCDate(); %>                                
+                        <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                        <% var ano = fecha_nueva.getUTCFullYear(); %>
+                        <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                        <p class="fecha_eval">Día de inicio: <%= formatoDeseado%></p>
+                        <% let fecha_original1 = evaluaciones[i].EVAFIN; %>
+                        <% var fecha_nueva1 = new Date(fecha_original1); %>
+                        <% var dia1 = fecha_nueva1.getUTCDate(); %>                                
+                        <% var mes1 = fecha_nueva1.getUTCMonth() + 1; %>
+                        <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
+                        <% var formatoDeseado1 = dia + " / "+mes+" / "+ano; %>
+                        <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
+                        <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
+                        <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
+                        <!-- BOTON EDITAR -->
+                        <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
+                        <!-- BOTON CALIFICAR --> 
+                        <form action="" class="flechita">
+                            <button class="calificar_btn borrarfondito">
+                                <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
+                            </button>
+                        </form>
+                    </article>
+                    <% } %>
+                <% } %>
             </div>
             <button class="box semana agregar_semana" id="btnAgregarEvaluacion">
                 <p>Agregar Evaluacion</p>
