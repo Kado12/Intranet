@@ -1,8 +1,31 @@
-<div id="popup-container" style="display: none; position: absolute; z-index: 9999; background-color: #54bdb825; padding: 50px; width: 100%; height: 100%;">
+<style>
+    #popup-content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background-image: url('/image/fondocolegio.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    .cerrar-popup{
+        position: absolute;
+        right:10px;
+        top:10px;
+        background-color: transparent;
+        width: fit-content;
+        border:none;
+    }
+    #icon-cerrar{
+        width: 16px;
+        height: 16px;
+    }
+</style>
+
+<div id="popup-container" style="display: none; position: absolute; z-index: 9999; background-color: #71717125; padding: 50px; width: 100%; height: 100%;">
     <div id="popup-content" style="width: 100%; height: 100%; overflow: auto;background-color: rgb(253, 253, 253);">
-        <h2>Título de la ventana emergente</h2>
-        <p>Contenido de la ventana emergente</p>
-        <button onclick="closePopup()">Cerrar</button>
+        <img src="/image/horario.jpg" alt="Horario">
+        <button onclick="closePopup()" class="cerrar-popup"><img src="/icons/cerrar.png" alt="Cerrar Popup" id="icon-cerrar"></button>
     </div>
 </div>
 <script>
