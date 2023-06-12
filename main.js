@@ -345,7 +345,7 @@ app.get('/aula-prof', (req, res) => {
         })
     }
 })
-// Verificación de acción seleccionada por Profesor   ª!"ª!"ª!"ª!"ª!"ª!"ª!"ª!"ª"ª!"ª!"ª!"ª!"ª!
+// Verificación de acción seleccionada por Profesor   
 app.post('/accion-docente', async (req,res) => {
     const btnAccProfesor = Object.keys(req.body);
     const accionBtn = btnAccProfesor.join('');
@@ -395,7 +395,7 @@ app.get('/aula-unidades', (req, res) => {
         })
     }
 })
-// Editar Clase
+// Editar Clase            #####################################################333
 app.post('/editar-post', async(req, res) => {
     const nomClase = req.body.nomClase
     const linkClase = req.body.linkClase
@@ -422,7 +422,7 @@ app.post('/editar-post', async(req, res) => {
     })
 })
 
-// Entrar a evaluaciones - Profesor ---------ªªªªªªªªªªªªªª!"ª!"ª!"ª!"ª!"ª"!
+// Entrar a evaluaciones - Profesor 
 app.get('/aula-evaluaciones', (req,res) => {
     if(req.session.loggedin && req.session.type == 2){
         res.render('p-aula-evaluaciones',{
@@ -473,6 +473,37 @@ app.get('/aula-asistencia', (req,res) => {
     }
 })
 
+// Editar Evaluaciones - Profesor
+app.post('/editar-evaluacion', async(req,res) => {
+    const idEvaluacion = req.body.sesionID
+    const nomEvalu = req.body.nomEvalu
+    const descripEva = req.body.descripEva
+    const fechaIni = `${req.body.fechaIni} 00:00:00`
+    const fechaFin = `${req.body.fechaFin} 00:00:00`
+    const linkEva = req.body.linkEva
+    const tipoEva = req.body.tipoEva
+
+    connection.query('CALL SP_editar_evaluacion(?,?,?,?,?,?,?)',[idEvaluacion, nomEvalu,descripEva,fechaIni,fechaFin,linkEva,tipoEva], async (err, results) => {
+        res.redirect('/aula-evaluaciones')
+    })
+})
+
+// Agregar Evaluacion - Profe
+app.post('/agregar-evaluacion', async(req,res) => {
+    const nomEvalu = req.body.nomEvalu
+    const descripEva = req.body.descripEva
+    const fechaIni = `${req.body.fechaIni} 00:00:00`
+    const fechaFin = `${req.body.fechaFin} 00:00:00`
+    const linkEva = req.body.linkEva
+    const tipoEva = req.body.tipoEva
+    const idSesion = req.body.clasesPosibles
+    console.log(nomEvalu,descripEva,fechaIni,fechaFin,tipoEva,idSesion,linkEva)
+
+    connection.query('CALL SP_agregar_evaluacion_sesionExiste(?,?,?,?,?,?,?)', [nomEvalu,descripEva,fechaIni,fechaFin,linkEva,tipoEva,idSesion], async(err,results) => {
+        console.log(results)
+        res.redirect('/aula-evaluaciones')
+    })
+})
 
 
 
