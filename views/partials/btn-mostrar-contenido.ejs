@@ -6,10 +6,17 @@ boxUnidades.forEach(boxUnidad => {
     const content = boxUnidad.querySelector('.content');
     let rotated = false;
 
+    //Conseguir el boton eliminar
+    let deleteButton = boxUnidad.querySelector('.tachito_container');
+    let clicked = false;
+    
     toggleButton.addEventListener('click', () => {
         content.style.display = rotated ? 'none' : 'block';
         toggleButton.classList.toggle('rotated', !rotated);
         rotated = !rotated;
+
+        deleteButton.style.display = clicked ? 'none' : 'block';
+        clicked = !clicked;
     });
 });
 

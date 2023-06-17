@@ -14,8 +14,6 @@ btnMostrarFormularios.forEach(function(btn) {
         const dataId = btn.dataset.id
         dataIdInput.value = dataId
         formEditarSesion.style.display = 'block' // Mostrar el formulario al hacer clic en cualquier botón
-        console.log("El id de evaluacion es:")
-        console.log(dataId)
         window.scrollTo({
           top: 0,
         });
@@ -48,5 +46,8 @@ btnCerrarFormAgregar.addEventListener('click', function(){
     formAgregarEvaluacion.style.display = 'none';
     desbloquearScroll()
 })
+
+
+
 
 </script>
