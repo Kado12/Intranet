@@ -217,7 +217,7 @@ app.get('/e-unidad', (req,res) => {
         res.render('e-unidades', {
             name: req.session.name,
             archivos: req.session.archivos,
-            evaluaciones: req.session.evaluaciones,
+            evaluaciones: req.session.evaluaciones, 
             nomCurso: req.session.descurso,
             login: true
         })
@@ -378,17 +378,42 @@ app.post('/accion-docente', async (req,res) => {
 // Ventana Unidades - Página p-aula-unidades.ejs
 app.get('/aula-unidades', (req, res) => {
     if(req.session.loggedin && req.session.type == 2){
-        res.render('p-aula-unidades',{
-            login: true,
-            name: req.session.name,
-            aulaInfo: req.session.aulaInfo,
-            curprof: req.session.curprof,
-            archivos: req.session.archivos,
-            evaluaciones: req.session.evaluaciones,
-            gradoAula: req.session.gradoAula,
-            seccionAula: req.session.seccionAula,
-            alumnosAula: req.session.alumnosAula
+        connection.query('CALL SP_obtener_sesiones(?)', [req.session.curprof], async(err,results) => {
+            let clasesExistentes = [];
+            let todasSesiones = [];
+
+            req.session.archivos.forEach(elemento => {
+                clasesExistentes.push(elemento.IDARC)
+            });
+
+            for (i = 0; i<results[0].length; i++){
+                todasSesiones.push(results[0][i])
+            }
+
+            //VERIFICACION INEXISTENCIA
+            let clasesInexistentes = []
+            for(k = 0; k < todasSesiones.length; k++){
+                if(todasSesiones[k].ID_ARCHIVO === null){
+                    clasesInexistentes.push(todasSesiones[k])
+                }
+            }
+
+            req.session.clasesInexistentes = clasesInexistentes
+            
+            res.render('p-aula-unidades',{
+                login: true,
+                name: req.session.name,
+                aulaInfo: req.session.aulaInfo,
+                curprof: req.session.curprof,
+                archivos: req.session.archivos,
+                evaluaciones: req.session.evaluaciones,
+                gradoAula: req.session.gradoAula,
+                seccionAula: req.session.seccionAula,
+                alumnosAula: req.session.alumnosAula,
+                sesionesOpciones: req.session.clasesInexistentes
+            })
         })
+
     }else{
         res.render('index-p',{
             login: false,
@@ -396,7 +421,7 @@ app.get('/aula-unidades', (req, res) => {
         })
     }
 })
-// Editar Clase            #####################################################333
+// Editar Clase           
 app.post('/editar-post', async(req, res) => {
     const nomClase = req.body.nomClase
     const linkClase = req.body.linkClase
@@ -420,6 +445,28 @@ app.post('/editar-post', async(req, res) => {
             seccionAula: req.session.seccionAula,
             alumnosAula: req.session.alumnosAula
         })
+    })
+})
+
+// OJO ###################################################
+
+// ELIMINAR CLASES
+app.post('/sesiones-elim-edit', async(req,res) => {
+    const claseId = req.body.eliminarSesionBtn
+    connection.query('CALL SP_eliminar_clase(?)', [claseId], async(err, results) => {
+        res.redirect('aula-unidades')
+    })
+    //VOLVER AL LOGIN PARA QUE SE GUARDE AL CAMBIO
+})
+
+// AGREGAR CLASES
+app.post('/agregar-clase',async(req,res) => {
+    let nomClase = req.body.nomClase
+    let linkClase = req.body.linkClase
+    let sesionesPosiblesAgregar = req.body.sesionesPosiblesAgregar
+
+    connection.query('CALL SP_agregar_clase(?,?,?)',[nomClase,linkClase,sesionesPosiblesAgregar], async(err,results) => {
+        res.redirect('/aula-unidades')
     })
 })
 
@@ -514,7 +561,6 @@ app.post('/revisar', async (req,res) => {
 // Entrar a notas - Profesor
 app.get('/aula-notas', (req,res) => {
     if(req.session.loggedin && req.session.type == 2){
-        console.log(req.session.neval)
         res.render('p-aula-notas',{
             login: true,
             name: req.session.name,
@@ -569,13 +615,12 @@ app.post('/agregar-evaluacion', async(req,res) => {
     const linkEva = req.body.linkEva
     const tipoEva = req.body.tipoEva
     const idSesion = req.body.clasesPosibles
-    console.log(nomEvalu,descripEva,fechaIni,fechaFin,tipoEva,idSesion,linkEva)
 
     connection.query('CALL SP_agregar_evaluacion_sesionExiste(?,?,?,?,?,?,?)', [nomEvalu,descripEva,fechaIni,fechaFin,linkEva,tipoEva,idSesion], async(err,results) => {
-        console.log(results)
         res.redirect('/aula-evaluaciones')
     })
 })
+
 
 
 
