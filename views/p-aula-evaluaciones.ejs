@@ -121,8 +121,8 @@
                             <!-- BOTON EDITAR -->
                             <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
                             <!-- BOTON CALIFICAR --> 
-                            <form action="" class="flechita">
-                                <button class="calificar_btn borrarfondito">
+                            <form method="post" action="calificar" class="flechita">
+                                <button type="submit" class="calificar_btn borrarfondito" name="<%= evaluaciones[i].IDEVA %>">
                                     <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
                                 </button>
                             </form>
@@ -154,8 +154,8 @@
                         <!-- BOTON EDITAR -->
                         <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
                         <!-- BOTON CALIFICAR --> 
-                        <form action="" class="flechita">
-                            <button class="calificar_btn borrarfondito">
+                        <form method="post" action="calificar" class="flechita">
+                            <button type="submit" class="calificar_btn borrarfondito" name="<%= evaluaciones[i].IDEVA %>">
                                 <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
                             </button>
                         </form>

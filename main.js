@@ -440,6 +440,77 @@ app.get('/aula-evaluaciones', (req,res) => {
     }
 })
 
+// Calificar Evaluacion - Profesor
+app.post('/calificar', async (req,res) => {
+    const btnSeleccionado = parseInt(Object.keys(req.body).join(''))
+    const getDatosEva = () => {
+        return new Promise((resolve,reject) => {
+            connection.query('CALL SP_informacion_evaluacion(?)', [btnSeleccionado], (err, results) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    console.log(results)
+                    req.session.idEva = results[0][0].ID
+                    req.session.titulocal = results[0][0]['TÍTULO']
+                    resolve(results)
+                }
+            })
+        })
+    }
+    const getDatosEstudiantes = () => {
+        return new Promise((resolve, reject) => {
+            connection.query('CALL SP_lista_estudiantes_aula(?)', [req.session.curprof], (err, results) => {
+                if (err){
+                    reject(err)
+                } else{
+                    console.log(results)
+                    req.session.alumnosA = results[0]
+                    resolve(results)
+                }
+            })
+        })
+    }
+    try {
+        const datosAula = await getDatosEva()
+        const estudiantes = await getDatosEstudiantes()
+        res.redirect('/p-calificacion')
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.get('/p-calificacion', (req,res) => {
+    if(req.session.loggedin && req.session.type == 2){
+        res.render('p-calificaciones',{
+            login: true,
+            alumnosA: req.session.alumnosA,
+            idEva: req.session.idEva,
+            tituloEva: req.session.titulocal,
+            name: req.session.name
+        })
+    }else{
+        res.render('index-p',{
+            login: false,
+            name: 'Debe iniciar sessión'
+        })
+    }
+})
+
+// Enviar calificaciones - Profesor 
+app.post('/revisar', async (req,res) => {
+    const codAlumno = Object.keys(req.body)
+    const notAlumno = Object.values(req.body)
+    console.log(codAlumno)
+    console.log(notAlumno)
+    console.log(req.session.idEva)
+    for (let i = 0; i < codAlumno.length; i++) {
+        connection.query('CALL SP_guardar_calificacion(?,?,?)', [notAlumno[i], codAlumno[i], req.session.idEva], (err, results) => {
+            
+        })
+    }
+    res.redirect('/p-calificacion')
+})
+
 // Entrar a notas - Profesor
 app.get('/aula-notas', (req,res) => {
     if(req.session.loggedin && req.session.type == 2){

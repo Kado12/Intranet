@@ -315,3 +315,54 @@
 .t-eval-n{
     text-align: center;
 }
+
+/* Página p-calificaciones.ejs */
+.f-calificaciones{
+    display: flex;
+    justify-content: space-around;
+}
+.f-calificaciones button{
+    width: 7vw;
+    height: 5vh;
+    margin-top: 20px; 
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 18px;
+    background-color: transparent;
+    border: 1px solid #188daa;
+    border-radius: 15px;
+    transition: all .3s;
+}
+.f-calificaciones button:hover{
+    background-color: #9ef3ef60;
+    border: 1px solid #035569;
+}
+.f-calificaciones button img{
+    width: 1vw;
+    height: 2vh;
+}
+.p-main{
+    width: 75%;
+    flex-direction: column;
+}
+.p-main h2{
+    margin-bottom: 10px;
+}
+.p-main div{
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+div input{
+    text-align: center;
+}
