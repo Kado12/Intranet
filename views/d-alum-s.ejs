@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <%- include('./partials/head.ejs') %>
+        <link rel="stylesheet" href="/css/patrick.css">
+    </head>
+    <body>
+      <%- include('./partials/navigator.ejs') %>
+      <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+      <main class="main grid-patrick">
+        <form class="left_container" method="post" action="alumseccioncurso">
+          <button class="box directora_box text_center" name="seccionaAlum-s">Seccion A</button>
+          <button class="box directora_box text_center" name="seccionbAlum-s">Seccion B</button>
+          <button class="box directora_box text_center" name="seccioncAlum-s">Seccion C</button>
+          <button class="box directora_box text_center" name="secciondAlum-s">Seccion D</button>
+        </form>
+        <div class="right_container">
+          <img src="/image/imagen4.png" alt="">
+        </div>
+      </main>
+      <%- include('./partials/footer.ejs') %>
+    </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs') %>
+    <link rel="stylesheet" href="/css/kado.css">
+</head>
+<body>
+    <% if (login) { %>
+        <%- include('./partials/popup.ejs') %>
+        <%- include('./partials/navigator.ejs') %>    
+        <!-- Formulario de Editar -->
+        <div id="form-editar-sesion" class="form-container" style="display: none;">
+            <form method="post" action="/editar-post" class="form-editar">
+                <button class="btn-cerrar" id="btnCerrarFormulario"><img src="/icons/cerrar.png"></button>
+                <label>Nuevo nombre de clase:</label>
+                <input name="nomClase" type="text" placeholder="Nombre de clase" required>
+                <label>Nuevo link de clase</label>
+                <input name="linkClase" type="text" placeholder="Link de clase" required>
+                <input type="hidden" id="dataIdInput" name="sesionID">
+                <button class="editar" type="submit">Editar</button>
+            </form>
+        </div>
+        <!-- Fin de Formulario de Editar -->
+
+        <!-- POPUP AGREGAR -->
+        <div id="form-agregar-clase" class="form-container popupediteva" style="display: none;">
+        <form method="post" action="/agregar-clase" class="form-editar">
+            <button class="btn-cerrar" id="btnCerrarFormAgregarClase"><img src="/icons/cerrar.png"></button>
+            <label>Título de la clase:</label>
+            <input name="nomClase" type="text" placeholder="ej. Clase Nº3 Funciones" required>
+            <label>Link de la clase:</label>
+            <input name="linkClase" type="text" placeholder="ej. google.com.es" required>
+
+            <!-- Clases Existentes -->
+            <div class="selectdiv">
+                <label for="sesionesOpcion">Elige la Sesion: </label>
+                <select name="sesionesPosiblesAgregar" id="sesionesOpcion">
+                    <% for(j = 0; j < sesionesOpciones.length ; j++){ %>
+                        <option value="<%= sesionesOpciones[j].ID_SESION %>"><%=sesionesOpciones[j].SES_TITULO%></option>
+                    <% } %>
+                </select>
+            </div>
+            <button class="editar" type="submit">AGREGAR</button>
+        </form>
+        </div>
+
+        <main class="main e-uni-main p-uni-main">
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/aula-prof'">REGRESAR</button>
+            <h2>Unidades</h2>
+            <p><%= sesionesOpciones.SES_TITULO %></p>
+            <section class="box unidades p-uni">
+                <% for (l=1; l<=8; l++){ %>
+                    <h4>Unidad <%= l %></h4>
+                    <% for (i=0; i<archivos.length; i++){ %>
+                        <% if(archivos[i].TITULOUNI == 'Unidad ' + l){ %> 
+                            <div class="box box_unidad">
+                                <h4><%= archivos[i].TITULOSES %></h4>
+                                <form method="post" action="/sesiones-elim-edit" class="tachito_container">
+                                    <button value="<%= archivos[i].IDARC %>" id="eliminar-sesion" class="tachito ocultar" name="eliminarSesionBtn"><img src="/icons/basura.png" type="submit"></button>
+                                </form>
+                                <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
+                                <div class="content">
+                                    <p><%= archivos[i].TITULOARC %></p>
+                                    <p><img src="icons/enlace.png"></img> <a href="#"><%= archivos[i].LINKARC %></a></p>
+                                    <button data-id="<%= archivos[i].IDSESION %>" id="editar-form" class="btn-editar"><img src="/icons/editar.png"></button>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% } %>
+                <% } %>
+                <button class="box semana agregar_semana" id="btnAgregarClase">
+                    <p>Agregar Clase</p>
+                    <img src="/image/plus.svg" alt="" class="icon_mas">
+                </button>
+            </section>
+        </main>
+        <% if(typeof alert != "undefined") { %>
+            <script>
+                Swal.fire({
+                    title: '<%= alertTitle %>',
+                    text: '<%= alertMessage %>',
+                    icon: '<%= alertIcon %>',
+                    showConfirmButton:<%= showConfirmButton %>,
+                    timer: <%= timer %>
+                }).then(()=>{
+                    window.location.href = '/<%= ruta %>';
+                })
+
+            </script>
+        <% } %>
+        <footer class="footer-raro">
+    
+        </footer>
+        <%- include('./partials/btn-mostrar-contenido.ejs') %>
+        <%- include('./partials/btn-agregar-evalu.ejs') %>
+    <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>

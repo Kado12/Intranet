@@ -1,0 +1,45 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <%- include('./partials/head.ejs') %>
+	<link rel="stylesheet" href="/css/kado.css">
+</head>
+<body>
+    <% if (login) { %>
+        <%- include('./partials/popup.ejs') %>
+        <%- include('./partials/navigator.ejs') %>
+        <main class="main">
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/aula-prof'">REGRESAR</button>
+            <h2 class="t-notas">Calificaciones</h2>
+            <section class="box n-aula">
+                <table class="tabla-notas">
+                    <tr>
+                        <td></td>
+                        <% for(j=0; j<numEval.length; j++ ) { %>
+                            <td class="t-eval"><%= numEval[j]['TÍTULO'] %></td>
+                        <% } %>
+                    </tr>
+                    <% for(i=0; i<15; i++) { %>
+                        <tr>
+                            <td><%= notaAlum[i].ESTUDIANTE %></td>
+                            <% n = 0 %>
+                            <% while(n <= notaAlum.length && notaAlum[i + n] && notaAlum[i + n].NOTA) { %>
+                                <td class="t-eval-n"><%= notaAlum[i+n].NOTA %></td>
+                                <% n = n + 15 %>
+                            <% } %>
+                        </tr>
+                    <% } %>
+                </table>
+            </section>
+        </main>
+        <footer class="footer-raro">
+    
+        </footer>
+    <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>

@@ -2,7 +2,17 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+body{
+    background-color: #F9FAFB;
+}
+/* Cuerpo Main */
+.main {
+    min-height: calc(100vh - 190px);
+    height: fit-content;
+    margin: 0 5%;
+    padding: 20px;
+    background-color: #F9FAFB;
+}
 /* Navigator */
 .navigator{
     display: flex;
@@ -12,6 +22,7 @@
     justify-content: space-between;
     align-content: center;
     border: 1px solid #00000041;
+    background-color: #fff;
 }
 .navigator section{
     display: flex;
@@ -32,18 +43,14 @@ section h2{
 .nombre-r{
     text-transform: uppercase;
 }
-/* Cuerpo Main */
-.main {
-    height: calc(100vh - 190px);
-    padding: 20px;
-}
+
 /* Botones */
 .prev_button {
     position: absolute;
     top: 130px;
     left: 0;
   }
-  .prev_button::after{
+.prev_button::after{
     content: "";
     background-color: #F9FAFB;
     width: 40px;
@@ -52,13 +59,12 @@ section h2{
     transform: skew(-40deg);
     left: 187px
   }
-  
-  .horario_button{
+.horario_button{
     position: absolute;
     top: 130px;
     right: 0;
   }
-  .horario_button::after{
+.horario_button::after{
     content: "";
     background-color: #F9FAFB;
     width: 40px;
@@ -66,69 +72,8 @@ section h2{
     position: absolute;
     transform: skew(40deg);
     left: -26px
-  }
-/* Formulario index-e */
-.form-asig{
-    display: flex;
-    border: 1px solid #54BDB7;
-    border-radius: 15px;
-    background-color: #fff;
-    height: 85%;
-    flex-direction: column;
-    overflow-y: scroll;
-}
-.form-asig::-webkit-scrollbar {
-    width: 10px;
-    height: 5px;
-    padding: 5px;
-}
-  
-.form-asig::-webkit-scrollbar-thumb {
-    background-color: #54BDB7;
-    border-radius: 20px;
-}
-  
-.form-asig::-webkit-scrollbar-track {
-    background-color: #ffffff;
-}
-/* Formulario e-asig */
-.dia-clase{
-    text-transform: capitalize;
-}
-.info_curso{
-    display: flex;
-    height: 200px;
-    flex-direction: column;
-    grid-column: 1;
-    justify-content: space-between;
-}
-.form-curso{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    margin: auto;
-}
-.form-curso button{
-    width: 200px;
-    flex-direction: column;
-    cursor: pointer;
-    align-items: center;
-}
-.form-curso button img{
-    width: 150px;
-    margin: 10px 0;
-}
-.form-curso button:hover{
-    background-color: #54bdb825;
-    transition: .3s;
 }
 
-/* Unidades de e.unidades */
-.unidades{
-    flex-direction: column;
-}
 /* Footer */
 .footer{
     width: 100%;

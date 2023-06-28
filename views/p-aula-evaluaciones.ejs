@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <%- include('./partials/head.ejs') %>
+	<link rel="stylesheet" href="/css/kado.css">
+    <link rel="stylesheet" href="/css/poncho.css">
+    <link rel="stylesheet" href="/css/ewa.css">
+</head>
+<body>
+    <% if (login) { %>
+        <%- include('./partials/popup.ejs') %>
+        <!-- POPUP EDITAR -->
+        <div id="form-editar-sesion" class="form-container popupediteva" style="display: none;">
+            <form method="post" action="/editar-evaluacion" class="form-editar">
+                <button class="btn-cerrar" id="btnCerrarFormulario"><img src="/icons/cerrar.png"></button>
+                <label>Nuevo nombre de la evaluación:</label>
+                <input name="nomEvalu" type="text" placeholder="Nombre de evaluación" required>
+                
+                <label>Nueva fecha de inicio</label>
+                <input name="fechaIni" type="date" required>
+                <label>Nuevo fecha de finalización</label>
+                <input name="fechaFin" type="date" required>
+
+                <label>Nueva Descripción de la evaluación</label>
+                <input name="descripEva" type="text" placeholder="Descripcion de la clase" required>
+                <label>Nuevo link de clase</label>
+                <input name="linkEva" type="text" placeholder="Link de clase" required>
+                <label>Nuevo tipo de evaluacion:</label>
+                <div class="opcionradio">
+                    <input name="tipoEva" type="radio" value="1" id="tareaRadio">
+                    <label for="tareaRadio" class="radios">Tarea</label>
+                </div>
+                <div class="opcionradio">
+                    <input name="tipoEva" type="radio" value="2" id="examenRadio">
+                    <label for="examenRadio" class="radios">Examen</label>
+                </div>
+
+                <input type="hidden" id="dataIdInput" name="sesionID">
+                <button class="editar" type="submit">Editar</button>
+            </form>
+        </div>
+        <!-- FIN DEL POPUP -->
+
+        <!-- POPUP AGREGAR -->
+        <div id="form-agregar-evaluacion" class="form-container popupediteva" style="display: none;">
+            <form method="post" action="/agregar-evaluacion" class="form-editar">
+                <button class="btn-cerrar" id="btnCerrarFormAgregar"><img src="/icons/cerrar.png"></button>
+                <label>Nuevo nombre de la evaluación:</label>
+                <input name="nomEvalu" type="text" placeholder="Nombre de evaluación" required>
+                
+                <label>Nueva fecha de inicio</label>
+                <input name="fechaIni" type="date" required>
+                <label>Nuevo fecha de finalización</label>
+                <input name="fechaFin" type="date" required>
+
+                <label>Nueva Descripción de la evaluación</label>
+                <input name="descripEva" type="text" placeholder="Descripcion de la clase" required>
+                <label>Nuevo link de clase</label>
+                <input name="linkEva" type="text" placeholder="Link de clase" required>
+                
+                <div class="contenedorOpciones">
+                    <div class="opcionradio">
+                        <label>Nuevo tipo de evaluacion:</label>
+                        <div class="opcionradio">
+                            <input name="tipoEva" type="radio" value="1" id="tareaRadio">
+                            <label for="tareaRadio" class="radios">Tarea</label>
+                        </div>
+                        <div class="opcionradio">
+                            <input name="tipoEva" type="radio" value="2" id="examenRadio">
+                            <label for="examenRadio" class="radios">Examen</label>
+                        </div>
+                    </div>
+                    <!-- Clases Existentes -->
+                    <div class="selectdiv">
+                        <label for="clasesOpcion">Elige la clase: </label>
+                        <select name="clasesPosibles" id="clasesOpcion">
+                            <% for(j = 0; j < archivos.length ; j++){ %>
+                                <option value="<%= archivos[j].IDSESION %>"><%=archivos[j].TITULOSES%></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="editar" type="submit">AGREGAR</button>
+            </form>
+        </div>
+        <!-- FIN DEL POPUP -->
+        
+        <%- include('./partials/navigator.ejs') %>
+        <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/aula-prof'">REGRESAR</button>
+        <main class="e-main color_ewa">
+            <section class="main-evalu-e">
+            <h2>Evaluaciones</h2>
+            <div class="box bimestres_container">
+                <div class="bimestre">
+                    <h4>Tareas</h4>
+                    <% for (i = 0; i<evaluaciones.length ; i++){ %>
+                        <% if (evaluaciones[i].TIPOEVA == 1){ %>
+                        <article class="box semana">
+                            <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                            <!-- Transformando fecha inicio -->
+                            <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                            <% var fecha_nueva = new Date(fecha_original); %>
+                            <% var dia = fecha_nueva.getUTCDate(); %>                                
+                            <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                            <% var ano = fecha_nueva.getUTCFullYear(); %>
+                            <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                            <p class="fecha_eval">Día de inicio: <%= formatoDeseado%></p>
+                            <% let fecha_original1 = evaluaciones[i].EVAFIN; %>
+                            <% var fecha_nueva1 = new Date(fecha_original1); %>
+                            <% var dia1 = fecha_nueva1.getUTCDate(); %>                                
+                            <% var mes1 = fecha_nueva1.getUTCMonth() + 1; %>
+                            <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
+                            <% var formatoDeseado1 = dia + " / "+mes+" / "+ano; %>
+                            <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
+                            <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
+                            <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
+                            <!-- BOTON EDITAR -->
+                            <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
+                            <!-- BOTON CALIFICAR --> 
+                            <form method="post" action="calificar" class="flechita">
+                                <button type="submit" class="calificar_btn borrarfondito" name="<%= evaluaciones[i].IDEVA %>">
+                                    <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
+                                </button>
+                            </form>
+                        </article>
+                        <% } %>
+                    <% } %>
+                <h4>Examenes</h4>
+                <% for (i = 0; i<evaluaciones.length ; i++){ %>
+                    <% if (evaluaciones[i].TIPOEVA == 2){ %>
+                    <article class="box semana">
+                        <p class="titulo_eval"><%= evaluaciones[i].TITULOEVA %></p>
+                        <!-- Transformando fecha inicio -->
+                        <% let fecha_original = evaluaciones[i].EVAINICIO; %>
+                        <% var fecha_nueva = new Date(fecha_original); %>
+                        <% var dia = fecha_nueva.getUTCDate(); %>                                
+                        <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                        <% var ano = fecha_nueva.getUTCFullYear(); %>
+                        <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                        <p class="fecha_eval">Día de inicio: <%= formatoDeseado%></p>
+                        <% let fecha_original1 = evaluaciones[i].EVAFIN; %>
+                        <% var fecha_nueva1 = new Date(fecha_original1); %>
+                        <% var dia1 = fecha_nueva1.getUTCDate(); %>                                
+                        <% var mes1 = fecha_nueva1.getUTCMonth() + 1; %>
+                        <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
+                        <% var formatoDeseado1 = dia + " / "+mes+" / "+ano; %>
+                        <p class="fecha_eval">Día de finalización: <%= formatoDeseado1%></p>
+                        <p class="desc_eval"><%= evaluaciones[i].DESCEVA %></p>
+                        <a href="<%= evaluaciones[i].LINKEVA %>"><img src="image/link.svg" alt="" class="logo_link">Link del archivo</a>
+                        <!-- BOTON EDITAR -->
+                        <button data-id="<%= evaluaciones[i].IDEVA %>" id="editar-form" class="edit_form borrarfondito"><img class="editarEva" src="/icons/editar.png">Editar</button>
+                        <!-- BOTON CALIFICAR --> 
+                        <form method="post" action="calificar" class="flechita">
+                            <button type="submit" class="calificar_btn borrarfondito" name="<%= evaluaciones[i].IDEVA %>">
+                                <img src="/icons/calificar.png" alt="" class="edit_logo">Calificar
+                            </button>
+                        </form>
+                    </article>
+                    <% } %>
+                <% } %>
+            </div>
+            <button class="box semana agregar_semana" id="btnAgregarEvaluacion">
+                <p>Agregar Evaluacion</p>
+                <img src="/image/plus.svg" alt="" class="icon_mas">
+            </button>
+            </div>
+            </section>
+        </main>
+        <%- include('./partials/footer.ejs') %>
+        <%- include('./partials/btn-edit-evalu.ejs') %>
+    <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>
