@@ -1,4 +1,5 @@
 const express = require('express')
+const { spawn } = require('child_process');
 const app = express()
 app.use(express.urlencoded({ extended:false}))
 app.use(express.json())
@@ -50,6 +51,9 @@ app.post('/auth', async (req, res)=>{
                 } else if(req.session.type == 2){
                     ruta = 'mainp'
                 } else{
+
+                    promedioGeneral();
+
                     ruta = 'maind'
                 }
                 req.session.loggedin = true
@@ -76,6 +80,40 @@ app.post('/auth', async (req, res)=>{
         })
     }
 })
+
+// FUNCION PARA QUE EJECUTE PYTHON EN DIRECTORA
+function executePythonScript() {
+    return new Promise((resolve, reject) => {
+        const pythonProcess = spawn('python', ['./public/python/prueba.py']);
+  
+        pythonProcess.stdout.on('data', (data) => {
+            console.log(`Python script output: ${data}`);
+        });
+  
+        pythonProcess.stderr.on('data', (data) => {
+            reject(data); // Rechaza la promesa si hay un error en el script de Python
+        });
+  
+        pythonProcess.on('close', (code) => {
+            console.log(`Python script process exited with code ${code}`);
+            resolve(); // Resuelve la promesa cuando el script de Python se completa sin errores
+        });
+    });
+}
+
+
+async function promedioGeneral() {
+    try {
+      await executePythonScript();
+    } catch (error) {
+        console.error("Se produjo un error al ejecutar el script de Python:", error);
+    }
+}
+
+
+
+
+
 // Verificación de sesión de cada página - estudiante
 app.get('/maine', (req, res) => {
     if(req.session.loggedin && req.session.type == 1){
@@ -619,9 +657,7 @@ app.post('/agregar-evaluacion', async(req,res) => {
     connection.query('CALL SP_agregar_evaluacion_sesionExiste(?,?,?,?,?,?,?)', [nomEvalu,descripEva,fechaIni,fechaFin,linkEva,tipoEva,idSesion], async(err,results) => {
         res.redirect('/aula-evaluaciones')
     })
-})
-
-
+})   
 
 
 //PROCEDIMIENTO PARA DIRECTORA
@@ -736,13 +772,13 @@ app.get('/d-seleccion-docente', (req,res) => {
     }
 })
 //#endregion
-
 // Cerrar sesión
 app.get('/logout', (req, res)=>{
     req.session.destroy(()=>{
         res.redirect('/')
     })
 })
+
 // Guardar el puerto en una variable
 const PUERTO = process.env.PORT || 3000 
 // Inicializar el servidor
