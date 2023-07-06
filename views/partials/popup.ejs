@@ -20,11 +20,17 @@
         width: 16px;
         height: 16px;
     }
+    #popup-content .hor{
+        width: 85%;
+    }
 </style>
 
 <div id="popup-container" style="display: none; position: absolute; z-index: 9999; background-color: #71717125; padding: 50px; width: 100%; height: 100%;">
     <div id="popup-content" style="width: 100%; height: 100%; overflow: auto;background-color: rgb(253, 253, 253);">
-        <img src="/image/horario.jpg" alt="Horario">
+        <% if(seccion){ %>
+            <img class="hor" src="/image/<%= seccion %>.jpg" alt="Horario">
+        <% } %>
+        
         <button onclick="closePopup()" class="cerrar-popup"><img src="/icons/cerrar.png" alt="Cerrar Popup" id="icon-cerrar"></button>
     </div>
 </div>
