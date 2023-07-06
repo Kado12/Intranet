@@ -375,13 +375,13 @@ app.post('/accion-docente', async (req,res) => {
         })
     }
 })
+
 // Ventana Unidades - Página p-aula-unidades.ejs
 app.get('/aula-unidades', (req, res) => {
+    let clasesExistentes = [];
+    let todasSesiones = [];
     if(req.session.loggedin && req.session.type == 2){
         connection.query('CALL SP_obtener_sesiones(?)', [req.session.curprof], async(err,results) => {
-            let clasesExistentes = [];
-            let todasSesiones = [];
-
             req.session.archivos.forEach(elemento => {
                 clasesExistentes.push(elemento.IDARC)
             });
@@ -397,6 +397,7 @@ app.get('/aula-unidades', (req, res) => {
                     clasesInexistentes.push(todasSesiones[k])
                 }
             }
+            console.log(clasesInexistentes)
 
             req.session.clasesInexistentes = clasesInexistentes
             
