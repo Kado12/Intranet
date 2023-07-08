@@ -1,4 +1,5 @@
 const express = require('express')
+const { spawn } = require('child_process');
 const app = express()
 app.use(express.urlencoded({ extended:false}))
 app.use(express.json())
@@ -51,6 +52,20 @@ app.post('/auth', async (req, res)=>{
                     ruta = 'mainp'
                     req.session.seccion = 0
                 } else{
+
+                    const pythonProcess = spawn('python', ['./public/python/general_mean.py']);
+  
+                    pythonProcess.stdout.on('data', (data) => {
+                        console.log(`Python script output: ${data}`);
+                    });
+                    pythonProcess.stderr.on('data', (data) => {
+                        console.log(`Python script error: ${data}`);
+                    });
+                    pythonProcess.on('close', (code) => {
+                        console.log(`Python script process exited with code ${code}`);
+                    })
+
+
                     ruta = 'maind'
                     req.session.seccion = 0
                 }
@@ -636,20 +651,6 @@ app.post('/agregar-evaluacion', async(req,res) => {
     connection.query('CALL SP_agregar_evaluacion_sesionExiste(?,?,?,?,?,?,?)', [nomEvalu,descripEva,fechaIni,fechaFin,linkEva,tipoEva,idSesion], async(err,results) => {
         res.redirect('/aula-evaluaciones')
     })
-})
-
-
-
-
-//PROCEDIMIENTO PARA DIRECTORA
-app.post('/acciondesempeno', async(req,res) => {
-    const btnAlumnado = Object.keys(req.body);
-    const tipoBtn = btnAlumnado.join('');
-    if(tipoBtn == 'btnAlumnado'){
-        res.redirect('/d-alum-g')
-    }else{
-        res.redirect('/d-doce-c')
-    }
 })
 
 
