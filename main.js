@@ -1,5 +1,5 @@
 const express = require('express')
-const { spawn } = require('child_process');
+const { spawn, exec } = require('child_process');
 const app = express()
 app.use(express.urlencoded({ extended:false}))
 app.use(express.json())
@@ -52,20 +52,6 @@ app.post('/auth', async (req, res)=>{
                     ruta = 'mainp'
                     req.session.seccion = 0
                 } else{
-
-                    const pythonProcess = spawn('python', ['./public/python/general_mean.py']);
-  
-                    pythonProcess.stdout.on('data', (data) => {
-                        console.log(`Python script output: ${data}`);
-                    });
-                    pythonProcess.stderr.on('data', (data) => {
-                        console.log(`Python script error: ${data}`);
-                    });
-                    pythonProcess.on('close', (code) => {
-                        console.log(`Python script process exited with code ${code}`);
-                    })
-
-
                     ruta = 'maind'
                     req.session.seccion = 0
                 }
@@ -115,10 +101,17 @@ app.get('/maine', (req, res) => {
 
 app.get('/maind', (req, res) => {
     if(req.session.loggedin && req.session.type == 3){
-        res.render('index-d',{
-            login: true,
-            name: req.session.name,
-            seccion: req.session.seccion
+        const pythonProcess = spawn('python', ['./public/python/general_mean.py']);
+        pythonProcess.stderr.on('data', (data) => {
+            console.log(`Python script error: ${data}`);
+        });
+        pythonProcess.on('close', (code) => {
+            // Renderizar
+            res.render('index-d',{
+                login: true,
+                name: req.session.name,
+                seccion: req.session.seccion
+            })
         })
     }else{
         res.render('index-d',{
@@ -170,11 +163,30 @@ app.get('/d-alum-g', (req,res) => {
 //PROCEDIMIENTO DIRECTORA -> DESEMPEÑO DOCENTE
 app.get('/d-doce-c', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
-        res.render('d-doce-c',{
-            login:true,
-            name:req.session.name,
-            seccion: req.session.seccion
+        // Query
+        connection.query('CALL SP_prom_cursos()', (err, results) => {
+            const resultados = JSON.stringify(results[0]);
+
+            const docenteMainProcess = spawn('python', ['./public/python/docente_main.py'])
+            docenteMainProcess.stdin.write(resultados);
+            docenteMainProcess.stdin.end();
+
+            docenteMainProcess.stdout.on('data', (data) => {
+                console.log(`Este es el proceso bueno: ${data}`)
+            })
+            docenteMainProcess.stderr.on('data',(data) => {
+                console.log(`grado_prom script error: ${data}`)
+            })
+            docenteMainProcess.on('close', (code) => {
+                res.render('d-doce-c',{
+                    login:true,
+                    name:req.session.name,
+                    seccion: req.session.seccion
+                })
+            })
+
         })
+
     }else{
         res.render('d-doce-c',{
             login:false,
@@ -184,11 +196,34 @@ app.get('/d-doce-c', (req,res) => {
 })
 //PROCEDIMIENTO BOTONES ALUMNADO GRADO->SECCION
 app.post('/desempenoalumnado', async(req,res) => {
-    res.redirect('/d-alum-s')
-})
-//PROCEDIMIENTO BOTONES ALUMNADO SECCION->CURSO
-app.post('/alumseccioncurso', async(req,res) => {
-    res.redirect('/d-alum-c')
+    const nameBtn = Object.keys(req.body);
+    const gradoDato = parseInt(nameBtn)
+    req.session.gradoSeleccionado = gradoDato
+    
+
+    connection.query('CALL SP_obtener_notas_grado(?)', [gradoDato], (err, results) => {
+        // Guardando los resultados
+        const resultados = results[0];
+        //Convirtiendo los datos en formato para python
+        const datosPython = JSON.stringify(resultados);
+
+        const gradoPromProcess = spawn('python', ['./public/python/grado_prom.py'])
+        gradoPromProcess.stdin.write(datosPython);
+        gradoPromProcess.stdin.end();
+
+        gradoPromProcess.stdout.on('data', (data) => {
+            const estadistica = JSON.parse(data.toString())
+            req.session.estadistica = estadistica
+            console.log('Estadistica es:', estadistica)
+        })
+        gradoPromProcess.stderr.on('data',(data) => {
+            console.log(`grado_prom script error: ${data}`)
+        })
+        gradoPromProcess.on('close', (code) => {
+            // Renderizar
+            res.redirect('/d-alum-s')
+        })
+    })
 })
 //PROCEDIMIENTO BOTONES DOCENTE CURSOS -> DOCENTES
 app.post('/doce-docentes-docente', async(req,res) => {
@@ -677,13 +712,14 @@ app.get('/d-alum-c', (req,res) => {
 app.get('/e-evalu', (req,res)=>{
     res.render('e-evalu')
 })
-//PATRICK
 app.get('/d-alum-s', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
         res.render('d-alum-s',{
             name: req.session.name,
             login:true,
-            seccion: req.session.seccion
+            seccion: req.session.seccion,
+            grado: req.session.gradoSeleccionado,
+            estadistica : req.session.estadistica
         })
     }else{
         res.render('d-alum-s',{

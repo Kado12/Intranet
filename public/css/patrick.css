@@ -1,23 +1,50 @@
 .grid-patrick{
   display:grid;
   grid-template-columns: .7fr 1fr;
-  grid-gap: 40px;
+  grid-row-gap: 80px;
   justify-content: center;
   align-items: center;
-  padding: 0 100px;
+  padding: 30px 100px;
+}
+.grid-main-patrick-seccion{
+  grid-template-rows: 1fr .2fr 1fr;
+
 }
 .left_container{
   grid-column: 1;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .right_container{
   grid-column: 2;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.resumen_grafico{
+  grid-column: span 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 120px;
+  text-align: justify;
+}
+.graficobox_container{
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.grafico{
+  width: 80%;
+}
+
+
 .directora_box{
   width: 70%;
   min-width: 340px;
@@ -67,4 +94,14 @@
 .bg_docentes{
   background-image: url('/image/dm-2.jpg');
   height: 80%;
+}
+
+.textoresumen h3{
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.textoresumen p{
+  font-size: 16px;
+  line-height: 28px;
+  text-align: justify;
 }

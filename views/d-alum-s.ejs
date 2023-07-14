@@ -10,15 +10,36 @@
     <body>
       <%- include('./partials/navigator.ejs') %>
       <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
-      <main class="main grid-patrick">
-        <form class="left_container" method="post" action="alumseccioncurso">
-          <button class="box directora_box text_center" name="seccionaAlum-s">Seccion A</button>
-          <button class="box directora_box text_center" name="seccionbAlum-s">Seccion B</button>
-          <button class="box directora_box text_center" name="seccioncAlum-s">Seccion C</button>
-          <button class="box directora_box text_center" name="secciondAlum-s">Seccion D</button>
+      <main class="main grid-patrick grid-main-patrick-seccion">
+        <form class="left_container" method="post">
+          <div class="box directora_box text_center" name="seccionaAlum-s">Seccion A</div>
+          <div class="box directora_box text_center" name="seccionbAlum-s">Seccion B</div>
+          <div class="box directora_box text_center" name="seccioncAlum-s">Seccion C</div>
+          <div class="box directora_box text_center" name="secciondAlum-s">Seccion D</div>
         </form>
         <div class="right_container">
-          <img src="/image/imagen4.png" alt="">
+          <img src="/image/grado_prom.png" alt="" class="grafico">
+        </div>
+        <!-- Seccion resumen -->
+        <div class="resumen_grafico textoresumen">
+          <h3>Resumen Estadistico</h3>
+          <p>Numero de registros: <%= estadistica.count %><br>
+            Promedio del grado: <%= estadistica.mean %><br>
+            Desviacion estandar (variabilidad de las notas): <%= estadistica.std %><br>
+            Menor nota: <%= estadistica.min %><br>
+            Valor por debajo del cual se encuentra el 25% de las notas: <%= estadistica['25%'] %><br>
+            Mediana: <%= estadistica['50%'] %><br>
+            Valor por debajo del cual se encuentra el 75% de las notas: <%= estadistica['75%'] %><br>
+            Mayor nota: <%= estadistica.max %>
+          </p>
+        </div>
+        <div class="cajagrafico_container textoresumen">
+          <h3>Grafica de Caja y bigotes</h3>
+          <p>Cada caja en el gráfico representa la distribución de las notas en una sección específica. La línea central de la caja representa la mediana, mientras que los bordes superior e inferior de la caja representan el primer y tercer cuartil, respectivamente. Los 'bigotes' muestran la variabilidad de las notas dentro de cada sección, excluyendo los valores atípicos que se muestran como puntos individuales fuera de los bigotes.</p>
+        </div>
+        <!-- Seccion de caja -->
+        <div class="graficobox_container">
+          <img src="/image/grado_prom_box.png" alt="" class="grafico">
         </div>
       </main>
       <%- include('./partials/footer.ejs') %>
