@@ -9,7 +9,7 @@
 .form-asig{
     margin: 20px 0;
     display: flex;
-    width: 45%;
+    width: 40%;
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
@@ -32,14 +32,35 @@
 /* Anuncios */
 .anuncios-e{
     display: flex;
-    width: 45%;
+    width: 55%;
+    height: calc(85vh - 190px);
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
     height: 85%;
+    flex-direction: row;
+    overflow-y: auto;
+    justify-content: space-between;
+    padding: 15px;
+}
+.anuncios-e .anuncios-tarea{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(85vh - 190px);
+}
+.tarea-caja{
+    display: flex;
     flex-direction: column;
 }
-
+.anuncios-e .anuncios-examen{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(85vh - 190px);
+}
 /* Archivo e.asig.ejs */
 .dia-clase{
     text-transform: capitalize;
@@ -57,7 +78,7 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
-    width: 60%;
+    width: 100%;
     line-height: 25px;
 }
 .form-curso{
@@ -75,7 +96,7 @@
     align-items: center;
 }
 .form-curso button img{
-    width: 150px;
+    width: 100px;
     margin: 10px 0;
 }
 .form-curso button:hover{
@@ -141,6 +162,7 @@
 }
 .t-nota{
     margin-top: 20px;
+    margin-left: 20px
 }
 .box-notas{
     flex-direction: column;
@@ -157,6 +179,16 @@
 
 }
 
+.box2{
+    display: flex;
+  border: 1px solid #54BDB7;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 30px 60px;
+  margin: 10px;
+}
+
+
 /* Archivo index-p.ejs */
 .form-p-aula{
     flex-direction: column;
@@ -166,11 +198,16 @@
     background-color: #ffffff00;
 }
 .form-p-aula button{
-    width: 50%;
+    width: 75%;
     flex-direction: column;
     text-align: center;
     align-items: center;
 }
+
+.titulo_pestana{
+    margin-left: 20px;
+}
+
 .horario-p{
     width: 55%;
     height: 80%;
@@ -292,7 +329,7 @@
 
 /* Página p-aula-notas.ejs */
 .t-notas{
-    margin:30px 10vw;
+    margin:20px 10vw;
 }
 .n-aula{
     flex-direction: column;
@@ -352,6 +389,7 @@
 
 /* Página p-calificaciones.ejs */
 .f-calificaciones{
+    margin-top: 30px;
     display: flex;
     justify-content: space-around;
 }
@@ -399,4 +437,7 @@ input[type="number"] {
 }
 div input{
     text-align: center;
+}
+.titulo_eva-2{
+    margin: 0;
 }

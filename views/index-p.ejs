@@ -12,7 +12,7 @@
         <%- include('./partials/navigator.ejs') %>
         <main class="main e-main">
             <form action="/vaula" method="post" class="box form-p-aula">
-                <h2>Aulas</h2><br>
+                <h2 class="titulo_pestana">Aulas</h2><br>
                 <% for(i = 0; i < infoAula.length; i++){ %>
                     <button type="submit" class="box" name="gs_<%= infoAula[i].GRADO %><%= infoAula[i]['SECCIÓN'] %>">
                         <h4><%= infoAula[i].GRADO %>° Grado</h4>

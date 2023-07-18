@@ -10,11 +10,28 @@ app.use(session({
 }))
 const dotenv = require('dotenv')
 dotenv.config({path:'./env/.env'})
-const {join} = require('path')
+const {join, resolve} = require('path')
 const connection = require('./database/db.js')
+const { rejects } = require('assert')
 app.set('views', join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(express.static(join(__dirname, 'public')))
+app.use((req, res, next) => {
+    res.locals.horaActual = obtenerHoraActual()
+    res.locals.fechaActual = obtenerFechaActual()
+    next()
+});
+function obtenerHoraActual() {
+    const fechaHoraActual = new Date()
+    return fechaHoraActual.toLocaleTimeString()
+}
+function obtenerFechaActual() {
+    const fechaActual = new Date()
+    const dia = fechaActual.getDate()
+    const mes = fechaActual.getMonth() + 1
+    const anio = fechaActual.getFullYear()
+    return `${anio}-${mes}-${dia}`
+}
 // Ruta de pagina de Logeo
 app.get('/',(req,res)=>{
     res.render('index')
@@ -49,8 +66,10 @@ app.post('/auth', async (req, res)=>{
                     req.session.idaula = results[0][0]['ID AULA']
                 } else if(req.session.type == 2){
                     ruta = 'mainp'
+                    req.session.seccion = 0
                 } else{
                     ruta = 'maind'
+                    req.session.seccion = 0
                 }
                 req.session.loggedin = true
                 res.render('index', {
@@ -77,16 +96,49 @@ app.post('/auth', async (req, res)=>{
     }
 })
 // Verificación de sesión de cada página - estudiante
-app.get('/maine', (req, res) => {
+app.get('/maine', async (req, res) => {
     if(req.session.loggedin && req.session.type == 1){
-        connection.query('CALL SP_cursos_estudiante(?)', [req.session.idaula], (err, results) => {
-            req.session.cursos = results[0]
+        const getAnuncios = () => {
+            return new Promise((resolve, reject) => {
+                connection.query('CALL SP_eva_salon(?)', [req.session.idaula], (err, results) => {
+                    if (err){
+                        reject(err)
+                    } else{
+                        req.session.tareas = results
+                        console.log(results[0][0])
+                        console.log(results[1][0])
+                        resolve(results)
+                    }
+                })
+            })
+        }
+        const getCursos = () => {
+            return new Promise((resolve, rejects) => {
+                connection.query('CALL SP_cursos_estudiante(?)', [req.session.idaula], (err, results) => {
+                    if (err){
+                        reject(err)
+                    } else{
+                        req.session.cursos = results[0]
+                        resolve(results)
+                    }   
+                })
+            })
+        }
+        try {
+            const anuncios = await getAnuncios()
+            const cursos = await getCursos()
             res.render('index-e',{
                 login: true,
+                horaActual: res.locals.horaActual,
+                fechaActual: res.locals.fechaActual,
                 name: req.session.name,
-                data: req.session.cursos
+                data: req.session.cursos,
+                seccion: req.session.seccion,
+                tareas: req.session.tareas
             })
-        })
+        } catch (err) {
+            console.log(err)
+        } 
     }else{
         res.render('index-e',{
             login: false,
@@ -99,7 +151,8 @@ app.get('/maind', (req, res) => {
     if(req.session.loggedin && req.session.type == 3){
         res.render('index-d',{
             login: true,
-            name: req.session.name
+            name: req.session.name,
+            seccion: req.session.seccion
         })
     }else{
         res.render('index-d',{
@@ -137,7 +190,8 @@ app.get('/d-alum-g', (req,res) => {
     if(req.session.loggedin && req.session.type==3){
         res.render('d-alum-g', {
             login: true,
-            name: req.session.name
+            name: req.session.name,
+            seccion: req.session.seccion
         })
     }else {
         res.render('d-alum-g', {
@@ -152,7 +206,8 @@ app.get('/d-doce-c', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
         res.render('d-doce-c',{
             login:true,
-            name:req.session.name
+            name:req.session.name,
+            seccion: req.session.seccion
         })
     }else{
         res.render('d-doce-c',{
@@ -219,6 +274,7 @@ app.get('/e-unidad', (req,res) => {
             archivos: req.session.archivos,
             evaluaciones: req.session.evaluaciones, 
             nomCurso: req.session.descurso,
+            seccion: req.session.seccion,
             login: true
         })
     } else{
@@ -236,6 +292,7 @@ app.get('/e-evalu', (req,res)=>{
             archivos: req.session.archivos,
             evaluaciones: req.session.evaluaciones,
             login: true,
+            seccion: req.session.seccion,
             nomCurso: req.session.descurso
         })
     }else{
@@ -256,7 +313,8 @@ app.get('/e-notas', (req,res) => {
                 name: req.session.name,
                 notas: req.session.notas,
                 promedio: req.session.promedio,
-                nomC: req.session.descurso
+                nomC: req.session.descurso,
+                seccion: req.session.seccion
             })
         })
     }else{
@@ -275,7 +333,8 @@ app.get('/mainp', (req, res) => {
             res.render('index-p',{
                 login: true,
                 name: req.session.name,
-                infoAula: req.session.infoAula
+                infoAula: req.session.infoAula,
+                seccion: req.session.seccion
             })
         })
     }else{
@@ -337,7 +396,8 @@ app.get('/aula-prof', (req, res) => {
             curprof: req.session.curprof,
             gradoAula: req.session.gradoAula,
             seccionAula: req.session.seccionAula,
-            alumnosAula: req.session.alumnosAula
+            alumnosAula: req.session.alumnosAula,
+            seccion: req.session.seccion
         })
     }else{
         res.render('index-p',{
@@ -399,7 +459,6 @@ app.get('/aula-unidades', (req, res) => {
             }
 
             req.session.clasesInexistentes = clasesInexistentes
-            
             res.render('p-aula-unidades',{
                 login: true,
                 name: req.session.name,
@@ -410,7 +469,8 @@ app.get('/aula-unidades', (req, res) => {
                 gradoAula: req.session.gradoAula,
                 seccionAula: req.session.seccionAula,
                 alumnosAula: req.session.alumnosAula,
-                sesionesOpciones: req.session.clasesInexistentes
+                sesionesOpciones: req.session.clasesInexistentes,
+                seccion: req.session.seccion
             })
         })
 
@@ -443,7 +503,8 @@ app.post('/editar-post', async(req, res) => {
             evaluaciones: req.session.evaluaciones,
             gradoAula: req.session.gradoAula,
             seccionAula: req.session.seccionAula,
-            alumnosAula: req.session.alumnosAula
+            alumnosAula: req.session.alumnosAula,
+            seccion: req.session.seccion
         })
     })
 })
@@ -477,7 +538,8 @@ app.get('/aula-evaluaciones', (req,res) => {
             login: true,
             name: req.session.name,
             archivos: req.session.archivos,
-            evaluaciones: req.session.evaluaciones
+            evaluaciones: req.session.evaluaciones,
+            seccion: req.session.seccion
         })
     }else{
         res.render('index-p',{
@@ -533,7 +595,8 @@ app.get('/p-calificacion', (req,res) => {
             alumnosA: req.session.alumnosA,
             idEva: req.session.idEva,
             tituloEva: req.session.titulocal,
-            name: req.session.name
+            name: req.session.name,
+            seccion: req.session.seccion
         })
     }else{
         res.render('index-p',{
@@ -565,7 +628,8 @@ app.get('/aula-notas', (req,res) => {
             login: true,
             name: req.session.name,
             notaAlum: req.session.notasalum,
-            numEval: req.session.neval
+            numEval: req.session.neval,
+            seccion: req.session.seccion
         })
     }else{
         res.render('index-p',{
@@ -581,7 +645,8 @@ app.get('/aula-asistencia', (req,res) => {
         res.render('p-aula-asistencia',{
             login: true,
             name: req.session.name,
-            alumnos: req.session.alumnos
+            alumnos: req.session.alumnos,
+            seccion: req.session.seccion
         })
     }else{
         res.render('index-p',{
@@ -637,47 +702,15 @@ app.post('/acciondesempeno', async(req,res) => {
 
 
 
-//PONCHO
-app.get('/cursos-e', (req,res) => {
-    res.render('cur-uni')
-})
-// Unidades Estudiante
-app.get('/unidades-e', (req,res) => {
-    res.render('unidades-e')
-})
-// Unidades profesor
-app.get('/unidades-pr', (req,res) => {
-    res.render('unidades-pr')
-})
-//EVALUACIONES PROFESOR
-app.get('/evalu-pr', (req,res)=> {
-    res.render('evalu-pr')
-})
-//Aula Profesor
-app.get('/aula-pr', (req,res)=> {
-    res.render('aula-pr')
-})
-app.get('/evalu-e', (req,res)=>{
-    res.render('evalu-e')
-})
 
-//EWAPLS
-app.get('/asistencia', (req,res) => {
-    res.render('asistencia-profesor')
-})
 
-app.get('/calificacionT', (req,res) => {
-    res.render('calificacion-tareas-profesor')
-})
 
-app.get('/calificacionP', (req,res) => {
-    res.render('calificacion-practicas-profesor')
-})
 app.get('/d-alum-c', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
         res.render('d-alum-c',{
             name: req.session.name,
-            login:true
+            login:true,
+            seccion: req.session.seccion
         })
     }else{
         res.render('d-alum-c',{
@@ -687,9 +720,6 @@ app.get('/d-alum-c', (req,res) => {
     }
 })
 
-app.get('/calificacionN', (req,res) => {
-    res.render('calificacion-notas-profesor')
-})
 //USANDO NODE
 app.get('/e-evalu', (req,res)=>{
     res.render('e-evalu')
@@ -699,7 +729,8 @@ app.get('/d-alum-s', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
         res.render('d-alum-s',{
             name: req.session.name,
-            login:true
+            login:true,
+            seccion: req.session.seccion
         })
     }else{
         res.render('d-alum-s',{
@@ -712,7 +743,8 @@ app.get('/d-doce-d', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
         res.render('d-doce-d',{
             name: req.session.name,
-            login:true
+            login:true,
+            seccion: req.session.seccion
         })
     }else{
         res.render('d-doce-d',{
@@ -726,7 +758,8 @@ app.get('/d-seleccion-docente', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
         res.render('d-seleccion-docente',{
             name: req.session.name,
-            login:true
+            login:true,
+            seccion: req.session.seccion
         })
     }else{
         res.render('d-seleccion-docente',{
