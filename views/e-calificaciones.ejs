@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs') %>
+	<link rel="stylesheet" href="/css/kado.css">
+</head>
+<body>
+    <% if (login) { %>
+        <%- include('./partials/popup.ejs') %>
+        <%- include('./partials/navigator.ejs') %>    
+        <main class="main">
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/asig-estu'">REGRESAR</button>
+            <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
+            <h2 class="t-nota"><%= nomC %> / Notas</h2>
+            <section class="cal-box">
+                <div class="box box-notas">
+                    <% for(i=0; i<notas.length; i++){ %>
+                        <div class="box box-n-e">
+                            <p><%= notas[i]['TÍTULO'] %></p>
+                            <h4><%= notas[i].NOTA %></h4>
+                        </div>                        
+                    <% } %>
+                </div>
+                <div class="box box-promedio">
+                    <h2>Promedio Actual</h2>
+                    <h4><%= promedio[0]['PROMEDIO GENERAL'] %></h4>
+                </div>
+            </section>
+        </main>
+        <%- include('./partials/footer.ejs') %>
+    <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>

@@ -12,22 +12,24 @@
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>
         <main class="main e-main">
-            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/maine'">REGRESAR</button>
-            <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/mainp'">REGRESAR</button>
             <section class="info-curso">
-				<h2><%= nomasig %></h2>
+                <h2>Datos del Aula</h2>
 				<div class="box info-c">
-					<h4>Responsable:</h4>
-					<p><%= prof %></p>
+					<h4>Grado:</h4>
+                    <p><%= gradoAula %></p>
 					<h4>Sección:</h4>
-					<p><%= seccion %></p>
+                    <p><%= seccionAula %></p>
 					<h4>Horario:</h4>
-					<% for (i=0; i<hotdia.length; i++){ %>
-						<p class="dia-clase"><%= hotdia[i].DIA_CURSO %>: <%= hotdia[i].HORA_INICIO %> - <%= hotdia[i].HORA_FIN %></p>
-					<% } %>
+                    <% for(i=0;i<aulaInfo.length;i++) {%>
+                        <p style="text-transform: capitalize;"><%= aulaInfo[i].DIACUR %>:</p>
+                        <p><%= aulaInfo[i].HORAINICIO %> - <%= aulaInfo[i].HORAFIN %></p>
+                    <% } %>
+                    <h4>N° Alumnos:</h4>
+                    <p><%= alumnosAula.length %></p>
 				</div>
           	</section>
-            <form action="accion-estudiante" method="post" class="form-curso">
+            <form action="accion-docente" method="post" class="form-curso">
 				<button type="submit" class="uni_button box" name="unidades">
 					<img src="/icons/documento.png">
 					<h2>UNIDADES</h2>
@@ -39,6 +41,10 @@
 				<button type="submit" class="nota_button box" name="notas">
 					<img src="/icons/birrete.png">
 					<h2>CALIFICACIONES</h2>
+				</button>
+                <button type="submit" class="uni_button box" name="asistencias">
+					<img src="/icons/asistencia.png">
+					<h2>ASISTENCIAS</h2>
 				</button>
             </form>
         </main>

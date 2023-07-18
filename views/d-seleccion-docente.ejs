@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/css/poncho.css">
+  <link rel="stylesheet" href="/css/style-jhean.css">
+  <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+  <% if (login) { %>
+  <%- include('./partials/navigator.ejs') %>
+  <main class="principal">
+
+    <div class="contenedor-centrado">
+        <div class="box title-div">
+          <h1 class="title1 "><b>PROFESOR JESUS MANRIQUE</b></h1>
+        </div>
+        <div class="box image-div">
+          <img src="/image/imagen 4.png" alt="Imagen">
+          <!-- Hola -->
+        </div>
+      </div>
+  </main>
+  <%- include('./partials/footer.ejs') %>
+      <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>
