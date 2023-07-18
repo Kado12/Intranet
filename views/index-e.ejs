@@ -21,7 +21,50 @@
                 <% }); %>
             </form>
             <section class="anuncios-e">
-
+                <article class="anuncios-tarea">
+                    <h2>Tarea</h2>
+                    <% for (i=0; i<tareas[0].length; i++){ %>
+                        <% let fecha_original = tareas[0][i].FECHA_FIN; %>
+                        <% var fecha_nueva = new Date(fecha_original); %>
+                        <% var dia = fecha_nueva.getUTCDate(); %>
+                        <% var mes = fecha_nueva.getUTCMonth() + 1; %>
+                        <% var ano = fecha_nueva.getUTCFullYear(); %>
+                        <% var fecha_nueva1 = new Date(fechaActual); %>
+                        <% var dia1 = fecha_nueva1.getUTCDate(); %>
+                        <% var mes1 = fecha_nueva1.getUTCMonth(); %>
+                        <% var ano1 = fecha_nueva1.getUTCFullYear(); %>
+                        <% var formatoDeseado = dia + " / "+mes+" / "+ano; %>
+                        <% if(dia >= dia1 & mes >= mes1 & ano >= ano1) {%>
+                            <div class="box tarea-caja">
+                                <p><%= tareas[0][i].TITULO %></p>
+                                <p><%= tareas[0][i].ASIGNATURA %></p>
+                                <p class="desc_help">Día Final: <%= formatoDeseado%></p>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </article>
+                <article class="anuncios-examen">
+                    <h2>Examen</h2>
+                    <% for(i=0;i<tareas[1].length;i++){ %>
+                        <% let fecha_original2 = tareas[1][i].FECHA_FIN; %>
+                        <% var fecha_nueva2 = new Date(fecha_original2); %>
+                        <% var dia2 = fecha_nueva2.getUTCDate(); %>
+                        <% var mes2 = fecha_nueva2.getUTCMonth() + 1; %>
+                        <% var ano2 = fecha_nueva2.getUTCFullYear(); %>
+                        <% var fecha_nueva3 = new Date(fechaActual); %>
+                        <% var dia3 = fecha_nueva3.getUTCDate(); %>
+                        <% var mes3 = fecha_nueva3.getUTCMonth(); %>
+                        <% var ano3 = fecha_nueva3.getUTCFullYear(); %>
+                        <% var formatoDeseado2 = dia + " / "+mes+" / "+ano; %>
+                        <% if(dia2 >= dia3 & mes2 >= mes3 & ano2 >= ano3) {%>
+                            <div class="box tarea-caja">
+                                <p><%= tareas[1][i].TITULO %></p>
+                                <p><%= tareas[1][i].ASIGNATURA %></p>
+                                <p class="desc_help">Día Final: <%= formatoDeseado2%></p>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </article>
             </section>
         </main>
         <%- include('./partials/footer.ejs') %>

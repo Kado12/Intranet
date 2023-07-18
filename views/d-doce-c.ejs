@@ -8,10 +8,10 @@
         <link rel="stylesheet" href="/css/patrick.css">
     </head>
     <body>
-      <%- include('./partials/navigator2.ejs') %>
+      <%- include('./partials/navigator.ejs') %>
       <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
       <main class="main grid-patrick">
-        <form class="left_container">
+        <form class="left_container" method="post" action="doce-curso-seccion">
           <button class="box directora_box text_center">Docentes<br>Curso A</button>
           <button class="box directora_box text_center">Docentes<br>Curso B</button>
           <button class="box directora_box text_center">Docentes<br>Curso C</button>

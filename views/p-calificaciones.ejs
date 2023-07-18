@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/kado.css">
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+    <% if (login) { %>
+        <%- include('./partials/navigator.ejs') %>
+        <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/aula-evaluaciones'">REGRESAR</button>
+        <main class="main">
+            <form method="post" action="revisar" class="f-calificaciones">
+                <section class="box2 p-main">
+                    <h2 class="titulo_eva-2"><%= tituloEva %></h2>
+                    <% for(i=0; i<15; i++) { %>
+                        <div>
+                            <%= alumnosA[i].ESTUDIANTE %>
+                            <input id="nota" type="number" min="0" max="20" name="<%= alumnosA[i].ID %>" required>
+                        </div>
+                    <% } %>
+                </section>
+                <button type="submit"><img src="/icons/disquete.png"> Guardar</button>
+            </form>
+        </main>
+        <footer class="footer-raro">
+    
+        </footer>
+    <% } else { %>
+        <h1><strong><%= name %></strong></h1>
+        <a href="/" class="a-login">Ir al login</a>
+    <% } %>
+</body>
+</html>

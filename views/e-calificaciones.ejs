@@ -11,13 +11,12 @@
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>    
-        <main class="e-main main">
-            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+        <main class="main">
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/asig-estu'">REGRESAR</button>
             <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
+            <h2 class="t-nota"><%= nomC %> / Notas</h2>
             <section class="cal-box">
-                <h2 class="t-notas"><%= nomC %></h2>
                 <div class="box box-notas">
-                    <h2>Notas</h2>
                     <% for(i=0; i<notas.length; i++){ %>
                         <div class="box box-n-e">
                             <p><%= notas[i]['TÍTULO'] %></p>

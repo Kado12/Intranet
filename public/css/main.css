@@ -2,9 +2,14 @@
     margin: 0;
     box-sizing: border-box;
 }
+body{
+    background-color: #F9FAFB;
+}
 /* Cuerpo Main */
 .main {
-    height: calc(100vh - 190px);
+    min-height: calc(100vh - 190px);
+    height: fit-content;
+    margin: 0 5%;
     padding: 20px;
     background-color: #F9FAFB;
 }

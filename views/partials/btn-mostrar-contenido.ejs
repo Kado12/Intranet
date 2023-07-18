@@ -1,25 +1,42 @@
 <script>
-    // Obtener todos los contenedores de la clase "box_unidad"
 const boxUnidades = document.querySelectorAll('.box_unidad');
 
-// Recorrer cada contenedor
 boxUnidades.forEach(boxUnidad => {
-    // Obtener el botón y el contenido dentro de cada contenedor
     const toggleButton = boxUnidad.querySelector('.toggle-btn');
     const content = boxUnidad.querySelector('.content');
     let rotated = false;
-    // Agregar evento de clic al botón
-    toggleButton.addEventListener('mousedown', () => {
-        // Alternar la visibilidad del contenido
-        if (content.style.display === 'none' && !rotated) {
-            content.style.display = 'block';
-            toggleButton.classList.add('rotated');
-            rotated = true;
-        } else {
-            content.style.display = 'none';
-            toggleButton.classList.remove('rotated');
-            rotated = false;
-        }
+
+    //Conseguir el boton eliminar
+    let deleteButton = boxUnidad.querySelector('.tachito_container');
+    let clicked = false;
+    
+    toggleButton.addEventListener('click', () => {
+        content.style.display = rotated ? 'none' : 'block';
+        toggleButton.classList.toggle('rotated', !rotated);
+        rotated = !rotated;
+
+        deleteButton.style.display = clicked ? 'none' : 'block';
+        clicked = !clicked;
     });
+});
+
+
+const btnMostrarFormularios = document.querySelectorAll('.btn-editar')
+const formEditarSesion = document.getElementById('form-editar-sesion')
+const btnCerrarFormulario = document.getElementById('btnCerrarFormulario')
+
+// Agregar evento de clic a todos los botones
+btnMostrarFormularios.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        
+        const dataId = btn.dataset.id
+        dataIdInput.value = dataId
+        formEditarSesion.style.display = 'block' // Mostrar el formulario al hacer clic en cualquier botón
+        console.log(dataId)
+    });
+});
+
+btnCerrarFormulario.addEventListener('click', function() {
+    formEditarSesion.style.display = 'none'; // Ocultar el formulario al hacer clic en el botón de cerrar
 });
 </script>

@@ -7,14 +7,15 @@
 }
 /* Formulario index-e */
 .form-asig{
+    margin: 20px 0;
     display: flex;
-    width: 45%;
+    width: 40%;
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
-    height: 85%;
+    height: calc(85vh - 190px);
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .form-asig::-webkit-scrollbar {
     width: 10px;
@@ -31,14 +32,35 @@
 /* Anuncios */
 .anuncios-e{
     display: flex;
-    width: 45%;
+    width: 55%;
+    height: calc(85vh - 190px);
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
     height: 85%;
+    flex-direction: row;
+    overflow-y: auto;
+    justify-content: space-between;
+    padding: 15px;
+}
+.anuncios-e .anuncios-tarea{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(85vh - 190px);
+}
+.tarea-caja{
+    display: flex;
     flex-direction: column;
 }
-
+.anuncios-e .anuncios-examen{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(85vh - 190px);
+}
 /* Archivo e.asig.ejs */
 .dia-clase{
     text-transform: capitalize;
@@ -55,8 +77,8 @@
 .info-c{
     display: flex;
     flex-direction: column;
-    height: 200px;
-    width: 60%;
+    height: fit-content;
+    width: 100%;
     line-height: 25px;
 }
 .form-curso{
@@ -74,7 +96,7 @@
     align-items: center;
 }
 .form-curso button img{
-    width: 150px;
+    width: 100px;
     margin: 10px 0;
 }
 .form-curso button:hover{
@@ -86,14 +108,20 @@
 .e-uni-main{
     display: flex;
     align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.e-uni-main h2{
+    margin-top: 20px;
 }
 .unidades{
-    height: 80%;
+    height: fit-content;
     width: 80%;
     flex-direction: column;
 }
 .box_unidad{
     flex-direction: column;
+    position: relative;
 }
 .footer-raro{
     width: 100%;
@@ -102,13 +130,16 @@
 }
 .content {
     display: none;
+    position: relative;
+    padding-top: 15px;
+    text-indent: 15px;
 }
 /* Botón mostrar */
 .toggle-btn{
     width: 20px;
     height: 19px;
     position: absolute;
-    right: calc(20% + 60px);
+    right: 15px;
     background-color: #ffffff00;
     border: 0;
 }
@@ -125,19 +156,18 @@
 /* Archivo e-calificaciones.ejs */
 .cal-box{
     width: 90%;
-    height: 80%;
-    display: grid;
-    grid-template-columns: 60% 40%;
-    grid-template-rows: 15% 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
 }
-.t-notas{
-   display: block; 
+.t-nota{
+    margin-top: 20px;
+    margin-left: 20px
 }
 .box-notas{
     flex-direction: column;
-    height: 90%;
-    grid-column: 1/span 1;
-    overflow-y: scroll;
+    height: fit-content;
+    width: 60%;
 }
 .box-n-e{
     justify-content: space-between;
@@ -145,4 +175,269 @@
 .box-promedio{
     justify-content: space-between;
     height: fit-content;
+    width: 40%;
+
+}
+
+.box2{
+    display: flex;
+  border: 1px solid #54BDB7;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 30px 60px;
+  margin: 10px;
+}
+
+
+/* Archivo index-p.ejs */
+.form-p-aula{
+    flex-direction: column;
+    width: 40%;
+    height: 80%;
+    border: 0;
+    background-color: #ffffff00;
+}
+.form-p-aula button{
+    width: 75%;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.titulo_pestana{
+    margin-left: 20px;
+}
+
+.horario-p{
+    width: 55%;
+    height: 80%;
+}
+.footer-raro{
+    width: 100%;
+    height: 60px;
+    background-color: #007997;
+}
+/* Archivo p-aula-unidades.ejs */
+.p-uni{
+    margin-top: 20px;
+}
+.content .btn-editar{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff00;
+    border: none;
+}
+.content .btn-eliminar{
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    background-color: #ffffff00;
+    border: none;
+}
+.content p img{
+    width: 15px;
+}
+.content .btn-editar img{
+    width: 15px;
+}
+.p-uni-main{
+    min-height: calc(100vh - 190px);
+    height: max-content;
+}
+.footer-p{
+    width: 100%;
+    height: 60px;
+    background-color: #007997;
+}
+/* Formulario editar */
+.form-container{
+    z-index: 10000;
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: #71717125;
+    animation-name: emergente;
+    animation-duration: .5s;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@keyframes emergente {
+    0% {
+        width: 0%;
+        height: 0%;
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+    }
+  }
+.form-editar{ 
+    position: relative;
+    width: 50%;
+    height: fit-content;
+    background-color: #ffffff;
+    margin: auto;
+    border: 1px solid #007997;
+    border-radius: 15px;
+    margin-top: 10%;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+}
+.form-editar input{
+    width: 80%;
+    height: fit-content;
+    border: 1px solid #007997;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px;
+}
+.form-editar input::placeholder{
+    color: #007997a4;
+    font-style: italic;
+}
+.btn-cerrar{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
+    border: none;
+}
+.btn-cerrar img{
+    width: 25px;
+}
+.editar{
+    width: 30%;
+    height: fit-content;
+    padding: 15px;
+    background-color: #007997;
+    border: 1px solid #00495c;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 15px;
+    margin: auto;
+    transition: .5s;
+}
+.editar:hover{
+    transition: .5s;
+    background-color: #008caf;
+    border: 1px solid #0f5566;
+}
+
+/* Página p-aula-notas.ejs */
+.t-notas{
+    margin:20px 10vw;
+}
+.n-aula{
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 10vw;
+}
+.tabla-notas{
+    width: 100%;
+    border-collapse: collapse;
+}
+.tabla-notas td{
+    padding: 10px;
+    border-bottom: 1px solid #007997;
+}
+.t-eval{
+    width: 10vw;
+    text-align: center;
+    font-weight: bold;
+}
+.t-eval-n{
+    text-align: center;
+}
+.tachito_container{
+    position: absolute;
+    left: 105px;
+    display: none;
+}
+.tachito{
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
+}
+.tachito img{
+    width: 17px;
+    height: 17px;
+}
+
+.agregar_semana{
+    background: rgb(155,238,255);
+    background: linear-gradient(90deg, rgba(155,238,255,1) 0%, rgba(198,253,255,1) 100%);
+}
+.semana{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .icon_mas{
+    width: 16px;
+    position: absolute;
+    top: 20px;
+    right: 15px;
+  }
+
+
+/* Página p-calificaciones.ejs */
+.f-calificaciones{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+.f-calificaciones button{
+    width: 7vw;
+    height: 5vh;
+    margin-top: 20px; 
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 18px;
+    background-color: transparent;
+    border: 1px solid #188daa;
+    border-radius: 15px;
+    transition: all .3s;
+}
+.f-calificaciones button:hover{
+    background-color: #9ef3ef60;
+    border: 1px solid #035569;
+}
+.f-calificaciones button img{
+    width: 1vw;
+    height: 2vh;
+}
+.p-main{
+    width: 75%;
+    flex-direction: column;
+}
+.p-main h2{
+    margin-bottom: 10px;
+}
+.p-main div{
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+div input{
+    text-align: center;
+}
+.titulo_eva-2{
+    margin: 0;
 }

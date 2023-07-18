@@ -11,148 +11,32 @@
     <% if (login) { %>
         <%- include('./partials/popup.ejs') %>
         <%- include('./partials/navigator.ejs') %>    
-        <main class="main e-uni-main">
-            <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+        <main class="main e-uni-main p-uni-main">
+            <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/asig-estu'">REGRESAR</button>
             <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
-            <section class="box unidades">
-                <h4>Unidad 1</h4>
-                <% for (i=0; i<archivos.length; i++){ %>
-                    <% if(archivos[i].TITULOUNI == 'Unidad 1'){ %> 
-                        <div class="box box_unidad">
-                            <h4><%= archivos[i].TITULOSES %></h4>
-                            <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
-                            <div class="content">
-                                <p>• <%= archivos[i].TITULOARC %></p>
-                                <% for (j=0; j<evaluaciones.length; j++){ %>
-                                    <% if(evaluaciones[j].TITULOUNI == 'Unidad 1' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                        <p>• <%= evaluaciones[j].TITULOEVA %></p>
+            <h2><%= nomCurso %> / Unidades</h2>
+            <section class="box unidades p-uni">
+                <% for (l=1; l<=8; l++){ %>
+                    <h4>Unidad <%= l %></h4>
+                    <% for (i=0; i<archivos.length; i++){ %>
+                        <% if(archivos[i].TITULOUNI == 'Unidad ' + l){ %> 
+                            <div class="box box_unidad">
+                                <h4><%= archivos[i].TITULOSES %></h4>
+                                <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
+                                <div class="content">
+                                    <p><%= archivos[i].TITULOARC %></p>
+                                    <p><img src="icons/enlace.png"></img> <a href="#"><%= archivos[i].LINKARC %></a></p>
+                                    <% for (j=0; j<evaluaciones.length; j++){ %>
+                                        <% if(evaluaciones[j].TITULOUNI == 'Unidad ' + l && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
+                                            <p><%= evaluaciones[j].TITULOEVA %></p>
+                                        <% } %>
                                     <% } %>
-                                <% } %>
+                                </div>
                             </div>
-                        </div>
+                        <% } %>
                     <% } %>
-                <% } %>
-                <h4>Unidad 2</h4>
-                <% for (i=0; i<archivos.length; i++){ %>
-                    <% if(archivos[i].TITULOUNI == 'Unidad 2'){ %>
-                        <div class="box box_unidad">
-                            <h4><%= archivos[i].TITULOSES %></h4>
-                            <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
-                            <div class="content">
-                                <p>• <%= archivos[i].TITULOARC %></p>
-                                <% for (j=0; j<evaluaciones.length; j++){ %>
-                                    <% if(evaluaciones[j].TITULOUNI == 'Unidad 2' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                        <p>• <%= evaluaciones[j].TITULOEVA %></p>
-                                    <% } %>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% } %>
-                <% } %>
-                <h4>Unidad 3</h4>
-                <% for (i=0; i<archivos.length; i++){ %>
-                    <% if(archivos[i].TITULOUNI == 'Unidad 3'){ %> 
-                        <div class="box box_unidad">
-                            <h4><%= archivos[i].TITULOSES %></h4>
-                            <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
-                            <div class="content">
-                                <p>• <%= archivos[i].TITULOARC %></p>
-                                <% for (j=0; j<evaluaciones.length; j++){ %>
-                                    <% if(evaluaciones[j].TITULOUNI == 'Unidad 3' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                        <p>• <%= evaluaciones[j].TITULOEVA %></p>
-                                    <% } %>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% } %>
-                <% } %>
-                <h4>Unidad 4</h4>
-                <% for (i=0; i<archivos.length; i++){ %>
-                    <% if(archivos[i].TITULOUNI == 'Unidad 4'){ %>
-                        <div class="box box_unidad">
-                            <h4><%= archivos[i].TITULOSES %></h4>
-                            <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
-                            <div class="content">
-                                <p>• <%= archivos[i].TITULOARC %></p>
-                                <% for (j=0; j<evaluaciones.length; j++){ %>
-                                    <% if(evaluaciones[j].TITULOUNI == 'Unidad 4' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                        <p>• <%= evaluaciones[j].TITULOEVA %></p>
-                                    <% } %>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% } %>
-                <% } %>
-                <h4>Unidad 5</h4>
-                <% for (i=0; i<archivos.length; i++){ %>
-                    <% if(archivos[i].TITULOUNI == 'Unidad 5'){ %> 
-                        <div class="box box_unidad">
-                            <h4><%= archivos[i].TITULOSES %></h4>
-                            <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
-                            <div class="content">
-                                <p>• <%= archivos[i].TITULOARC %></p>
-                                <% for (j=0; j<evaluaciones.length; j++){ %>
-                                    <% if(evaluaciones[j].TITULOUNI == 'Unidad 5' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                        <p>• <%= evaluaciones[j].TITULOEVA %></p>
-                                    <% } %>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% } %>
-                <% } %>
-                <h4>Unidad 6</h4>
-                <% for (i=0; i<archivos.length; i++){ %>
-                    <% if(archivos[i].TITULOUNI == 'Unidad 6'){ %>
-                        <div class="box box_unidad">
-                            <h4><%= archivos[i].TITULOSES %></h4>
-                            <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
-                            <div class="content">
-                                <p>• <%= archivos[i].TITULOARC %></p>
-                                <% for (j=0; j<evaluaciones.length; j++){ %>
-                                    <% if(evaluaciones[j].TITULOUNI == 'Unidad 6' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                        <p>• <%= evaluaciones[j].TITULOEVA %></p>
-                                    <% } %>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% } %>
-                <% } %>
-                <h4>Unidad 7</h4>
-                <% for (i=0; i<archivos.length; i++){ %>
-                    <% if(archivos[i].TITULOUNI == 'Unidad 7'){ %> 
-                        <div class="box box_unidad">
-                            <h4><%= archivos[i].TITULOSES %></h4>
-                            <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
-                            <div class="content">
-                                <p>• <%= archivos[i].TITULOARC %></p>
-                                <% for (j=0; j<evaluaciones.length; j++){ %>
-                                    <% if(evaluaciones[j].TITULOUNI == 'Unidad 7' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                        <p>• <%= evaluaciones[j].TITULOEVA %></p>
-                                    <% } %>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% } %>
-                <% } %>
-                <h4>Unidad 8</h4>
-                <% for (i=0; i<archivos.length; i++){ %>
-                    <% if(archivos[i].TITULOUNI == 'Unidad 8'){ %>
-                        <div class="box box_unidad">
-                            <h4><%= archivos[i].TITULOSES %></h4>
-                            <button class="toggle-btn"><img src="/icons/flecha-abajo.png"></button>
-                            <div class="content">
-                                <p>• <%= archivos[i].TITULOARC %></p>
-                                <% for (j=0; j<evaluaciones.length; j++){ %>
-                                    <% if(evaluaciones[j].TITULOUNI == 'Unidad 8' && evaluaciones[j].TITULOSES == archivos[i].TITULOSES){ %>
-                                        <p>• <%= evaluaciones[j].TITULOEVA %></p>
-                                    <% } %>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% } %>
-                <% } %>
+                <% } %>           
             </section>
-            
         </main>
         <footer class="footer-raro">
     
