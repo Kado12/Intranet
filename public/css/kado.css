@@ -9,7 +9,7 @@
 .form-asig{
     margin: 20px 0;
     display: flex;
-    width: 45%;
+    width: 40%;
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
@@ -32,14 +32,35 @@
 /* Anuncios */
 .anuncios-e{
     display: flex;
-    width: 45%;
+    width: 55%;
+    height: calc(85vh - 190px);
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
     height: 85%;
+    flex-direction: row;
+    overflow-y: auto;
+    justify-content: space-between;
+    padding: 15px;
+}
+.anuncios-e .anuncios-tarea{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(85vh - 190px);
+}
+.tarea-caja{
+    display: flex;
     flex-direction: column;
 }
-
+.anuncios-e .anuncios-examen{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(85vh - 190px);
+}
 /* Archivo e.asig.ejs */
 .dia-clase{
     text-transform: capitalize;
