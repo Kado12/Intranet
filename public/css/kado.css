@@ -441,3 +441,106 @@ div input{
 .titulo_eva-2{
     margin: 0;
 }
+/*responsive*/
+@media (max-width: 1230px){
+    .footer{
+        display: none;
+    }
+    .e-main{
+        display: inline-block;
+        width: 98vw;
+        margin: auto;
+        padding: auto;
+    }
+    .main{
+        width: 98vw;
+    }
+    .form-asig{
+        width: 90vw;
+        height: 30vh;
+        margin: 15px auto;
+        padding: auto;
+    }
+    .anuncios-e{
+        width: 85vw;
+        height: 40vh;
+        margin: auto;
+        padding: auto;
+    }
+    .info-curso{
+        width: 85vw;
+        height: 39vh;
+        margin: auto;
+        padding: auto;
+    }
+    .nom-asig{
+        margin: auto;
+        padding: auto;
+    }
+    .box-promedio{
+        align-items: center;
+    }
+    .box-n-e{
+        align-items: center;
+    }
+    .nota-h4{
+        padding: auto;
+        margin: auto 1%;
+    }
+    
+}
+@media (max-width: 716px){
+    .form-curso button{
+        width: 30%;
+        margin: auto;
+        padding: auto;   
+        align-items: center; 
+        align-content: center;
+    }
+    .form-curso button img{
+        height: 70%;
+        width: 70%;
+    }
+    .txt-icono{
+        font-size: 2.5vw;
+    }
+    p{
+        font-size: 1.3vh;
+    }
+    .content p img{
+        width: 9px;
+    }
+    .nota-h4{
+        font-size: 1.3vh;
+    }
+    .box{
+        padding: 10px 20px;
+    }
+    
+}
+@media (max-width: 430px){
+    .form-asig{
+        width: 90vw;
+        height: 30vh;
+        margin: auto;
+        padding: auto; 
+    }
+    .anuncios-e{
+        width: 85vw;
+        height: 40vh;
+        margin: auto;
+        padding: auto; 
+    }
+    .form-curso{
+        height: 35vh;
+    }
+    .form-curso button{
+        width: 17vh;
+        height: 15vh;
+        margin: auto;
+        padding: auto;    
+    }
+    .box{
+        padding: 5px 10px;
+    }
+}

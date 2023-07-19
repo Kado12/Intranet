@@ -143,19 +143,19 @@
   }
   .estadistica{
     width: 35vh;
-    
-    
   }
+  .box{
+    padding: 10px 20px;
+}
 }
 @media (max-width: 376px){
-  ¿
   .left_container{
     display: flex;
     align-items: center;
     justify-content: center;
     height: 35vh;
     width: 50vw;
-    margin: 10vh auto 3vh auto;
+    margin: 6vh auto 3vh auto;
   }
   .directora_box{
     width: 70%;
@@ -176,7 +176,6 @@
   }
   .estadistica{
     width: 35vh;
-    
     
   }
 }

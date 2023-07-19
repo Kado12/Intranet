@@ -19,14 +19,14 @@
                 <div class="box box-notas">
                     <% for(i=0; i<notas.length; i++){ %>
                         <div class="box box-n-e">
-                            <p><%= notas[i]['TÍTULO'] %></p>
-                            <h4><%= notas[i].NOTA %></h4>
+                            <p><%= notas[i]['TÍTULO'] %>:</p>
+                            <h4 class="nota-h4"><%= notas[i].NOTA %></h4>
                         </div>                        
                     <% } %>
                 </div>
                 <div class="box box-promedio">
-                    <h2>Promedio Actual</h2>
-                    <h4><%= promedio[0]['PROMEDIO GENERAL'] %></h4>
+                    <h2 class="nota-h4">Promedio Actual: </h2>
+                    <h4 class="nota-h4"><%= promedio[0]['PROMEDIO GENERAL'] %></h4>
                 </div>
             </section>
         </main>
