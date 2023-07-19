@@ -500,6 +500,7 @@ div input{
     .form-curso button img{
         height: 70%;
         width: 70%;
+        margin: auto;
     }
     .txt-icono{
         font-size: 2.5vw;
@@ -521,13 +522,13 @@ div input{
 @media (max-width: 430px){
     .form-asig{
         width: 90vw;
-        height: 30vh;
-        margin: auto;
+        height: 35vh;
+        margin: 11px auto;
         padding: auto; 
     }
     .anuncios-e{
         width: 85vw;
-        height: 40vh;
+        height: 37vh;
         margin: auto;
         padding: auto; 
     }
@@ -537,10 +538,23 @@ div input{
     .form-curso button{
         width: 17vh;
         height: 15vh;
-        margin: auto;
+        margin: 0;
         padding: auto;    
     }
     .box{
         padding: 5px 10px;
+    }
+    .cal-box{
+        width: 100%;
+    }
+    .main{
+        padding: auto;
+        margin: auto;
+    }
+    .info-curso{
+        width: 85vw;
+        height: 33vh;
+        margin: auto;
+        padding: auto;
     }
 }
