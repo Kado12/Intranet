@@ -443,22 +443,131 @@ main {
 #minota {
     display: none;
 }
-  
-/* Estilo personalizado para el text nota */
-#minota{
-    display: inline-block;
-    width: 30px;
-    height: 20px;
-    background-color: rgb(255, 255, 255);
-    border: 2px solid rgb(218, 240, 240);
-    cursor: pointer;
-}
-  
 
-/* Estilo para el text, centrarlo nomas */
-.container_notas input[type="text"] {
-    text-align: center;
-    font-weight: bold;
+/* ventana de ASISTENCIA */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    .main {
+        padding: 10px;
+    }
+
+    .ewa_main-p {
+        padding: 20px;
+    }
+
+    .prev_button {
+        top: 135px !important;
+    }
+
+
+    /* Boton GUARDAR*/
+    .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: #e0e0e0;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #333;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* ASISTENCIA text */
+    .parte_superior {
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .asis_fecha {
+        justify-content: flex-start;
+        width: auto;
+        margin-top: 0;
+    }
+
+    .box {
+        padding: 10px 15px;
+    }
+
+    .parte_medio {
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .alumno_container {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .alumno_checkbox {
+        justify-self: center;
+    }
+
+    .alumno_checkbox input[type="checkbox"] {
+        text-align: center;
+        font-weight: bold;
+    }
 }
+
+
+
+/* EVALUACIONES PROFESOR VISTA GENERAL */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    main {
+        margin-top: 10px;
+    }
+
+    .main-evalu-e {
+        margin: 20px 0;
+        margin-bottom: 40px;
+    }
+
+    .bimestres_container {
+        min-width: auto;
+    }
+
+    .prev_button {
+        top: 100px;
+    }
+
+    .e-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .color_ewa {
+        padding: 10px;
+    }
+
+    .main-evalu-e h2 {
+        font-size: 18px;
+    }
+
+    .box {
+        padding: 15px 20px;
+    }
+
+    .bimestres_container {
+        width: 100%;
+    }
+
+    .semana {
+        align-items: center;
+    }
+
+    .desc_eval {
+        margin-top: 10px;
+        margin-left: 0;
+        text-align: center;
+    }
+}
+
+
+
 
 
