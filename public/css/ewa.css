@@ -56,16 +56,8 @@
 }
 
 
-.parte_medio{
-    width: 60%;
-}
 
-.alumno_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 97%;
-    row-gap: 10px;
-}
+
 
 .alumno_checkbox {
     justify-self: end;
@@ -252,4 +244,32 @@
 .contenedorOpciones{
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+.nom-alum th{
+    padding: 10px;
+    border-bottom: 1px solid #007997;
+}
+.tabla-asis{
+    width: 90%;
+    border-collapse: collapse;
+}
+.parte_medio button{
+    width: 100px;
+    height: 40px;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #007997;
+    border-radius: 15px;
+    transition: all .3s;
+}
+.parte_medio button:hover{
+    background-color: #2092af42;
+}
+.parte_medio{
+    width: 60%;
+    justify-content: space-around;
+    gap: 15px;
+}
+.parte_medio button img{
+    width: 15px;
 }
