@@ -15,7 +15,7 @@
             <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/maine'">REGRESAR</button>
             <button class="blackBtn horario_button" onclick="openPopup()">VER HORARIO</button>
             <section class="info-curso">
-				<h2><%= nomasig %></h2>
+				<h2 class="nom-asig"><%= nomasig %></h2>
 				<div class="box info-c">
 					<h4>Responsable:</h4>
 					<p><%= prof %></p>
@@ -29,16 +29,16 @@
           	</section>
             <form action="accion-estudiante" method="post" class="form-curso">
 				<button type="submit" class="uni_button box" name="unidades">
-					<img src="/icons/documento.png">
-					<h2>UNIDADES</h2>
+					<img class="icono-e" src="/icons/documento.png">
+					<h2 class="txt-icono">UNIDADES</h2>
 				</button>
 				<button type="submit" class="evalu_button box" name="evaluaciones">
-					<img src="/icons/evaluacion.png">
-					<h2>EVALUACIONES</h2>
+					<img class="icono-e" src="/icons/evaluacion.png">
+					<h2 class="txt-icono">EVALUACIONES</h2>
 				</button>
 				<button type="submit" class="nota_button box" name="notas">
-					<img src="/icons/birrete.png">
-					<h2>CALIFICACIONES</h2>
+					<img class="icono-e" src="/icons/birrete.png">
+					<h2 class="txt-icono">CALIFICACIONES</h2>
 				</button>
             </form>
         </main>

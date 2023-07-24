@@ -40,7 +40,7 @@
 .bimestres_container{
   display: flex;
   flex-direction: column;
-  min-width: 800px;
+  width: 800px;
 }
 
 .flechita{
@@ -197,3 +197,18 @@
       text-align: center;
   }
 }
+@media (max-width: 900px){
+  .bimestres_container{
+    width: 85vw;
+  }
+  .bimestre{
+    width: 100%;
+  }
+
+}
+@media (max-width: 716px){
+  p{
+      font-size: 1.3vh;
+  }
+}
+
