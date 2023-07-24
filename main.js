@@ -12,7 +12,8 @@ app.use(session({
 const dotenv = require('dotenv')
 dotenv.config({path:'./env/.env'})
 const {join} = require('path')
-const connection = require('./database/db.js')
+const connection = require('./database/db.js');
+const { name } = require('ejs');
 app.set('views', join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(express.static(join(__dirname, 'public')))
@@ -163,7 +164,6 @@ app.get('/d-alum-g', (req,res) => {
 //PROCEDIMIENTO DIRECTORA -> DESEMPEÑO DOCENTE
 app.get('/d-doce-c', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
-        // Query
         connection.query('CALL SP_prom_cursos()', (err, results) => {
             const resultados = JSON.stringify(results[0]);
 
@@ -225,12 +225,31 @@ app.post('/desempenoalumnado', async(req,res) => {
         })
     })
 })
-//PROCEDIMIENTO BOTONES DOCENTE CURSOS -> DOCENTES
-app.post('/doce-docentes-docente', async(req,res) => {
-    res.redirect('d-seleccion-docente')
-})
 app.post('/doce-curso-seccion', async(req,res) => {
-    res.redirect('d-doce-d')
+    const nameBtn = Object.keys(req.body);
+    connection.query('CALL SP_prom_asignatura(?)', [parseInt(nameBtn)], (err, results) => {
+        const datosPython = JSON.stringify(results[0]);
+        req.session.docentes = [...new Set(results[0].map(obj => obj.PROFESOR))].sort();
+
+        const asigPromProcess = spawn('python', ['./public/python/doce_asig.py'])
+        asigPromProcess.stdin.write(datosPython);
+        asigPromProcess.stdin.end();
+
+
+        asigPromProcess.stdout.on('data', (data) => {
+            const estadistica = JSON.parse(data.toString())
+            req.session.doceAsigEstadistica = estadistica
+            console.log('Estadistica es:', estadistica)
+        })
+        asigPromProcess.stderr.on('data',(data) => {
+            console.log(`doce_asig.py script error: ${data}`)
+        })
+        asigPromProcess.on('close', (code) => {
+            // Renderizar
+            res.redirect('d-doce-d')
+        })
+
+    })
 })
 
 
@@ -458,7 +477,6 @@ app.get('/aula-unidades', (req, res) => {
                     clasesInexistentes.push(todasSesiones[k])
                 }
             }
-            console.log(clasesInexistentes)
 
             req.session.clasesInexistentes = clasesInexistentes
             res.render('p-aula-unidades',{
@@ -733,7 +751,9 @@ app.get('/d-doce-d', (req,res) => {
         res.render('d-doce-d',{
             name: req.session.name,
             login:true,
-            seccion: req.session.seccion
+            seccion: req.session.seccion,
+            docentes: req.session.docentes,
+            estadisticaAsig: req.session.doceAsigEstadistica
         })
     }else{
         res.render('d-doce-d',{
@@ -741,7 +761,7 @@ app.get('/d-doce-d', (req,res) => {
             name: 'Debe iniciar sessión'
         })
     }
-})//#region JHEAN
+})
 
 app.get('/d-seleccion-docente', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){

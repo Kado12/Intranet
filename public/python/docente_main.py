@@ -11,7 +11,7 @@ df_promedio = df.groupby('ASIGNATURA')['NOTA'].mean().reset_index()
 df_promedio = df_promedio.rename(columns={'Asignatura': 'Promedio'})
 
 plt.bar(df_promedio['ASIGNATURA'],df_promedio['NOTA'])
-
+print(df_promedio)
 
 # Generar numeros en lugar de nombres largos
 etiquetas = ['1','2','3','4','5','6','7','8','9','10','11']

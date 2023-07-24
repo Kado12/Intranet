@@ -859,3 +859,75 @@ BEGIN
 END$$
 DELIMITER ;
 -- CALL SP_prom_cursos();
+
+
+-- Lista de notas de profesores de un aula (660 resultados)
+DELIMITER $$
+CREATE PROCEDURE SP_prom_docentes(IN cursoId INT)
+BEGIN
+    SELECT  u.usr_id AS 'ID USUARIO', CONCAT(usr_apellidos, ' ' ,usr_nombres) as 'PROFESOR',not_calificacion as 'NOTA', a.asi_id as 'ID ASIGNATURA', a.asi_desc as 'ASIGNATURA', CONCAT(c.crs_grado, ' ',c.crs_seccion) as 'AULA'
+    from nota_alumno n
+    join evaluacion e on e.eva_id = n.eva_id
+    join sesion s on s.ses_id = e.ses_id
+    join unidad un on un.uni_id = s.uni_id
+    join curso_profesor cu on cu.curpro_id = un.curpro_id
+    join asignatura a on a.asi_id = cu.asi_id
+    join curso c on c.crs_id = cu.crs_id
+    join profesor p on p.pro_usr_id = cu.pro_usr_id
+    join usuario u on u.usr_id = p.pro_usr_id
+    where n.est_usr_id 
+    IN (
+    -- Alumnos de un curso
+        select estudiante.est_usr_id
+        from estudiante
+        join curso on curso.crs_id = estudiante.crs_id
+        where curso.crs_id = cursoId
+    )
+    AND n.eva_id
+    IN (
+    -- Evaluaciones de un curso
+        select evaluacion.eva_id
+        from evaluacion
+        join sesion on sesion.ses_id = evaluacion.ses_id
+        join unidad on unidad.uni_id = sesion.uni_id
+        join curso_profesor on curso_profesor.curpro_id = unidad.curpro_id
+        where curso_profesor.crs_id = cursoId
+    ) order by usr_apellidos ;
+END$$
+DELIMITER ;
+-- CALL SP_prom_docentes(1);
+
+-- Lista de notas de una asignatura (en todos los grados) (1200 resultados)
+DELIMITER $$
+CREATE PROCEDURE SP_prom_asignatura(IN idAsignatura INT)
+BEGIN
+	SELECT n.not_calificacion as 'NOTA', p.pro_usr_id AS 'ID PROFESOR', CONCAT(u.usr_apellidos, ' ' ,u.usr_nombres) as 'PROFESOR', c.crs_grado as'GRADO', c.crs_seccion as 'SECCIÓN'
+	from nota_alumno n
+	join evaluacion e on e.eva_id = n.eva_id
+    join sesion s on s.ses_id = e.ses_id
+	join unidad un on un.uni_id = s.uni_id
+	join curso_profesor cu on cu.curpro_id = un.curpro_id
+    join profesor p on p.pro_usr_id = cu.pro_usr_id
+    join usuario u on u.usr_id = p.pro_usr_id
+    join curso c on c.crs_id = cu.crs_id
+	where n.est_usr_id
+	IN (
+    -- Alumnos
+		select estudiante.est_usr_id
+		from estudiante
+	)
+	AND n.eva_id
+	IN (
+    -- Evaluaciones de una asignatura
+		select evaluacion.eva_id
+		from evaluacion
+		join sesion on sesion.ses_id = evaluacion.ses_id
+		join unidad on unidad.uni_id = sesion.uni_id
+		join curso_profesor on curso_profesor.curpro_id = unidad.curpro_id
+		where curso_profesor.asi_id = idAsignatura
+	) order by c.crs_id asc;
+    
+    SELECT asi_id as 'ID', asi_desc as 'ASIGNATURA' from asignatura where asi_id = idAsignatura;
+END$$
+DELIMITER ;
+-- CALL SP_prom_asignatura(1);

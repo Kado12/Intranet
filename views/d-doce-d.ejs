@@ -11,14 +11,28 @@
       <%- include('./partials/navigator.ejs') %>
       <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
       <main class="main grid-patrick">
-        <form class="left_container" method="post" action="doce-docentes-docente">
-          <button class="box directora_box text_center">Patrick Will Jheferson Huamani Durango</button>
-          <button class="box directora_box text_center">Docente 2</button>
-          <button class="box directora_box text_center">Docente 3</button>
-          <button class="box directora_box text_center">Docente 4</button>
+        <form class="left_container" method="post" action="">
+          <div class="box directora_box text_center"><%= docentes[0] %> - 1</div>
+          <div class="box directora_box text_center"><%= docentes[1] %> - 2</div>
+          <div class="box directora_box text_center"><%= docentes[2] %> - 3</div>
+          <div class="box directora_box text_center"><%= docentes[3] %> - 4</div>
+          <div class="box directora_box text_center"><%= docentes[4] %> - 5</div>
         </form>
         <div class="right_container">
-          <img src="/image/imagen4.png" alt="">
+          <img src="/image/prom_doce_asig.png" alt="">
+        </div>
+        <!-- Seccion resumen -->
+        <div class="resumen_grafico textoresumen">
+          <h3>Resumen Estadistico</h3>
+          <p>Numero de registros: <%= estadisticaAsig.count %><br>
+            Promedio del grado: <%= estadisticaAsig.mean %><br>
+            Desviacion estandar (variabilidad de las notas): <%= estadisticaAsig.std %><br>
+            Menor nota: <%= estadisticaAsig.min %><br>
+            Valor por debajo del cual se encuentra el 25% de las notas: <%= estadisticaAsig['25%'] %><br>
+            Mediana: <%= estadisticaAsig['50%'] %><br>
+            Valor por debajo del cual se encuentra el 75% de las notas: <%= estadisticaAsig['75%'] %><br>
+            Mayor nota: <%= estadisticaAsig.max %>
+          </p>
         </div>
       </main>
       <%- include('./partials/footer.ejs') %>
