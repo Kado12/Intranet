@@ -1,4 +1,5 @@
 const express = require('express')
+const { spawn, exec } = require('child_process');
 const app = express()
 app.use(express.urlencoded({ extended:false}))
 app.use(express.json())
@@ -11,7 +12,8 @@ app.use(session({
 const dotenv = require('dotenv')
 dotenv.config({path:'./env/.env'})
 const {join, resolve} = require('path')
-const connection = require('./database/db.js')
+const connection = require('./database/db.js');
+const { name } = require('ejs');
 const { rejects } = require('assert')
 app.set('views', join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -149,10 +151,17 @@ app.get('/maine', async (req, res) => {
 
 app.get('/maind', (req, res) => {
     if(req.session.loggedin && req.session.type == 3){
-        res.render('index-d',{
-            login: true,
-            name: req.session.name,
-            seccion: req.session.seccion
+        const pythonProcess = spawn('python', ['./public/python/general_mean.py']);
+        pythonProcess.stderr.on('data', (data) => {
+            console.log(`Python script error: ${data}`);
+        });
+        pythonProcess.on('close', (code) => {
+            // Renderizar
+            res.render('index-d',{
+                login: true,
+                name: req.session.name,
+                seccion: req.session.seccion
+            })
         })
     }else{
         res.render('index-d',{
@@ -204,11 +213,29 @@ app.get('/d-alum-g', (req,res) => {
 //PROCEDIMIENTO DIRECTORA -> DESEMPEÑO DOCENTE
 app.get('/d-doce-c', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
-        res.render('d-doce-c',{
-            login:true,
-            name:req.session.name,
-            seccion: req.session.seccion
+        connection.query('CALL SP_prom_cursos()', (err, results) => {
+            const resultados = JSON.stringify(results[0]);
+
+            const docenteMainProcess = spawn('python', ['./public/python/docente_main.py'])
+            docenteMainProcess.stdin.write(resultados);
+            docenteMainProcess.stdin.end();
+
+            docenteMainProcess.stdout.on('data', (data) => {
+                console.log(`Este es el proceso bueno: ${data}`)
+            })
+            docenteMainProcess.stderr.on('data',(data) => {
+                console.log(`grado_prom script error: ${data}`)
+            })
+            docenteMainProcess.on('close', (code) => {
+                res.render('d-doce-c',{
+                    login:true,
+                    name:req.session.name,
+                    seccion: req.session.seccion
+                })
+            })
+
         })
+
     }else{
         res.render('d-doce-c',{
             login:false,
@@ -218,18 +245,60 @@ app.get('/d-doce-c', (req,res) => {
 })
 //PROCEDIMIENTO BOTONES ALUMNADO GRADO->SECCION
 app.post('/desempenoalumnado', async(req,res) => {
-    res.redirect('/d-alum-s')
-})
-//PROCEDIMIENTO BOTONES ALUMNADO SECCION->CURSO
-app.post('/alumseccioncurso', async(req,res) => {
-    res.redirect('/d-alum-c')
-})
-//PROCEDIMIENTO BOTONES DOCENTE CURSOS -> DOCENTES
-app.post('/doce-docentes-docente', async(req,res) => {
-    res.redirect('d-seleccion-docente')
+    const nameBtn = Object.keys(req.body);
+    const gradoDato = parseInt(nameBtn)
+    req.session.gradoSeleccionado = gradoDato
+    
+
+    connection.query('CALL SP_obtener_notas_grado(?)', [gradoDato], (err, results) => {
+        // Guardando los resultados
+        const resultados = results[0];
+        //Convirtiendo los datos en formato para python
+        const datosPython = JSON.stringify(resultados);
+
+        const gradoPromProcess = spawn('python', ['./public/python/grado_prom.py'])
+        gradoPromProcess.stdin.write(datosPython);
+        gradoPromProcess.stdin.end();
+
+        gradoPromProcess.stdout.on('data', (data) => {
+            const estadistica = JSON.parse(data.toString())
+            req.session.estadistica = estadistica
+            console.log('Estadistica es:', estadistica)
+        })
+        gradoPromProcess.stderr.on('data',(data) => {
+            console.log(`grado_prom script error: ${data}`)
+        })
+        gradoPromProcess.on('close', (code) => {
+            // Renderizar
+            res.redirect('/d-alum-s')
+        })
+    })
 })
 app.post('/doce-curso-seccion', async(req,res) => {
-    res.redirect('d-doce-d')
+    const nameBtn = Object.keys(req.body);
+    connection.query('CALL SP_prom_asignatura(?)', [parseInt(nameBtn)], (err, results) => {
+        const datosPython = JSON.stringify(results[0]);
+        req.session.docentes = [...new Set(results[0].map(obj => obj.PROFESOR))].sort();
+
+        const asigPromProcess = spawn('python', ['./public/python/doce_asig.py'])
+        asigPromProcess.stdin.write(datosPython);
+        asigPromProcess.stdin.end();
+
+
+        asigPromProcess.stdout.on('data', (data) => {
+            const estadistica = JSON.parse(data.toString())
+            req.session.doceAsigEstadistica = estadistica
+            console.log('Estadistica es:', estadistica)
+        })
+        asigPromProcess.stderr.on('data',(data) => {
+            console.log(`doce_asig.py script error: ${data}`)
+        })
+        asigPromProcess.on('close', (code) => {
+            // Renderizar
+            res.redirect('d-doce-d')
+        })
+
+    })
 })
 
 
@@ -435,13 +504,13 @@ app.post('/accion-docente', async (req,res) => {
         })
     }
 })
+
 // Ventana Unidades - Página p-aula-unidades.ejs
 app.get('/aula-unidades', (req, res) => {
+    let clasesExistentes = [];
+    let todasSesiones = [];
     if(req.session.loggedin && req.session.type == 2){
         connection.query('CALL SP_obtener_sesiones(?)', [req.session.curprof], async(err,results) => {
-            let clasesExistentes = [];
-            let todasSesiones = [];
-
             req.session.archivos.forEach(elemento => {
                 clasesExistentes.push(elemento.IDARC)
             });
@@ -708,20 +777,6 @@ app.post('/agregar-evaluacion', async(req,res) => {
 
 
 
-//PROCEDIMIENTO PARA DIRECTORA
-app.post('/acciondesempeno', async(req,res) => {
-    const btnAlumnado = Object.keys(req.body);
-    const tipoBtn = btnAlumnado.join('');
-    if(tipoBtn == 'btnAlumnado'){
-        res.redirect('/d-alum-g')
-    }else{
-        res.redirect('/d-doce-c')
-    }
-})
-
-
-
-
 
 
 app.get('/d-alum-c', (req,res) => {
@@ -743,13 +798,14 @@ app.get('/d-alum-c', (req,res) => {
 app.get('/e-evalu', (req,res)=>{
     res.render('e-evalu')
 })
-//PATRICK
 app.get('/d-alum-s', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
         res.render('d-alum-s',{
             name: req.session.name,
             login:true,
-            seccion: req.session.seccion
+            seccion: req.session.seccion,
+            grado: req.session.gradoSeleccionado,
+            estadistica : req.session.estadistica
         })
     }else{
         res.render('d-alum-s',{
@@ -763,7 +819,9 @@ app.get('/d-doce-d', (req,res) => {
         res.render('d-doce-d',{
             name: req.session.name,
             login:true,
-            seccion: req.session.seccion
+            seccion: req.session.seccion,
+            docentes: req.session.docentes,
+            estadisticaAsig: req.session.doceAsigEstadistica
         })
     }else{
         res.render('d-doce-d',{
@@ -771,7 +829,7 @@ app.get('/d-doce-d', (req,res) => {
             name: 'Debe iniciar sessión'
         })
     }
-})//#region JHEAN
+})
 
 app.get('/d-seleccion-docente', (req,res) => {
     if(req.session.loggedin && req.session.type == 3){
