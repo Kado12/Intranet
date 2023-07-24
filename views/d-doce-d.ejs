@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/patrick.css">
+        <link rel="stylesheet" href="/css/resp_d_3.css">
         <%- include('./partials/head.ejs') %>
     </head>
     <body>
@@ -19,19 +20,19 @@
           <div class="box directora_box text_center"><%= docentes[4] %> - 5</div>
         </form>
         <div class="right_container">
-          <img src="/image/prom_doce_asig.png" alt="">
+          <img src="/image/prom_doce_asig.png" alt="" class="grafico">
         </div>
         <!-- Seccion resumen -->
         <div class="resumen_grafico textoresumen">
           <h3>Resumen Estadistico</h3>
           <p>Numero de registros: <%= estadisticaAsig.count %><br>
-            Promedio del grado: <%= estadisticaAsig.mean %><br>
+            Promedio de la asignatura: <%= estadisticaAsig.mean %><br>
             Desviacion estandar (variabilidad de las notas): <%= estadisticaAsig.std %><br>
             Menor nota: <%= estadisticaAsig.min %><br>
+            Mayor nota: <%= estadisticaAsig.max %>
             Valor por debajo del cual se encuentra el 25% de las notas: <%= estadisticaAsig['25%'] %><br>
             Mediana: <%= estadisticaAsig['50%'] %><br>
             Valor por debajo del cual se encuentra el 75% de las notas: <%= estadisticaAsig['75%'] %><br>
-            Mayor nota: <%= estadisticaAsig.max %>
           </p>
         </div>
       </main>

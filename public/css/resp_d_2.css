@@ -1,0 +1,93 @@
+@media (max-width: 1024px) {
+  .grid-main-patrick-seccion{
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 300px 300px 300px 300px 300px;
+  }
+  .left_container{
+    grid-column: 1 / span 3;
+    grid-row: 1;
+  }
+  .right_container{
+    grid-row: 2;
+    grid-column: 1/span 2;
+  }
+  .resumen_grafico{
+    grid-row: 3;
+    grid-column: 1 /span 2;
+    padding: 0 70px;
+  }
+  .cajagrafico_container{
+    grid-row: 4;
+    grid-column: 1 /span 2;
+    padding: 0 70px;
+  }
+  .graficobox_container{
+    grid-row: 5;
+    grid-column: 1 / span 2;
+  }
+  .textoresumen p{
+    margin-bottom: -30px;
+  }
+  .grafico_cursos{
+    margin: auto;
+    width: 100%;
+  }
+}
+@media (max-width: 800px) {
+  .grid-main-patrick-seccion{
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: .8fr .5fr .6fr .7fr .5fr;
+  }
+  .grid-main-patrick-seccion p{
+    font-size: 14px;
+  }
+  .grid-main-patrick-seccion h3{
+    font-size: 16px;
+  }
+  .grafico{
+    width: 80vw
+  }
+  .resumen_grafico{
+    padding: 0;
+  }
+  .cajagrafico_container{
+    grid-row: 4;
+    grid-column: 1 /span 2;
+    padding: 0;
+  }
+  .grafico_cursos{
+    width: 90vw;
+    margin: 0;
+  }
+}
+
+@media (max-width: 560px){
+  .grid-main-patrick-seccion{
+    padding: 30px 50px;
+  }
+  .grid-patrick{
+    padding: 30px;
+  }
+  .grid-main-patrick-seccion p{
+    font-size: 10px;
+  }
+  .grid-main-patrick-seccion h3{
+    font-size: 12px;
+  }
+  .directora_box{
+    min-width: fit-content;
+    height:auto;
+    font-size: 10px;
+  }
+  .logo h2{
+    display:none
+  }
+  .nombre-r{
+    font-size: 14px;
+    width: fit-content;
+  }
+  .c-sesion{
+    width: 30px;
+    margin-left: -10px;
+  }
+}
