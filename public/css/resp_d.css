@@ -31,9 +31,6 @@
   .grafica_container img{
     width: 90vw;
   }
-  .left_container{
-    width: 90vw;
-  }
 }
 @media (max-width: 450px){
   .logo h2{
@@ -49,5 +46,11 @@
   }
   .directora_box{
     min-width: fit-content;
+  }
+  .left_container{
+    min-width: 230px;
+  }
+  .right_container{
+    min-width: 230px;
   }
 }

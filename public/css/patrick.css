@@ -84,6 +84,9 @@
 .caja-curso{
   width: 30vw;
 }
+.general_mean_graph{
+  width: 100%;
+}
 @media (max-width: 1024px) {
   .footer{
     display:none;
@@ -104,7 +107,6 @@
     align-items: center;
     width: 100vw;
     margin: 0;
-    
   }
   .left_container{
     display: flex;
@@ -146,7 +148,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 35vh;
+    height: 30vh;
     width: 50vw;
     margin: 10vh auto 3vh auto;
   }

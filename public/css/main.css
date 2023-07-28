@@ -63,17 +63,6 @@ section h2{
     .c-sesion {
         width: 40px;
     }
-
-    .prev_button,
-    .horario_button {
-        position: static;
-        margin-top: 10px;
-    }
-
-    .prev_button::after,
-    .horario_button::after {
-        display: none;
-    }
 }
 
 /* Media queries para dimensiones de pantalla iguales o inferiores a 720x1280 */
@@ -94,17 +83,6 @@ section h2{
 
     .c-sesion {
         width: 40px;
-    }
-
-    .prev_button,
-    .horario_button {
-        position: static;
-        margin-top: 10px;
-    }
-
-    .prev_button::after,
-    .horario_button::after {
-        display: none;
     }
 }
 

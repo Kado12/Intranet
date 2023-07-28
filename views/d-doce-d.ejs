@@ -5,12 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/patrick.css">
-        <link rel="stylesheet" href="/css/resp_d_3.css">
+        <link rel="stylesheet" href="/css/resp_d_2.css">
         <%- include('./partials/head.ejs') %>
     </head>
     <body>
       <%- include('./partials/navigator.ejs') %>
-      <button class="blackBtn prev_button" onclick="window.history.back()">REGRESAR</button>
+      <button class="blackBtn prev_button prev_doce" onclick="window.history.back()">REGRESAR</button>
       <main class="main grid-patrick">
         <form class="left_container" method="post" action="">
           <div class="box directora_box text_center"><%= docentes[0] %> - 1</div>
@@ -20,7 +20,7 @@
           <div class="box directora_box text_center"><%= docentes[4] %> - 5</div>
         </form>
         <div class="right_container">
-          <img src="/image/prom_doce_asig.png" alt="" class="grafico">
+          <img src="/image/prom_doce_asig.png" alt="" class="grafico grafico_profes">
         </div>
         <!-- Seccion resumen -->
         <div class="resumen_grafico textoresumen">
