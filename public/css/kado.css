@@ -9,7 +9,7 @@
 .form-asig{
     margin: 20px 0;
     display: flex;
-    width: 45%;
+    width: 40%;
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
@@ -32,14 +32,35 @@
 /* Anuncios */
 .anuncios-e{
     display: flex;
-    width: 45%;
+    width: 55%;
+    height: calc(85vh - 190px);
     border: 1px solid #54BDB7;
     border-radius: 15px;
     background-color: #fff;
     height: 85%;
+    flex-direction: row;
+    overflow-y: auto;
+    justify-content: space-between;
+    padding: 15px;
+}
+.anuncios-e .anuncios-tarea{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(85vh - 190px);
+}
+.tarea-caja{
+    display: flex;
     flex-direction: column;
 }
-
+.anuncios-e .anuncios-examen{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(85vh - 190px);
+}
 /* Archivo e.asig.ejs */
 .dia-clase{
     text-transform: capitalize;
@@ -419,4 +440,395 @@ div input{
 }
 .titulo_eva-2{
     margin: 0;
+}
+
+
+/* LA VISTA PRINCIPAL DOCENTES*/
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    .main {
+        padding: 10px;
+    }
+
+    .e-main { 
+        flex-direction: column;
+    }
+
+    .prev_button {
+        position: static;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .info-curso {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .box {
+        padding: 10px;
+    }
+
+    .form-curso {
+        align-items: center;
+    }
+
+    .form-curso button {
+        width: 90%;
+        margin-bottom: 10px;
+    }
+
+    .footer {
+        position: inherit;
+    }
+}
+
+
+/* Vista de Aula*/
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+
+    .prev_button {
+        top: 139px !important;
+    }
+
+    .info-curso{
+        margin-top: 15px;
+    }
+
+    .main {
+        padding: 10px;
+    }
+
+    .e-main {
+        flex-direction: column;
+    }
+
+    .form-p-aula {
+        width: 100%;
+        height: auto;
+    }
+
+    .horario-p {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+/* Vista profesor UNIDADES */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    .main {
+        padding: 10px;
+    }
+
+    .e-uni-main {
+        padding: 20px;
+    }
+
+    .blackBtn {
+        position: absolute;
+        top: 10px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .unidades {
+        width: 100%;
+    }
+
+    .p-uni {
+        margin-top: 10px;
+    }
+
+    .box_unidad {
+        padding: 15px 20px;
+    }
+
+    .toggle-btn {
+        width: 15px;
+        height: 15px;
+        right: 10px;
+    }
+
+    .content {
+        padding-top: 10px;
+        text-indent: 10px;
+    }
+
+    .semana {
+        align-items: center;
+    }
+
+    .icon_mas {
+        width: 12px;
+        top: 15px;
+        right: 10px;
+    }
+}
+
+/* Vista UNIDADES el pop out EDITAR y el de AGREGAR (ya que se comparten al parecer xd)*/
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    .form-editar{
+        width: 90%;
+    }
+
+    .editar{
+        width: 50%;
+    }
+}
+
+
+/* EVALUACIONES PROFESOR VISTA GENERAL */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    .main-evalu-e {
+        margin: 20px 0;
+        margin-bottom: 40px;
+    }
+
+    .bimestres_container {
+        min-width: auto;
+    }
+
+    .prev_button {
+        top: 100px;
+    }
+
+    .e-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .color_ewa {
+        padding: 10px;
+    }
+
+    .main-evalu-e h2 {
+        font-size: 18px;
+    }
+
+    .box {
+        padding: 15px 20px;
+    }
+
+    .bimestres_container {
+        width: 100%;
+    }
+
+    .semana {
+        align-items: center;
+    }
+
+    .desc_eval {
+        margin-top: 10px;
+        margin-left: 0;
+        text-align: center;
+    }
+}
+
+/* EVALUACIONES EDITAR Y AGREGAR */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    .form-editar{
+        width: 85%;
+        height: 90%;
+    }
+
+    .editar{
+        width: 50%;
+    }
+}
+
+
+
+/* CALIFICACION DE TAREAS y EXAMENES vista del profesor */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    
+    .prev_button{
+        top: 135px !important;
+    }
+
+    .t-notas {
+        padding-top: 20px;
+    }
+
+    .prev_button {
+        top: 100px;
+    }
+    
+    .main {
+        margin: 0 10px; 
+        padding: 20px;
+    }
+
+    .f-calificaciones {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .f-calificaciones button {
+        width: 40%;
+    }
+
+    .box2 {
+        padding: 20px;
+    }
+
+    .p-main {
+        width: 100%;
+    }
+
+    button[type="submit"] img {
+        display: none;
+    }
+}
+
+
+/* Profesor Balotario de NOTAS, TODAS LAS */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    .blackBtn {
+    }
+
+    .prev_button {
+    }
+
+    .t-notas {
+        margin: 10px 5vw;
+    }
+
+    .n-aula {
+        margin: 10px 5vw;
+        overflow-x: scroll;
+    }
+
+    .t-eval {
+        width: 30vw;
+        font-size: 14px;
+    }
+
+    .t-eval-n {
+        font-size: 14px;
+    }
+}
+
+/*responsive*/
+@media (max-width: 1230px){
+    .footer{
+        display: none;
+    }
+    .e-main{
+        display: inline-block;
+        width: 98vw;
+        margin: auto;
+        padding: auto;
+    }
+    .main{
+        width: 98vw;
+    }
+    .form-asig{
+        width: 90vw;
+        height: 30vh;
+        margin: 15px auto;
+        padding: auto;
+    }
+    .anuncios-e{
+        width: 85vw;
+        height: 40vh;
+        margin: auto;
+        padding: auto;
+    }
+    .info-curso{
+        width: 85vw;
+        height: 39vh;
+        margin: auto;
+        padding: auto;
+    }
+    .nom-asig{
+        margin: auto;
+        padding: auto;
+    }
+    .box-promedio{
+        align-items: center;
+    }
+    .box-n-e{
+        align-items: center;
+    }
+    .nota-h4{
+        padding: auto;
+        margin: auto 1%;
+    }
+    
+}
+@media (max-width: 716px){
+    .form-curso button{
+        width: 30%;
+        margin: auto;
+        padding: auto;   
+        align-items: center; 
+        align-content: center;
+    }
+    .form-curso button img{
+        height: 70%;
+        width: 70%;
+        margin: auto;
+    }
+    .txt-icono{
+        font-size: 2.5vw;
+    }
+    p{
+        font-size: 1.3vh;
+    }
+    .content p img{
+        width: 9px;
+    }
+    .nota-h4{
+        font-size: 1.3vh;
+    }
+    .box{
+        padding: 10px 20px;
+    }
+    
+}
+@media (max-width: 430px){
+    .form-asig{
+        width: 90vw;
+        height: 35vh;
+        margin: 11px auto;
+        padding: auto; 
+    }
+    .anuncios-e{
+        width: 85vw;
+        height: 37vh;
+        margin: auto;
+        padding: auto; 
+    }
+    .form-curso{
+        height: 35vh;
+    }
+    .form-curso button{
+        width: 17vh;
+        height: 15vh;
+        margin: 0;
+        padding: auto;    
+    }
+    .box{
+        padding: 5px 10px;
+    }
+    .cal-box{
+        width: 100%;
+    }
+    .main{
+        padding: auto;
+        margin: auto;
+    }
+    .info-curso{
+        width: 85vw;
+        height: 33vh;
+        margin: auto;
+        padding: auto;
+    }
 }

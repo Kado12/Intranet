@@ -11,12 +11,29 @@ app.use(session({
 }))
 const dotenv = require('dotenv')
 dotenv.config({path:'./env/.env'})
-const {join} = require('path')
+const {join, resolve} = require('path')
 const connection = require('./database/db.js');
 const { name } = require('ejs');
+const { rejects } = require('assert')
 app.set('views', join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(express.static(join(__dirname, 'public')))
+app.use((req, res, next) => {
+    res.locals.horaActual = obtenerHoraActual()
+    res.locals.fechaActual = obtenerFechaActual()
+    next()
+});
+function obtenerHoraActual() {
+    const fechaHoraActual = new Date()
+    return fechaHoraActual.toLocaleTimeString()
+}
+function obtenerFechaActual() {
+    const fechaActual = new Date()
+    const dia = fechaActual.getDate()
+    const mes = fechaActual.getMonth() + 1
+    const anio = fechaActual.getFullYear()
+    return `${anio}-${mes}-${dia}`
+}
 // Ruta de pagina de Logeo
 app.get('/',(req,res)=>{
     res.render('index')
@@ -81,17 +98,49 @@ app.post('/auth', async (req, res)=>{
     }
 })
 // Verificación de sesión de cada página - estudiante
-app.get('/maine', (req, res) => {
+app.get('/maine', async (req, res) => {
     if(req.session.loggedin && req.session.type == 1){
-        connection.query('CALL SP_cursos_estudiante(?)', [req.session.idaula], (err, results) => {
-            req.session.cursos = results[0]
+        const getAnuncios = () => {
+            return new Promise((resolve, reject) => {
+                connection.query('CALL SP_eva_salon(?)', [req.session.idaula], (err, results) => {
+                    if (err){
+                        reject(err)
+                    } else{
+                        req.session.tareas = results
+                        console.log(results[0][0])
+                        console.log(results[1][0])
+                        resolve(results)
+                    }
+                })
+            })
+        }
+        const getCursos = () => {
+            return new Promise((resolve, rejects) => {
+                connection.query('CALL SP_cursos_estudiante(?)', [req.session.idaula], (err, results) => {
+                    if (err){
+                        reject(err)
+                    } else{
+                        req.session.cursos = results[0]
+                        resolve(results)
+                    }   
+                })
+            })
+        }
+        try {
+            const anuncios = await getAnuncios()
+            const cursos = await getCursos()
             res.render('index-e',{
                 login: true,
+                horaActual: res.locals.horaActual,
+                fechaActual: res.locals.fechaActual,
                 name: req.session.name,
                 data: req.session.cursos,
-                seccion: req.session.seccion
+                seccion: req.session.seccion,
+                tareas: req.session.tareas
             })
-        })
+        } catch (err) {
+            console.log(err)
+        } 
     }else{
         res.render('index-e',{
             login: false,
@@ -665,6 +714,8 @@ app.get('/aula-asistencia', (req,res) => {
         res.render('p-aula-asistencia',{
             login: true,
             name: req.session.name,
+            horaActual: res.locals.horaActual,
+            fechaActual: res.locals.fechaActual,
             alumnos: req.session.alumnos,
             seccion: req.session.seccion
         })
@@ -674,6 +725,23 @@ app.get('/aula-asistencia', (req,res) => {
             name: 'Debe iniciar sessión'
         })
     }
+})
+
+app.post('/asistencia', (req,res) => {
+    const arreglo = Object.keys(req.body)
+    const fecha = arreglo.pop()
+    let alum = ''
+    for (let i = 0; i < arreglo.length; i++){
+        alum = alum + arreglo[i] + ','
+    }
+    alum = alum.substring(0,alum.length - 1)
+    console.log(alum)
+    const id = 1;
+    console.log(arreglo)
+    console.log(fecha)
+    connection.query('CALL SP_agregar_falta(?,?, ?)',[id,fecha,alum], async (err, results) => {
+        res.redirect('/aula-asistencia')
+    })
 })
 
 // Editar Evaluaciones - Profesor

@@ -44,6 +44,70 @@ section h2{
     text-transform: uppercase;
 }
 
+/* Media queries para dimensiones de pantalla iguales o inferiores a 375x667 */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    .navigator {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .navigator section {
+        margin: 10px;
+    }
+
+    .insignia {
+        width: 80px;
+        height: 64px;
+    }
+
+    .c-sesion {
+        width: 40px;
+    }
+
+    .prev_button,
+    .horario_button {
+        position: static;
+        margin-top: 10px;
+    }
+
+    .prev_button::after,
+    .horario_button::after {
+        display: none;
+    }
+}
+
+/* Media queries para dimensiones de pantalla iguales o inferiores a 720x1280 */
+@media only screen and (max-width: 720px) and (max-height: 1280px) {
+    .navigator {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .navigator section {
+        margin: 10px;
+    }
+
+    .insignia {
+        width: 80px;
+        height: 64px;
+    }
+
+    .c-sesion {
+        width: 40px;
+    }
+
+    .prev_button,
+    .horario_button {
+        position: static;
+        margin-top: 10px;
+    }
+
+    .prev_button::after,
+    .horario_button::after {
+        display: none;
+    }
+}
+
 /* Botones */
 .prev_button {
     position: absolute;

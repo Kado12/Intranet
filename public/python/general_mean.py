@@ -2,7 +2,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
-engine = create_engine('mysql+mysqlconnector://root:admin@localhost/db_colegio')
+engine = create_engine('mysql+mysqlconnector://root:kado12@localhost/db_colegio')
 ids_grado = ["(1,2,3,4)","(5,6,7,8)","(9,10,11,12)","(13,14,15,16)","(17,18,19,20)"]
 main_df = pd.DataFrame(columns=["promedios"])
 for grado in ids_grado:
