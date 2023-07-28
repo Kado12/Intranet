@@ -12,29 +12,23 @@
         <%- include('./partials/navigator.ejs') %>
         <main class="main ewa_main-p">
             <button class="blackBtn prev_button" onclick="window.location.href='http://localhost:3000/aula-prof'">REGRESAR</button>
-            <section class="parte_superior">
-                <div> <h2>ASISTENCIA</h2> </div>
-    
-                <button class="icon-button">
-                    <span class="text_guardar">GUARDAR</span>
-                    <span class="icon"><img src="https://cdn1.iconfinder.com/data/icons/ios-11-glyphs/30/save-512.png" alt="Icono"></span>
-                  </button>
-    
-            </section>
-            <div class="h3 asis_fecha">15/05/2023</div>
-           
-            <form class="box parte_medio">
-                <div class="alumno_container">
+            <h2>ASISTENCIA</h2>
+            <form method="post" action="/asistencia" class="box parte_medio">
+                <table class="tabla-asis">
+                    <tr>
+                        <th></th>
+                        <th><h3 name="<%= fechaActual %>"><%= fechaActual %></h3></th>
+                    </tr>
                     <% for (i = 0; i<alumnos.length ; i++){ %>
-                    <div class="alumno_name">
-                        <h3><%= alumnos[i].ESTUDIANTE %></h3>
-                    </div>
-                    <div class="alumno_checkbox">
-                        <input type="checkbox" id="micheckbox">
-                    </div>
-                    <div class="separator"></div>
+                        <tr class="nom-alum">
+                            <th align="left"><h3><%= alumnos[i].ESTUDIANTE %></h3></th>
+                            <th><input type="checkbox" id="<%= alumnos[i].ID %>"
+                                name="<%= alumnos[i].ID %>"></th>
+                        </tr>
                     <% } %>
-                </div>
+                </table>
+                <input type="hidden" name="<%= fechaActual %>">
+                <button type="submit"><img src="/icons/disquete.png"> Guardar</button>
             </form>
         </main>
         <%- include('./partials/footer.ejs') %>

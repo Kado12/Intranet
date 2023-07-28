@@ -56,16 +56,8 @@
 }
 
 
-.parte_medio{
-    width: 60%;
-}
 
-.alumno_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 97%;
-    row-gap: 10px;
-}
+
 
 .alumno_checkbox {
     justify-self: end;
@@ -271,7 +263,7 @@
 
 /* IMPORTANTE MRD FACIL SE VA A CAMBIAR */
 main {
-    margin-top: 150px;
+    margin-top: 15px;
 }
 
 /* ASISTENCIA */
@@ -490,9 +482,6 @@ main {
         margin-top: 0;
     }
 
-    .box {
-        padding: 10px 15px;
-    }
 
     .parte_medio {
         width: 100%;
@@ -515,36 +504,51 @@ main {
 }
 
 
+.nom-alum th{
+    padding: 10px;
+    border-bottom: 1px solid #007997;
+}
+.tabla-asis{
+    width: 90%;
+    border-collapse: collapse;
+}
+.parte_medio button{
+    width: 100px;
+    height: 40px;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #007997;
+    border-radius: 15px;
+    transition: all .3s;
+}
+.parte_medio button:hover{
+    background-color: #2092af42;
+}
+.parte_medio{
+    width: 60%;
+    justify-content: space-around;
+    gap: 15px;
+}
+.parte_medio button img{
+    width: 15px;
+}
 
-/* EVALUACIONES PROFESOR VISTA GENERAL */
-@media only screen and (max-width: 375px) and (max-height: 667px) {
-    main {
-        margin-top: 10px;
-    }
-
-    .main-evalu-e {
-        margin: 20px 0;
-        margin-bottom: 40px;
-    }
-
-    .bimestres_container {
-        min-width: auto;
-    }
-
-    .prev_button {
-        top: 100px;
-    }
-
-    .e-main {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .color_ewa {
+/* DOCENTE vista de la ASISTENCIA */
+@media only screen and (max-width: 415px) {
+    .main {
         padding: 10px;
     }
 
-    .main-evalu-e h2 {
+    .ewa_main-p {
+        padding: 15px;
+    }
+
+    .prev_button {
+        top: 135px !important;
+    }
+
+    h2 {
+        margin: 8% 0%;
         font-size: 18px;
     }
 
@@ -552,22 +556,11 @@ main {
         padding: 15px 20px;
     }
 
-    .bimestres_container {
+    .parte_medio {
         width: 100%;
     }
 
-    .semana {
-        align-items: center;
-    }
-
-    .desc_eval {
-        margin-top: 10px;
-        margin-left: 0;
-        text-align: center;
+    .tabla-asis {
+        width: 100%;
     }
 }
-
-
-
-
-

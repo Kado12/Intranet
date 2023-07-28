@@ -645,6 +645,8 @@ app.get('/aula-asistencia', (req,res) => {
         res.render('p-aula-asistencia',{
             login: true,
             name: req.session.name,
+            horaActual: res.locals.horaActual,
+            fechaActual: res.locals.fechaActual,
             alumnos: req.session.alumnos,
             seccion: req.session.seccion
         })
@@ -654,6 +656,23 @@ app.get('/aula-asistencia', (req,res) => {
             name: 'Debe iniciar sessión'
         })
     }
+})
+
+app.post('/asistencia', (req,res) => {
+    const arreglo = Object.keys(req.body)
+    const fecha = arreglo.pop()
+    let alum = ''
+    for (let i = 0; i < arreglo.length; i++){
+        alum = alum + arreglo[i] + ','
+    }
+    alum = alum.substring(0,alum.length - 1)
+    console.log(alum)
+    const id = 1;
+    console.log(arreglo)
+    console.log(fecha)
+    connection.query('CALL SP_agregar_falta(?,?, ?)',[id,fecha,alum], async (err, results) => {
+        res.redirect('/aula-asistencia')
+    })
 })
 
 // Editar Evaluaciones - Profesor
