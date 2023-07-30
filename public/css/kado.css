@@ -209,8 +209,11 @@
 }
 
 .horario-p{
-    width: 55%;
+    width: 45%;
     height: 80%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 .footer-raro{
     width: 100%;
@@ -831,4 +834,7 @@ div input{
         margin: auto;
         padding: auto;
     }
+}
+.mainpcolegio{
+    width: 100%
 }
